@@ -12,9 +12,9 @@ namespace project_2_space_invaders_legin8
     {
         private Player player;
 
-        public Controller(Rectangle formRectangle)
+        public Controller(Rectangle formRectangle, PictureBox playerPictureBox)
         {
-            player = new Player(formRectangle);
+            player = new Player(formRectangle, playerPictureBox);
         }
 
     }

@@ -19,7 +19,7 @@ namespace project_2_space_invaders_legin8
         {
             InitializeComponent();
             graphics = CreateGraphics();
-            controller = new Controller(ClientRectangle);
+            controller = new Controller(ClientRectangle, pictureBox1);
         }
     }
 }
