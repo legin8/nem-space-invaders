@@ -12,9 +12,11 @@ namespace project_2_space_invaders_legin8
 {
     public partial class Form1 : Form
     {
+        private Controller controller;
         public Form1()
         {
             InitializeComponent();
+            controller = new Controller();
         }
     }
 }
