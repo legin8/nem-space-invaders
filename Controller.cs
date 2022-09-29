@@ -17,5 +17,9 @@ namespace project_2_space_invaders_legin8
             player = new Player(formRectangle, playerPictureBox);
         }
 
+        public void MovePlayer(bool moveLeft)
+        {
+            player.MovePlayer(moveLeft);
+        }
     }
 }

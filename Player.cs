@@ -19,5 +19,12 @@ namespace project_2_space_invaders_legin8
         }
 
 
+        public void MovePlayer(bool moveLeft)
+        {
+            if (moveLeft) playerPictureBox.Left -= 20;
+            if (!moveLeft) playerPictureBox.Left += 20;
+        }
+
+
     }
 }
