@@ -13,9 +13,9 @@ namespace project_2_space_invaders_legin8
         private Player player;
         private Enemy enemy;
 
-        public Controller(Rectangle formRectangle, PictureBox playerPictureBox, Form form1, int spriteSize)
+        public Controller(Rectangle formRectangle, Form form1, int spriteSize)
         {
-            player = new Player(formRectangle, playerPictureBox);
+            player = new Player(formRectangle, form1, spriteSize);
             enemy = new Enemy(formRectangle, spriteSize, form1);
         }
 

@@ -19,8 +19,7 @@ namespace project_2_space_invaders_legin8
         {
             InitializeComponent();
             graphics = CreateGraphics();
-            controller = new Controller(ClientRectangle, playerPictureBox, this, ClientRectangle.Width/ 20);
-            playerPictureBox.Top = ClientRectangle.Bottom - playerPictureBox.Width;
+            controller = new Controller(ClientRectangle, this, ClientRectangle.Width/ 20);
 
             /*
             PictureBox test = new PictureBox();
@@ -39,9 +38,6 @@ namespace project_2_space_invaders_legin8
             if (e.KeyCode == Keys.Right) controller.MovePlayer(false);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }
