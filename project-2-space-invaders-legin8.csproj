@@ -84,9 +84,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\pngegg.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\enemy.png" />
   </ItemGroup>
   <ItemGroup>

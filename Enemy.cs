@@ -27,7 +27,7 @@ namespace project_2_space_invaders_legin8
 
         private void makeEnemy()
         {
-            int gap = 20, x = formRectangle.Left + gap, y = formRectangle.Top + gap, index = 0;
+            int gap = 20, x = formRectangle.Left + gap, y, index = 0;
 
             while (x < formRectangle.Right - GAPRIGHT)
             {
