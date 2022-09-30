@@ -20,12 +20,18 @@ namespace project_2_space_invaders_legin8
             InitializeComponent();
             graphics = CreateGraphics();
             controller = new Controller(ClientRectangle, playerPictureBox);
+            playerPictureBox.Top = ClientRectangle.Bottom - playerPictureBox.Width;
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Left) controller.MovePlayer(true);
             if (e.KeyCode == Keys.Right) controller.MovePlayer(false);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
