@@ -25,9 +25,10 @@ namespace project_2_space_invaders_legin8
             PictureBox test = new PictureBox();
             test.Width = 100;
             test.Height = 100;
-            Controls.Add(test);
+            
             test.Image = Properties.Resources.enemy;
             test.SizeMode = PictureBoxSizeMode.StretchImage;
+            Controls.Add(test);
 
         }
 
