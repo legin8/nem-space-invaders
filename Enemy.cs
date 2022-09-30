@@ -22,25 +22,30 @@ namespace project_2_space_invaders_legin8
             this.formRectangle = formRectangle;
             this.spriteSize = spriteSize;
             this.form1 = form1;
+            makeEnemy();
         }
 
         private void makeEnemy()
         {
-            int nextPlaceRight = 20;
-            while (nextPlaceRight < formRectangle.Right - GAPRIGHT)
+            int gap = 20, x = formRectangle.Left + gap, y = formRectangle.Top + gap, index = 0;
+
+            while (x < formRectangle.Right - GAPRIGHT)
             {
-                int nextPlaceDown = 20, index = 0;
-                while (nextPlaceDown < formRectangle.Height)
+                
+                y = formRectangle.Top + gap;
+                while (y < formRectangle.Height / 2)
                 {
                     enemies.Add(new PictureBox());
                     enemies[index].Width = spriteSize;
                     enemies[index].Height = spriteSize;
                     enemies[index].Image = Properties.Resources.enemy;
                     enemies[index].SizeMode = PictureBoxSizeMode.StretchImage;
+                    enemies[index].Location = new Point(x, y);
                     form1.Controls.Add(enemies[index]);
                     index++;
+                    y += spriteSize + gap;
                 }
-
+                x += spriteSize + gap;
             }
         }
     }

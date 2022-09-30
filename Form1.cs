@@ -19,17 +19,18 @@ namespace project_2_space_invaders_legin8
         {
             InitializeComponent();
             graphics = CreateGraphics();
-            controller = new Controller(ClientRectangle, playerPictureBox);
+            controller = new Controller(ClientRectangle, playerPictureBox, this, ClientRectangle.Width/ 20);
             playerPictureBox.Top = ClientRectangle.Bottom - playerPictureBox.Width;
 
+            /*
             PictureBox test = new PictureBox();
             test.Width = 100;
             test.Height = 100;
-            
+            test.Location = new Point(50, 100);
             test.Image = Properties.Resources.enemy;
             test.SizeMode = PictureBoxSizeMode.StretchImage;
             Controls.Add(test);
-
+            */
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
