@@ -57,7 +57,7 @@ namespace project_2_space_invaders_legin8
             playerPictureBoxPlayer.Height = spriteSize;
             playerPictureBoxPlayer.Image = Properties.Resources.player;
             playerPictureBoxPlayer.SizeMode = PictureBoxSizeMode.StretchImage;
-            playerPictureBoxPlayer.Location = new Point(formRectangle.Width / 2, formRectangle.Bottom - spriteSize);
+            playerPictureBoxPlayer.Location = new Point(formRectangle.Width / 2, formRectangle.Bottom);
             form1.Controls.Add(playerPictureBoxPlayer);
         }
 

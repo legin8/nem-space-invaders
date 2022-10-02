@@ -7,19 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
+using System.IO;
+using project_2_space_invaders_legin8.Properties;
 
 namespace project_2_space_invaders_legin8
 {
     public partial class Form1 : Form
     {
         private Controller controller;
-        private Graphics graphics;
+        //private SoundPlayer soundPlayer = new SoundPlayer(@"./Resources/mainGameMusic.mp3");
 
         public Form1()
         {
             InitializeComponent();
-            graphics = CreateGraphics();
-            controller = new Controller(ClientRectangle, this, ClientRectangle.Width/ 20);
+            controller = new Controller(ClientRectangle, this, ClientRectangle.Width/ 26);
+            //soundPlayer.SoundLocation = @"./Resources/mainGameMusic.mp3";
+            //soundPlayer.Play();
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)

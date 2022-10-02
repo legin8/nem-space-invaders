@@ -92,5 +92,8 @@
   <ItemGroup>
     <None Include="Resources\shot.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mainGameMusic.mp3" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
