@@ -29,6 +29,9 @@ namespace project_2_space_invaders_legin8
             if (e.KeyCode == Keys.Space) controller.Shot();
         }
 
-        
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            controller.RunGame();
+        }
     }
 }

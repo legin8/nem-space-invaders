@@ -18,6 +18,8 @@ namespace project_2_space_invaders_legin8
         private int spriteSize;
         private List<PictureBox> shots = new List<PictureBox>();
 
+        public List<PictureBox> GetShots => shots;
+
         public Player(Rectangle formRectangle, Form form1, int spriteSize)
         {
             this.formRectangle = formRectangle;

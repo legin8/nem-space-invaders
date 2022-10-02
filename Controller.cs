@@ -55,6 +55,14 @@ namespace project_2_space_invaders_legin8
             }
         }
 
+        public void RunGame()
+        {
+            for(int i = 0; i < player.GetShots.Count; i++)
+            {
+                player.GetShots[i].Top -= 10;
+            }
+        }
+
         public void MovePlayer(bool moveLeft)
         {
             player.MovePlayer(moveLeft);
