@@ -13,7 +13,7 @@ namespace project_2_space_invaders_legin8
     {
         private const int SPEEDOFPLAYER = 20;
         private Rectangle formRectangle;
-        private PictureBox playerPictureBox;
+        private PictureBox playerPictureBoxPlayer;
         private Form form1;
         private int spriteSize;
         private List<PictureBox> shots = new List<PictureBox>();
@@ -29,13 +29,18 @@ namespace project_2_space_invaders_legin8
 
         public void Shoot()
         {
-            PictureBox tempPictureBoxShoot;
+            PictureBox tempPictureBoxShot;
 
             if (shots.Count < 16)
             {
-                tempPictureBoxShoot = new PictureBox();
-                tempPictureBoxShoot.Width = spriteSize;
-                tempPictureBoxShoot.Height = spriteSize;
+                tempPictureBoxShot = new PictureBox();
+                tempPictureBoxShot.Width = spriteSize;
+                tempPictureBoxShot.Height = spriteSize;
+                tempPictureBoxShot.Image = Properties.Resources.shot;
+                tempPictureBoxShot.SizeMode = PictureBoxSizeMode.StretchImage;
+                tempPictureBoxShot.Location = new Point(playerPictureBoxPlayer.Left + (spriteSize / 2), playerPictureBoxPlayer.Top + spriteSize);
+                shots.Add(tempPictureBoxShot);
+                form1.Controls.Add(tempPictureBoxShot);
 
             }
             
@@ -45,26 +50,26 @@ namespace project_2_space_invaders_legin8
 
         private void makePlayer()
         {
-            playerPictureBox = new PictureBox();
-            playerPictureBox.Width = spriteSize;
-            playerPictureBox.Height = spriteSize;
-            playerPictureBox.Image = Properties.Resources.player;
-            playerPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            playerPictureBox.Location = new Point(formRectangle.Width / 2, formRectangle.Bottom - spriteSize);
-            form1.Controls.Add(playerPictureBox);
+            playerPictureBoxPlayer = new PictureBox();
+            playerPictureBoxPlayer.Width = spriteSize;
+            playerPictureBoxPlayer.Height = spriteSize;
+            playerPictureBoxPlayer.Image = Properties.Resources.player;
+            playerPictureBoxPlayer.SizeMode = PictureBoxSizeMode.StretchImage;
+            playerPictureBoxPlayer.Location = new Point(formRectangle.Width / 2, formRectangle.Bottom - spriteSize);
+            form1.Controls.Add(playerPictureBoxPlayer);
         }
 
         public void MovePlayer(bool moveLeft)
         {
             if (moveLeft)
             {
-                if (playerPictureBox.Left != formRectangle.Left) playerPictureBox.Left -= SPEEDOFPLAYER;
-                if (playerPictureBox.Left < formRectangle.Left) playerPictureBox.Left = formRectangle.Left;
+                if (playerPictureBoxPlayer.Left != formRectangle.Left) playerPictureBoxPlayer.Left -= SPEEDOFPLAYER;
+                if (playerPictureBoxPlayer.Left < formRectangle.Left) playerPictureBoxPlayer.Left = formRectangle.Left;
             }
             if (!moveLeft)
             {
-                if (playerPictureBox.Right != formRectangle.Right) playerPictureBox.Left += SPEEDOFPLAYER;
-                if (playerPictureBox.Right > formRectangle.Right) playerPictureBox.Left = formRectangle.Right - playerPictureBox.Width;
+                if (playerPictureBoxPlayer.Right != formRectangle.Right) playerPictureBoxPlayer.Left += SPEEDOFPLAYER;
+                if (playerPictureBoxPlayer.Right > formRectangle.Right) playerPictureBoxPlayer.Left = formRectangle.Right - playerPictureBoxPlayer.Width;
             }
         }
 
