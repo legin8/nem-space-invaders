@@ -16,6 +16,7 @@ namespace project_2_space_invaders_legin8
         private PictureBox playerPictureBox;
         private Form form1;
         private int spriteSize;
+        private List<PictureBox> shots = new List<PictureBox>();
 
         public Player(Rectangle formRectangle, Form form1, int spriteSize)
         {
@@ -23,6 +24,22 @@ namespace project_2_space_invaders_legin8
             this.form1 = form1;
             this.spriteSize = spriteSize;
             makePlayer();
+
+        }
+
+        public void Shoot()
+        {
+            PictureBox tempPictureBoxShoot;
+
+            if (shots.Count < 16)
+            {
+                tempPictureBoxShoot = new PictureBox();
+                tempPictureBoxShoot.Width = spriteSize;
+                tempPictureBoxShoot.Height = spriteSize;
+
+            }
+            
+                
         }
 
 
