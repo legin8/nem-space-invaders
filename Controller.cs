@@ -55,9 +55,15 @@ namespace project_2_space_invaders_legin8
             }
         }
 
-            public void MovePlayer(bool moveLeft)
+        public void MovePlayer(bool moveLeft)
         {
             player.MovePlayer(moveLeft);
         }
+
+        public void Shot()
+        {
+            player.Shot();
+        }
+        
     }
 }

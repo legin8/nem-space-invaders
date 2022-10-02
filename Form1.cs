@@ -26,6 +26,7 @@ namespace project_2_space_invaders_legin8
         {
             if (e.KeyCode == Keys.Left) controller.MovePlayer(true);
             if (e.KeyCode == Keys.Right) controller.MovePlayer(false);
+            if (e.KeyCode == Keys.Space) controller.Shot();
         }
 
         

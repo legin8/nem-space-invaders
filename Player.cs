@@ -27,7 +27,7 @@ namespace project_2_space_invaders_legin8
 
         }
 
-        public void Shoot()
+        public void Shot()
         {
             PictureBox tempPictureBoxShot;
 
