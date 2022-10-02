@@ -12,7 +12,6 @@ namespace project_2_space_invaders_legin8
     {
         private const int GAPRIGHT = 200;
         private Player player;
-        //private Enemy enemy;
         private List<Enemy> enemies = new List<Enemy>();
         private Form form1;
         private Rectangle formRectangle;
@@ -22,13 +21,14 @@ namespace project_2_space_invaders_legin8
         public Controller(Rectangle formRectangle, Form form1, int spriteSize)
         {
             player = new Player(formRectangle, form1, spriteSize);
-            //enemy = new Enemy(formRectangle, spriteSize, form1);
             this.form1 = form1;
             this.formRectangle = formRectangle;
             this.spriteSize = spriteSize;
             makeEnemy();
         }
 
+
+        
         private void makeEnemy()
         {
             int gap = 20, x = formRectangle.Left + gap, y, index = 0;
@@ -46,7 +46,7 @@ namespace project_2_space_invaders_legin8
                     tempPictureBox.Image = Properties.Resources.enemy;
                     tempPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     tempPictureBox.Location = new Point(x, y);
-                    enemies.Add(new Enemy(formRectangle,spriteSize, form1, tempPictureBox));
+                    enemies.Add(new Enemy(formRectangle,spriteSize, tempPictureBox));
                     form1.Controls.Add(tempPictureBox);
                     index++;
                     y += spriteSize + gap;
