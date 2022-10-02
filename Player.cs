@@ -38,7 +38,7 @@ namespace project_2_space_invaders_legin8
                 tempPictureBoxShot.Height = spriteSize;
                 tempPictureBoxShot.Image = Properties.Resources.shot;
                 tempPictureBoxShot.SizeMode = PictureBoxSizeMode.StretchImage;
-                tempPictureBoxShot.Location = new Point(playerPictureBoxPlayer.Left + (spriteSize / 2), playerPictureBoxPlayer.Top + spriteSize);
+                tempPictureBoxShot.Location = new Point(playerPictureBoxPlayer.Left, playerPictureBoxPlayer.Top - spriteSize);
                 shots.Add(tempPictureBoxShot);
                 form1.Controls.Add(tempPictureBoxShot);
 
