@@ -86,11 +86,7 @@ namespace project_2_space_invaders_legin8
             // Checks if the shot is hitting the top of the screen
             for(int i = 0; i < shots.Length; i++)
             {
-                if (shots[i] != null && shots[i].Top <= formRectangle.Top)
-                {
-                    form1.Controls.Remove(shots[i]);
-                    shots[i] = null;
-                }
+                if (shots[i] != null && shots[i].Top <= formRectangle.Top) RemoveShot(i);
 
             }
 
@@ -103,11 +99,18 @@ namespace project_2_space_invaders_legin8
                         shots[j].Top <= tempEnemie[k].GetPictureBox.Bottom && shots[j].Top >= tempEnemie[k].GetPictureBox.Top &&
                         shots[j].Left <= tempEnemie[k].GetPictureBox.Right && shots[j].Right >= tempEnemie[k].GetPictureBox.Left)
                     {
-                        form1.Controls.Remove(shots[j]);
-                        shots[j] = null;
+                        RemoveShot(j);
                     }
                 }
             }
+        }
+
+
+
+        private void RemoveShot(int shot)
+        {
+            form1.Controls.Remove(shots[shot]);
+            shots[shot] = null;
         }
 
 
