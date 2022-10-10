@@ -11,6 +11,7 @@ namespace project_2_space_invaders_legin8
 {
     internal class Enemy
     {
+        private const int SPEED = 10;
         private Rectangle formRectangle;
         private int spriteSize;
         private PictureBox pictureBox;
@@ -25,6 +26,20 @@ namespace project_2_space_invaders_legin8
             
         }
 
-        
+
+        public void MoveRight()
+        {
+            pictureBox.Left += SPEED;
+        }
+
+        public void MoveLeft()
+        {
+            pictureBox.Left -= SPEED;
+        }
+
+        public void MoveDown()
+        {
+            pictureBox.Top += SPEED;
+        }
     }
 }
