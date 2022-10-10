@@ -16,12 +16,13 @@ namespace project_2_space_invaders_legin8
     public partial class Form1 : Form
     {
         private Controller controller;
+        private Random random = new Random();
         //private SoundPlayer soundPlayer = new SoundPlayer(@"./Resources/mainGameMusic.mp3");
 
         public Form1()
         {
             InitializeComponent();
-            controller = new Controller(ClientRectangle, this, ClientRectangle.Width/ 26);
+            controller = new Controller(ClientRectangle, this, ClientRectangle.Width/ 26, random);
             //soundPlayer.SoundLocation = @"./Resources/mainGameMusic.mp3";
             //soundPlayer.Play();
         }

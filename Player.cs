@@ -18,15 +18,17 @@ namespace project_2_space_invaders_legin8
         private int spriteSize;
         private PictureBox[] shots = new PictureBox[15];
         private Controller controller;
+        private Random random;
 
         public PictureBox[] GetShots => shots;
 
-        public Player(Rectangle formRectangle, Form form1, int spriteSize, Controller controller)
+        public Player(Rectangle formRectangle, Form form1, int spriteSize, Controller controller, Random random)
         {
             this.formRectangle = formRectangle;
             this.form1 = form1;
             this.spriteSize = spriteSize;
             this.controller = controller;
+            this.random = random;
             makePlayer();
 
         }

@@ -19,9 +19,9 @@ namespace project_2_space_invaders_legin8
 
         public List<Enemy> GetEnemies => enemies;
 
-        public Controller(Rectangle formRectangle, Form form1, int spriteSize)
+        public Controller(Rectangle formRectangle, Form form1, int spriteSize, Random random)
         {
-            player = new Player(formRectangle, form1, spriteSize, this);
+            player = new Player(formRectangle, form1, spriteSize, this, random);
             this.form1 = form1;
             this.formRectangle = formRectangle;
             this.spriteSize = spriteSize;
