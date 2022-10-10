@@ -11,35 +11,35 @@ namespace project_2_space_invaders_legin8
 {
     internal class Enemy
     {
-        private const int SPEED = 10;
+        private int speed;
         private Rectangle formRectangle;
         private int spriteSize;
         private PictureBox pictureBox;
 
         public PictureBox GetPictureBox => pictureBox;
 
-        public Enemy(Rectangle formRectangle, int spriteSize, PictureBox pictureBox)
+        public Enemy(Rectangle formRectangle, int spriteSize, PictureBox pictureBox, int speed)
         {
             this.formRectangle = formRectangle;
             this.spriteSize = spriteSize;
             this.pictureBox = pictureBox;
-            
+            this.speed = speed;
         }
 
 
         public void MoveRight()
         {
-            pictureBox.Left += SPEED;
+            pictureBox.Left += speed;
         }
 
         public void MoveLeft()
         {
-            pictureBox.Left -= SPEED;
+            pictureBox.Left -= speed;
         }
 
         public void MoveDown()
         {
-            pictureBox.Top += SPEED;
+            pictureBox.Top += speed;
         }
     }
 }
