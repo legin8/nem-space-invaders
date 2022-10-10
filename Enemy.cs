@@ -15,6 +15,8 @@ namespace project_2_space_invaders_legin8
         private int spriteSize;
         private PictureBox pictureBox;
 
+        public PictureBox GetPictureBox => pictureBox;
+
         public Enemy(Rectangle formRectangle, int spriteSize, PictureBox pictureBox)
         {
             this.formRectangle = formRectangle;

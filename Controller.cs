@@ -17,10 +17,11 @@ namespace project_2_space_invaders_legin8
         private Rectangle formRectangle;
         private int spriteSize;
 
+        public List<Enemy> GetEnemies => enemies;
 
         public Controller(Rectangle formRectangle, Form form1, int spriteSize)
         {
-            player = new Player(formRectangle, form1, spriteSize);
+            player = new Player(formRectangle, form1, spriteSize, this);
             this.form1 = form1;
             this.formRectangle = formRectangle;
             this.spriteSize = spriteSize;

@@ -17,14 +17,16 @@ namespace project_2_space_invaders_legin8
         private Form form1;
         private int spriteSize;
         private PictureBox[] shots = new PictureBox[15];
+        private Controller controller;
 
         public PictureBox[] GetShots => shots;
 
-        public Player(Rectangle formRectangle, Form form1, int spriteSize)
+        public Player(Rectangle formRectangle, Form form1, int spriteSize, Controller controller)
         {
             this.formRectangle = formRectangle;
             this.form1 = form1;
             this.spriteSize = spriteSize;
+            this.controller = controller;
             makePlayer();
 
         }
@@ -79,12 +81,31 @@ namespace project_2_space_invaders_legin8
 
         public void GetRidOfShot()
         {
+            List<Enemy> tempEnemie = controller.GetEnemies;
+
+            // Checks if the shot is hitting the top of the screen
             for(int i = 0; i < shots.Length; i++)
             {
                 if (shots[i] != null && shots[i].Top <= formRectangle.Top)
                 {
                     form1.Controls.Remove(shots[i]);
                     shots[i] = null;
+                }
+
+            }
+
+            // Checks if the shots are hitting the enemy
+            for (int j = 0; j < shots.Length; j++)
+            {
+                for (int k = 0; k < tempEnemie.Count; k++)
+                {
+                    if (tempEnemie[k] != null && shots[j] != null &&
+                        shots[j].Top <= tempEnemie[k].GetPictureBox.Bottom && shots[j].Top >= tempEnemie[k].GetPictureBox.Top &&
+                        shots[j].Left <= tempEnemie[k].GetPictureBox.Right && shots[j].Right >= tempEnemie[k].GetPictureBox.Left)
+                    {
+                        form1.Controls.Remove(shots[j]);
+                        shots[j] = null;
+                    }
                 }
             }
         }
