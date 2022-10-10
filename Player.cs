@@ -91,7 +91,7 @@ namespace project_2_space_invaders_legin8
             for(int i = 0; i < shots.Length; i++)
             {
                 if (shots[i] != null && shots[i].Top <= formRectangle.Top) RemoveShot(i);
-
+                shotsTimeToLive[i]--;
             }
 
             // Checks if the shots are hitting the enemy
@@ -105,6 +105,15 @@ namespace project_2_space_invaders_legin8
                     {
                         RemoveShot(j);
                     }
+                }
+            }
+
+            for(int shot = 0; shot < shots.Length; shot++)
+            {
+                if (shotsTimeToLive[shot] == 0)
+                {
+                    RemoveShot(shot);
+                    shotsTimeToLive[shot]--;
                 }
             }
         }
