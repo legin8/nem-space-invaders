@@ -17,6 +17,7 @@ namespace project_2_space_invaders_legin8
         private Form form1;
         private int spriteSize;
         private PictureBox[] shots = new PictureBox[15];
+        private int[] shotsTimeToLive = new int[15];
         private Controller controller;
         private Random random;
 
@@ -48,6 +49,7 @@ namespace project_2_space_invaders_legin8
                     tempPictureBoxShot.SizeMode = PictureBoxSizeMode.StretchImage;
                     tempPictureBoxShot.Location = new Point(playerPictureBoxPlayer.Left, playerPictureBoxPlayer.Top - spriteSize);
                     shots[i] = tempPictureBoxShot;
+                    shotsTimeToLive[i] = random.Next(1, 71);
                     form1.Controls.Add(tempPictureBoxShot);
                     break;
                 }
