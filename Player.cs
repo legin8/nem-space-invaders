@@ -16,9 +16,9 @@ namespace project_2_space_invaders_legin8
         private PictureBox playerPictureBoxPlayer;
         private Form form1;
         private int spriteSize;
-        private List<PictureBox> shots = new List<PictureBox>();
+        private PictureBox[] shots = new PictureBox[15];
 
-        public List<PictureBox> GetShots => shots;
+        public PictureBox[] GetShots => shots;
 
         public Player(Rectangle formRectangle, Form form1, int spriteSize)
         {
@@ -32,20 +32,22 @@ namespace project_2_space_invaders_legin8
         public void Shot()
         {
             PictureBox tempPictureBoxShot;
-
-            if (shots.Count < 16)
-            {
-                tempPictureBoxShot = new PictureBox();
-                tempPictureBoxShot.Width = spriteSize;
-                tempPictureBoxShot.Height = spriteSize;
-                tempPictureBoxShot.Image = Properties.Resources.shot;
-                tempPictureBoxShot.SizeMode = PictureBoxSizeMode.StretchImage;
-                tempPictureBoxShot.Location = new Point(playerPictureBoxPlayer.Left, playerPictureBoxPlayer.Top - spriteSize);
-                shots.Add(tempPictureBoxShot);
-                form1.Controls.Add(tempPictureBoxShot);
-
-            }
             
+            for(int i = 0; i < shots.Length; i++)
+            {
+                if (shots[i] == null)
+                {
+                    tempPictureBoxShot = new PictureBox();
+                    tempPictureBoxShot.Width = spriteSize;
+                    tempPictureBoxShot.Height = spriteSize;
+                    tempPictureBoxShot.Image = Properties.Resources.shot;
+                    tempPictureBoxShot.SizeMode = PictureBoxSizeMode.StretchImage;
+                    tempPictureBoxShot.Location = new Point(playerPictureBoxPlayer.Left, playerPictureBoxPlayer.Top - spriteSize);
+                    shots[i] = tempPictureBoxShot;
+                    form1.Controls.Add(tempPictureBoxShot);
+                    break;
+                }
+            }
                 
         }
 

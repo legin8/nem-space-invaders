@@ -57,9 +57,10 @@ namespace project_2_space_invaders_legin8
 
         public void RunGame()
         {
-            for(int i = 0; i < player.GetShots.Count; i++)
+            PictureBox[] tempPictureBoxes = player.GetShots;
+            for(int i = 0; i < player.GetShots.Length; i++)
             {
-                player.GetShots[i].Top -= 10;
+                if (tempPictureBoxes[i] != null) tempPictureBoxes[i].Top -= 10;
             }
         }
 
