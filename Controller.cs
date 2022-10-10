@@ -62,6 +62,7 @@ namespace project_2_space_invaders_legin8
             {
                 if (tempPictureBoxes[i] != null) tempPictureBoxes[i].Top -= 10;
             }
+            player.GetRidOfShot();
         }
 
         public void MovePlayer(bool moveLeft)

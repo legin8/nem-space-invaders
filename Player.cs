@@ -47,8 +47,7 @@ namespace project_2_space_invaders_legin8
                     form1.Controls.Add(tempPictureBoxShot);
                     break;
                 }
-            }
-                
+            }       
         }
 
 
@@ -61,6 +60,7 @@ namespace project_2_space_invaders_legin8
             playerPictureBoxPlayer.SizeMode = PictureBoxSizeMode.StretchImage;
             playerPictureBoxPlayer.Location = new Point(formRectangle.Width / 2, formRectangle.Bottom);
             form1.Controls.Add(playerPictureBoxPlayer);
+
         }
 
         public void MovePlayer(bool moveLeft)
@@ -74,6 +74,18 @@ namespace project_2_space_invaders_legin8
             {
                 if (playerPictureBoxPlayer.Right != formRectangle.Right) playerPictureBoxPlayer.Left += SPEEDOFPLAYER;
                 if (playerPictureBoxPlayer.Right > formRectangle.Right) playerPictureBoxPlayer.Left = formRectangle.Right - playerPictureBoxPlayer.Width;
+            }
+        }
+
+        public void GetRidOfShot()
+        {
+            for(int i = 0; i < shots.Length; i++)
+            {
+                if (shots[i] != null && shots[i].Top <= formRectangle.Top)
+                {
+                    form1.Controls.Remove(shots[i]);
+                    shots[i] = null;
+                }
             }
         }
 
