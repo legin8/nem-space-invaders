@@ -62,11 +62,20 @@ namespace project_2_space_invaders_legin8
 
         public void RunGame()
         {
+            moveEnemy();
             PictureBox[] tempPictureBoxes = player.GetShots;
-            bool isSideOfScreen = false;
+            
+            for (int i = 0; i < player.GetShots.Length; i++) if (tempPictureBoxes[i] != null) tempPictureBoxes[i].Top -= 10;
 
-            foreach (Enemy enemy in enemies) if (enemy.GetPictureBox.Right >= formRectangle.Right && goRight) isSideOfScreen = true;
-            foreach (Enemy enemy in enemies) if (enemy.GetPictureBox.Left <= formRectangle.Left && !goRight) isSideOfScreen = true;
+            player.GetRidOfShot();
+        }
+
+
+        private void moveEnemy()
+        {
+            bool isSideOfScreen = false;
+            foreach (Enemy enemy in enemies) if (goRight && enemy.GetPictureBox.Right >= formRectangle.Right) isSideOfScreen = true;
+            foreach (Enemy enemy in enemies) if (!goRight && enemy.GetPictureBox.Left <= formRectangle.Left) isSideOfScreen = true;
 
             foreach (Enemy enemy in enemies) if (!isSideOfScreen && goRight && enemy.GetPictureBox.Right <= formRectangle.Right) enemy.MoveRight();
 
@@ -88,12 +97,8 @@ namespace project_2_space_invaders_legin8
             }
 
 
-
-
-            for (int i = 0; i < player.GetShots.Length; i++) if (tempPictureBoxes[i] != null) tempPictureBoxes[i].Top -= 10;
-
-            player.GetRidOfShot();
         }
+
 
         public void MovePlayer(bool moveLeft)
         {
