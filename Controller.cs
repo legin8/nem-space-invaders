@@ -70,33 +70,34 @@ namespace project_2_space_invaders_legin8
             player.GetRidOfShot();
         }
 
-
+        // Code for moving the enemies
         private void moveEnemy()
         {
             bool isSideOfScreen = false;
-            foreach (Enemy enemy in enemies) if (goRight && enemy.GetPictureBox.Right >= formRectangle.Right) isSideOfScreen = true;
-            foreach (Enemy enemy in enemies) if (!goRight && enemy.GetPictureBox.Left <= formRectangle.Left) isSideOfScreen = true;
+            // Only one of these will run each timer tick
+            // These both check if any enemy is at the edge of the screen
+            if (goRight) foreach (Enemy enemy in enemies) if (enemy.GetPictureBox.Right >= formRectangle.Right) isSideOfScreen = true;
+            if (!goRight) foreach (Enemy enemy in enemies) if (enemy.GetPictureBox.Left <= formRectangle.Left) isSideOfScreen = true;
 
-            foreach (Enemy enemy in enemies) if (!isSideOfScreen && goRight && enemy.GetPictureBox.Right <= formRectangle.Right) enemy.MoveRight();
+            // This will move each enemy Right
+            if (!isSideOfScreen) foreach (Enemy enemy in enemies) if (goRight && enemy.GetPictureBox.Right <= formRectangle.Right) enemy.MoveRight();
 
-            foreach (Enemy enemy in enemies) if (!isSideOfScreen && !goRight && enemy.GetPictureBox.Left >= formRectangle.Left) enemy.MoveLeft();
+            // This will move each enemy Left
+            if (!isSideOfScreen) foreach (Enemy enemy in enemies) if (!goRight && enemy.GetPictureBox.Left >= formRectangle.Left) enemy.MoveLeft();
 
+            // This moves the enemy down the size of the sprites
             if (isSideOfScreen && enemyDownCounter <= enemyMoveDownSize)
             {
-                foreach (Enemy enemy in enemies)
-                {
-                    enemy.MoveDown();
-                }
+                foreach (Enemy enemy in enemies) enemy.MoveDown();
                 enemyDownCounter += SPEED;
             }
 
+            // Stops the enemys from moving down once they have gone their own size and inverts goRight
             if (enemyDownCounter >= enemyMoveDownSize)
             {
                 enemyDownCounter = 0;
                 goRight = !goRight;
             }
-
-
         }
 
 
