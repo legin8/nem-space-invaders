@@ -66,8 +66,11 @@ namespace project_2_space_invaders_legin8
             bool isSideOfScreen = false;
 
             foreach (Enemy enemy in enemies) if (enemy.GetPictureBox.Right >= formRectangle.Right && goRight) isSideOfScreen = true;
+            foreach (Enemy enemy in enemies) if (enemy.GetPictureBox.Left <= formRectangle.Left && !goRight) isSideOfScreen = true;
 
-            foreach (Enemy enemy in enemies) if (!isSideOfScreen && enemy.GetPictureBox.Right <= formRectangle.Right && goRight) enemy.MoveRight();
+            foreach (Enemy enemy in enemies) if (!isSideOfScreen && goRight && enemy.GetPictureBox.Right <= formRectangle.Right) enemy.MoveRight();
+
+            foreach (Enemy enemy in enemies) if (!isSideOfScreen && !goRight && enemy.GetPictureBox.Left >= formRectangle.Left) enemy.MoveLeft();
 
             if (isSideOfScreen && enemyDownCounter <= enemyMoveDownSize)
             {
@@ -77,6 +80,14 @@ namespace project_2_space_invaders_legin8
                 }
                 enemyDownCounter += SPEED;
             }
+
+            if (enemyDownCounter >= enemyMoveDownSize)
+            {
+                enemyDownCounter = 0;
+                goRight = !goRight;
+            }
+
+
 
 
             for (int i = 0; i < player.GetShots.Length; i++) if (tempPictureBoxes[i] != null) tempPictureBoxes[i].Top -= 10;
