@@ -60,13 +60,13 @@ namespace project_2_space_invaders_legin8
             }
         }
 
+        // This runs the game
         public void RunGame()
         {
-            moveEnemy();
             PictureBox[] tempPictureBoxes = player.GetShots;
-            
-            for (int i = 0; i < player.GetShots.Length; i++) if (tempPictureBoxes[i] != null) tempPictureBoxes[i].Top -= 10;
+            moveEnemy();
 
+            for (int i = 0; i < player.GetShots.Length; i++) if (tempPictureBoxes[i] != null) tempPictureBoxes[i].Top -= 10;
             player.GetRidOfShot();
         }
 
@@ -100,12 +100,13 @@ namespace project_2_space_invaders_legin8
             }
         }
 
-
+        // Moves the player left or right
         public void MovePlayer(bool moveLeft)
         {
             player.MovePlayer(moveLeft);
         }
 
+        // Fires a shot from the player
         public void Shot()
         {
             player.Shot();
