@@ -15,7 +15,7 @@ namespace project_2_space_invaders_legin8
         private List<Enemy> enemies = new List<Enemy>();
         private Form form1;
         private Rectangle formRectangle;
-        private int spriteSize, enemyMoveDownSize, enemyDownCounter;
+        private int spriteSize, enemyMoveDownSize, enemyDownCounter, enemyGap;
         private bool goRight;
 
         public List<Enemy> GetEnemies => enemies;
@@ -30,20 +30,21 @@ namespace project_2_space_invaders_legin8
             goRight = true;
             enemyMoveDownSize = spriteSize;
             enemyDownCounter = 0;
+            enemyGap = spriteSize;
         }
 
 
         
         private void makeEnemy()
         {
-            int gap = 20, x = formRectangle.Left + gap, y, index = 0;
+            int gap = spriteSize, x = formRectangle.Left + gap, y, index = 0;
             PictureBox tempPictureBox;
 
             while (x < formRectangle.Right - GAPRIGHT)
             {
 
                 y = formRectangle.Top + gap;
-                while (y < formRectangle.Height / 2)
+                while (y < formRectangle.Height / 1.5)
                 {
                     tempPictureBox = new PictureBox();
                     tempPictureBox.Width = spriteSize;
@@ -54,9 +55,9 @@ namespace project_2_space_invaders_legin8
                     enemies.Add(new Enemy(formRectangle,spriteSize, tempPictureBox, SPEED));
                     form1.Controls.Add(tempPictureBox);
                     index++;
-                    y += spriteSize + gap;
+                    y += spriteSize * 2;
                 }
-                x += spriteSize + gap;
+                x += spriteSize + (int)(gap * 1.4);
             }
         }
 
