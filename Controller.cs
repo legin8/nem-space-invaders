@@ -18,7 +18,7 @@ namespace project_2_space_invaders_legin8
         private int spriteSize, enemyMoveDownSize, enemyDownCounter;
         private bool goRight;
 
-        public List<Enemy> GetEnemies => enemies;
+        public List<Enemy> GetEnemies { get => enemies; set => enemies = value; }
 
         public Controller(Rectangle formRectangle, Form form1, int spriteSize, Random random)
         {
@@ -103,6 +103,12 @@ namespace project_2_space_invaders_legin8
                 enemyDownCounter = 0;
                 goRight = !goRight;
             }
+        }
+
+        // Destroy Enemy
+        public void DestroyEnemy(int enemy)
+        {
+            form1.Controls.Remove(enemies[enemy]);
         }
 
         // Moves the player left or right

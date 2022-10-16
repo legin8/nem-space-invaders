@@ -104,6 +104,8 @@ namespace project_2_space_invaders_legin8
                         shots[j].Left <= tempEnemie[k].GetPictureBox.Right && shots[j].Right >= tempEnemie[k].GetPictureBox.Left)
                     {
                         RemoveShot(j);
+                        //controller.GetEnemies[k] = null;
+                        //form1.Controls.Remove(tempEnemie[k]);
                     }
                 }
             }
