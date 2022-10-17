@@ -108,7 +108,7 @@ namespace project_2_space_invaders_legin8
         // Destroy Enemy
         public void DestroyEnemy(int enemy)
         {
-            form1.Controls.Remove(enemies[enemy]);
+            //form1.Controls.Remove(enemies[enemy]);
         }
 
         // Moves the player left or right
