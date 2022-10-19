@@ -21,8 +21,6 @@ namespace project_2_space_invaders_legin8
 
         // Class Gets and Sets
         public List<Enemy> GetEnemies { get => enemies; set => enemies = value; } // check if I need this set later!!!!!!!!!!!!
-        public Rectangle FormRectangle { get => formRectangle; set => formRectangle = value; }
-        public int SpriteSize { get => spriteSize; set => spriteSize = value; }
 
         // Class Constructor
         public Controller(Rectangle formRectangle, Form form1, Random random)
@@ -39,8 +37,8 @@ namespace project_2_space_invaders_legin8
         // This updates the formRectangle on resizing the form
         public void ReSizeScreen(Rectangle formRec)
         {
-            FormRectangle = formRec;
-            SpriteSize = formRec.Width / SCALEOFSPRITE;
+            formRectangle = formRec;
+            spriteSize = formRec.Width / SCALEOFSPRITE;
         }
 
         // This is called from the constructor and makes the enemies
