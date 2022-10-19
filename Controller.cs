@@ -24,7 +24,7 @@ namespace project_2_space_invaders_legin8
 
         public Controller(Rectangle formRectangle, Form form1, Random random)
         {
-            this.spriteSize = formRectangle.Width / 26;
+            spriteSize = formRectangle.Width / 26;
             player = new Player(formRectangle, form1, spriteSize, this, random);
             this.form1 = form1;
             this.formRectangle = formRectangle;
@@ -88,10 +88,10 @@ namespace project_2_space_invaders_legin8
             if (!goRight) foreach (Enemy enemy in enemies) if (enemy.GetPictureBox.Left <= formRectangle.Left) isSideOfScreen = true;
 
             // This will move each enemy Right
-            if (!isSideOfScreen) foreach (Enemy enemy in enemies) if (goRight && enemy.GetPictureBox.Right <= formRectangle.Right) enemy.MoveRight();
+            if (!isSideOfScreen && goRight) foreach (Enemy enemy in enemies) if (enemy.GetPictureBox.Right <= formRectangle.Right) enemy.MoveRight();
 
             // This will move each enemy Left
-            if (!isSideOfScreen) foreach (Enemy enemy in enemies) if (!goRight && enemy.GetPictureBox.Left >= formRectangle.Left) enemy.MoveLeft();
+            if (!isSideOfScreen && !goRight) foreach (Enemy enemy in enemies) if (enemy.GetPictureBox.Left >= formRectangle.Left) enemy.MoveLeft();
 
             // This moves the enemy down the size of the sprites
             if (isSideOfScreen && enemyDownCounter <= enemyMoveDownSize)

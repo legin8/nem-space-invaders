@@ -17,15 +17,15 @@ namespace project_2_space_invaders_legin8
     {
         // Class variables
         private Controller controller;
-        private Random random = new Random();
-        private SoundPlayer soundPlayer = new SoundPlayer(@"..\..\Resources\mainGameMusic.wav");
+        private Random random;
+        private SoundPlayer soundPlayer;
 
         // Class Constructor
         public Form1()
         {
             InitializeComponent();
-            controller = new Controller(ClientRectangle, this, random);
-            soundPlayer.PlayLooping();
+            soundPlayer = new SoundPlayer(@"..\..\Resources\mainGameMusic.wav");
+            random = new Random();
         }
 
         // Event handler for key input
@@ -46,8 +46,18 @@ namespace project_2_space_invaders_legin8
         // Event handler for resizing the form
         private void Form1_Resize(object sender, EventArgs e)
         {
-            controller.FormRectangle = ClientRectangle;
-            controller.SpriteSize = ClientRectangle.Width / 26;
+            //controller.FormRectangle = ClientRectangle;
+            //controller.SpriteSize = ClientRectangle.Width / 26;
+        }
+
+        // Click handler for the start button, Makes controller and starts sound and the timer
+        private void button1_Click(object sender, EventArgs e)
+        {
+            controller = new Controller(ClientRectangle, this, random);
+            soundPlayer.PlayLooping();
+            timer1.Start();
+            start.Visible = false;
+            Focus();
         }
     }
 }

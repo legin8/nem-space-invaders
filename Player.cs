@@ -105,8 +105,6 @@ namespace project_2_space_invaders_legin8
                     {
                         RemoveShot(j);
                         controller.DestroyEnemy(k);
-                        //controller.GetEnemies[k] = null;
-                        //form1.Controls.Remove(tempEnemie[k]);
                     }
                 }
             }
