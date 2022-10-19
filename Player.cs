@@ -64,7 +64,7 @@ namespace project_2_space_invaders_legin8
             playerPictureBoxPlayer.Height = spriteSize;
             playerPictureBoxPlayer.Image = Properties.Resources.player;
             playerPictureBoxPlayer.SizeMode = PictureBoxSizeMode.StretchImage;
-            playerPictureBoxPlayer.Location = new Point(formRectangle.Width / 2, formRectangle.Bottom);
+            playerPictureBoxPlayer.Location = new Point(formRectangle.Width / 2, formRectangle.Bottom - spriteSize);
             form1.Controls.Add(playerPictureBoxPlayer);
 
         }
@@ -99,7 +99,7 @@ namespace project_2_space_invaders_legin8
             {
                 for (int k = 0; k < tempEnemie.Count; k++)
                 {
-                    if (tempEnemie[k] != null && shots[j] != null &&
+                    if (tempEnemie[k] != null && shots[j] != null && tempEnemie[k].GetPictureBox != null &&
                         shots[j].Top <= tempEnemie[k].GetPictureBox.Bottom && shots[j].Top >= tempEnemie[k].GetPictureBox.Top &&
                         shots[j].Left <= tempEnemie[k].GetPictureBox.Right && shots[j].Right >= tempEnemie[k].GetPictureBox.Left)
                     {

@@ -43,11 +43,10 @@ namespace project_2_space_invaders_legin8
             controller.RunGame();
         }
 
-        // Event handler for resizing the form
+        // Event handler for calling the controller method that Resizes the formRectangle, if controller not null
         private void Form1_Resize(object sender, EventArgs e)
         {
-            //controller.FormRectangle = ClientRectangle;
-            //controller.SpriteSize = ClientRectangle.Width / 26;
+            if (controller != null) controller.ReSizeScreen(ClientRectangle);
         }
 
         // Click handler for the start button, Makes controller and starts sound and the timer

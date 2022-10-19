@@ -16,7 +16,7 @@ namespace project_2_space_invaders_legin8
         private int spriteSize;
         private PictureBox pictureBox;
 
-        public PictureBox GetPictureBox => pictureBox;
+        public PictureBox GetPictureBox { get => pictureBox; set => pictureBox = value; }
 
         public Enemy(Rectangle formRectangle, int spriteSize, PictureBox pictureBox, int speed)
         {

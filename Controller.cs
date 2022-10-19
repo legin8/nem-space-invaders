@@ -10,44 +10,52 @@ namespace project_2_space_invaders_legin8
 {
     internal class Controller
     {
+        // Class Variables
         private const int GAPRIGHT = 200, SPEED = 5;
-        private Player player;
-        private List<Enemy> enemies = new List<Enemy>();
-        private Form form1;
         private Rectangle formRectangle;
-        private int spriteSize, enemyMoveDownSize, enemyDownCounter;
+        private Form form1;
+        private Player player;
+        private List<Enemy> enemies;
+        private int spriteSize, enemyDownCounter;
         private bool goRight;
 
-        public List<Enemy> GetEnemies { get => enemies; set => enemies = value; }
+        // Class Gets and Sets
+        public List<Enemy> GetEnemies { get => enemies; set => enemies = value; } // check if I need this set later!!!!!!!!!!!!
         public Rectangle FormRectangle { get => formRectangle; set => formRectangle = value; }
         public int SpriteSize { get => spriteSize; set => spriteSize = value; }
 
+        // Class Constructor
         public Controller(Rectangle formRectangle, Form form1, Random random)
         {
+            this.formRectangle = formRectangle;
+            this.form1 = form1;
             spriteSize = formRectangle.Width / 26;
             player = new Player(formRectangle, form1, spriteSize, this, random);
-            this.form1 = form1;
-            this.formRectangle = formRectangle;
-            
+            enemies = new List<Enemy>();
             makeEnemy();
             goRight = true;
-            enemyMoveDownSize = spriteSize;
-            enemyDownCounter = 0;
         }
 
-        
+        // This updates the formRectangle on resizing the form
+        public void ReSizeScreen(Rectangle formRec)
+        {
+            FormRectangle = formRec;
+            SpriteSize = formRec.Width / 26;
+        }
+
+        // This is called from the constructor and makes the enemies
         private void makeEnemy()
         {
             int gap = spriteSize, x = formRectangle.Left + gap, y, index = 0;
             PictureBox tempPictureBox;
 
-            // This loop is for the rows of enemys
+            // This loop is for the rows of enemies
             while (x < formRectangle.Right - GAPRIGHT)
             {
                 y = formRectangle.Top + gap;
 
-                // This loop is for the columns enemys
-                while (y < formRectangle.Height / 1.5)
+                // This loop is for the columns enemies
+                while (y < formRectangle.Height / 1.8)
                 {
                     tempPictureBox = new PictureBox();
                     tempPictureBox.Width = spriteSize;
@@ -84,24 +92,24 @@ namespace project_2_space_invaders_legin8
             bool isSideOfScreen = false;
             // Only one of these will run each timer tick
             // These both check if any enemy is at the edge of the screen
-            if (goRight) foreach (Enemy enemy in enemies) if (enemy.GetPictureBox.Right >= formRectangle.Right) isSideOfScreen = true;
-            if (!goRight) foreach (Enemy enemy in enemies) if (enemy.GetPictureBox.Left <= formRectangle.Left) isSideOfScreen = true;
+            if (goRight) foreach (Enemy enemy in enemies) if (enemy != null && enemy.GetPictureBox != null && enemy.GetPictureBox.Right >= formRectangle.Right) isSideOfScreen = true;
+            if (!goRight) foreach (Enemy enemy in enemies) if (enemy != null && enemy.GetPictureBox != null && enemy.GetPictureBox.Left <= formRectangle.Left) isSideOfScreen = true;
 
             // This will move each enemy Right
-            if (!isSideOfScreen && goRight) foreach (Enemy enemy in enemies) if (enemy.GetPictureBox.Right <= formRectangle.Right) enemy.MoveRight();
+            if (!isSideOfScreen && goRight) foreach (Enemy enemy in enemies) if (enemy.GetPictureBox != null && enemy.GetPictureBox.Right <= formRectangle.Right) enemy.MoveRight();
 
             // This will move each enemy Left
-            if (!isSideOfScreen && !goRight) foreach (Enemy enemy in enemies) if (enemy.GetPictureBox.Left >= formRectangle.Left) enemy.MoveLeft();
+            if (!isSideOfScreen && !goRight) foreach (Enemy enemy in enemies) if (enemy.GetPictureBox != null && enemy.GetPictureBox.Left >= formRectangle.Left) enemy.MoveLeft();
 
             // This moves the enemy down the size of the sprites
-            if (isSideOfScreen && enemyDownCounter <= enemyMoveDownSize)
+            if (isSideOfScreen && enemyDownCounter <= spriteSize)
             {
-                foreach (Enemy enemy in enemies) enemy.MoveDown();
+                foreach (Enemy enemy in enemies) if (enemy.GetPictureBox != null) enemy.MoveDown();
                 enemyDownCounter += SPEED;
             }
 
             // Stops the enemys from moving down once they have gone their own size and inverts goRight
-            if (enemyDownCounter >= enemyMoveDownSize)
+            if (enemyDownCounter >= spriteSize)
             {
                 enemyDownCounter = 0;
                 goRight = !goRight;
@@ -112,6 +120,7 @@ namespace project_2_space_invaders_legin8
         public void DestroyEnemy(int enemy)
         {
             form1.Controls.Remove(enemies[enemy].GetPictureBox);
+            enemies[enemy].GetPictureBox = null;
         }
 
         // Moves the player left or right
