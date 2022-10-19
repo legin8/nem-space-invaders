@@ -17,14 +17,13 @@ namespace project_2_space_invaders_legin8
     {
         private Controller controller;
         private Random random = new Random();
-        //private SoundPlayer soundPlayer = new SoundPlayer(@"./Resources/mainGameMusic.mp3");
+        private SoundPlayer soundPlayer = new SoundPlayer(@"..\..\Resources\mainGameMusic.wav");
 
         public Form1()
         {
             InitializeComponent();
-            controller = new Controller(ClientRectangle, this, ClientRectangle.Width/ 26, random);
-            //soundPlayer.SoundLocation = @"./Resources/mainGameMusic.mp3";
-            //soundPlayer.Play();
+            controller = new Controller(ClientRectangle, this, random);
+            soundPlayer.PlayLooping();
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -37,6 +36,12 @@ namespace project_2_space_invaders_legin8
         private void timer1_Tick(object sender, EventArgs e)
         {
             controller.RunGame();
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            controller.FormRectangle = ClientRectangle;
+            controller.SpriteSize = ClientRectangle.Width / 26;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace project_2_space_invaders_legin8.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace project_2_space_invaders_legin8.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("project_2_space_invaders_legin8.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace project_2_space_invaders_legin8.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace project_2_space_invaders_legin8.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Bomb {
+        public static System.Drawing.Bitmap Bomb {
             get {
                 object obj = ResourceManager.GetObject("Bomb", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -73,7 +73,7 @@ namespace project_2_space_invaders_legin8.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap enemy {
+        public static System.Drawing.Bitmap enemy {
             get {
                 object obj = ResourceManager.GetObject("enemy", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -81,19 +81,18 @@ namespace project_2_space_invaders_legin8.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static byte[] mainGameMusic {
+        public static System.IO.UnmanagedMemoryStream mainGameMusic {
             get {
-                object obj = ResourceManager.GetObject("mainGameMusic", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetStream("mainGameMusic", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap player {
+        public static System.Drawing.Bitmap player {
             get {
                 object obj = ResourceManager.GetObject("player", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -103,7 +102,7 @@ namespace project_2_space_invaders_legin8.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap shot {
+        public static System.Drawing.Bitmap shot {
             get {
                 object obj = ResourceManager.GetObject("shot", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
