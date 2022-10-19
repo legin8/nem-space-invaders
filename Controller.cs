@@ -11,7 +11,7 @@ namespace project_2_space_invaders_legin8
     internal class Controller
     {
         // Class Variables
-        private const int GAPRIGHT = 200, SPEED = 5;
+        private const int GAPRIGHT = 200, SPEED = 5, SCALEOFSPRITE = 26;
         private Rectangle formRectangle;
         private Form form1;
         private Player player;
@@ -29,7 +29,7 @@ namespace project_2_space_invaders_legin8
         {
             this.formRectangle = formRectangle;
             this.form1 = form1;
-            spriteSize = formRectangle.Width / 26;
+            spriteSize = formRectangle.Width / SCALEOFSPRITE;
             player = new Player(formRectangle, form1, spriteSize, this, random);
             enemies = new List<Enemy>();
             makeEnemy();
@@ -40,13 +40,13 @@ namespace project_2_space_invaders_legin8
         public void ReSizeScreen(Rectangle formRec)
         {
             FormRectangle = formRec;
-            SpriteSize = formRec.Width / 26;
+            SpriteSize = formRec.Width / SCALEOFSPRITE;
         }
 
         // This is called from the constructor and makes the enemies
         private void makeEnemy()
         {
-            int gap = spriteSize, x = formRectangle.Left + gap, y, index = 0;
+            int gap = spriteSize, x = formRectangle.Left, y, index = 0;
             PictureBox tempPictureBox;
 
             // This loop is for the rows of enemies
