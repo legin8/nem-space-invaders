@@ -46,16 +46,17 @@ namespace project_2_space_invaders_legin8
         // This is called from the constructor and makes the enemies
         private void makeEnemy()
         {
-            int gap = spriteSize, x = formRectangle.Left, y, index = 0;
+            const int COLUMNS = 10, ROWS = 4;
+            int x = formRectangle.Left, y, index = 0;
             PictureBox tempPictureBox;
 
             // This loop is for the rows of enemies
-            while (x < formRectangle.Right - GAPRIGHT)
+            for (int i = 0; i < COLUMNS; i++)
             {
-                y = formRectangle.Top + gap;
+                y = formRectangle.Top + spriteSize;
 
                 // This loop is for the columns enemies
-                while (y < formRectangle.Height / 1.8)
+                for (int j = 0; j < ROWS; j++)
                 {
                     tempPictureBox = new PictureBox();
                     tempPictureBox.Width = spriteSize;
@@ -72,7 +73,7 @@ namespace project_2_space_invaders_legin8
                     y += spriteSize * 2;
                 }
                 // This moves to the next column
-                x += spriteSize + (int)(gap * 1.4);
+                x += spriteSize + (int)(spriteSize * 1.4);
             }
         }
 
