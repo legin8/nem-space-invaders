@@ -15,10 +15,12 @@ namespace project_2_space_invaders_legin8
 {
     public partial class Form1 : Form
     {
+        // Class variables
         private Controller controller;
         private Random random = new Random();
         private SoundPlayer soundPlayer = new SoundPlayer(@"..\..\Resources\mainGameMusic.wav");
 
+        // Class Constructor
         public Form1()
         {
             InitializeComponent();
@@ -26,6 +28,8 @@ namespace project_2_space_invaders_legin8
             soundPlayer.PlayLooping();
         }
 
+        // Event handler for key input
+        // Moving Left, Right and Shooting
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Left) controller.MovePlayer(true);
@@ -33,11 +37,13 @@ namespace project_2_space_invaders_legin8
             if (e.KeyCode == Keys.Space) controller.Shot();
         }
 
+        // Timer Event handler, Runs the game
         private void timer1_Tick(object sender, EventArgs e)
         {
             controller.RunGame();
         }
 
+        // Event handler for resizing the form
         private void Form1_Resize(object sender, EventArgs e)
         {
             controller.FormRectangle = ClientRectangle;
