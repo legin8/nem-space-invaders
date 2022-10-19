@@ -12,16 +12,12 @@ namespace project_2_space_invaders_legin8
     internal class Enemy
     {
         private int speed;
-        private Rectangle formRectangle;
-        private int spriteSize;
         private PictureBox pictureBox;
 
         public PictureBox GetPictureBox { get => pictureBox; set => pictureBox = value; }
 
-        public Enemy(Rectangle formRectangle, int spriteSize, PictureBox pictureBox, int speed)
+        public Enemy(PictureBox pictureBox, int speed)
         {
-            this.formRectangle = formRectangle;
-            this.spriteSize = spriteSize;
             this.pictureBox = pictureBox;
             this.speed = speed;
         }

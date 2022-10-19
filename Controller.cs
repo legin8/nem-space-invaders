@@ -66,7 +66,7 @@ namespace project_2_space_invaders_legin8
                     tempPictureBox.Image = Properties.Resources.enemy;
                     tempPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     tempPictureBox.Location = new Point(x, y);
-                    enemies.Add(new Enemy(formRectangle,spriteSize, tempPictureBox, SPEED));
+                    enemies.Add(new Enemy(tempPictureBox, SPEED));
                     form1.Controls.Add(tempPictureBox);
 
                     // Code above is for each enemy, below is what spaces out the enemys in the rows
@@ -80,10 +80,9 @@ namespace project_2_space_invaders_legin8
         // This runs the game using the timer tick from the form
         public void RunGame()
         {
-            PictureBox[] tempPictureBoxes = player.GetShots;
             moveEnemy();
 
-            for (int i = 0; i < player.GetShots.Length; i++) if (tempPictureBoxes[i] != null) tempPictureBoxes[i].Top -= 10;
+            foreach (PictureBox shot in player.GetShots) if (shot != null) shot.Top -= 10;
             player.GetRidOfShot();
         }
 
@@ -170,7 +169,6 @@ namespace project_2_space_invaders_legin8
         public void Shot()
         {
             player.Shot();
-        }
-        
+        } 
     }
 }

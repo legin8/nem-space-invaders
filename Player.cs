@@ -16,8 +16,8 @@ namespace project_2_space_invaders_legin8
         private PictureBox playerPictureBoxPlayer;
         private Form form1;
         private int spriteSize;
-        private PictureBox[] shots = new PictureBox[15];
-        private int[] shotsTimeToLive = new int[15];
+        private PictureBox[] shots;
+        private int[] shotsTimeToLive;
         private Controller controller;
         private Random random;
 
@@ -31,6 +31,8 @@ namespace project_2_space_invaders_legin8
             this.controller = controller;
             this.random = random;
             makePlayer();
+            shots = new PictureBox[15];
+            shotsTimeToLive = new int[15];
 
         }
 
