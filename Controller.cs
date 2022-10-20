@@ -83,8 +83,12 @@ namespace project_2_space_invaders_legin8
             // Checks if the shot is hitting the top of the screen
             foreach (Shot shot in shots)
             {
-                if (shot != null && shot.SpriteBox.Top <= formRectangle.Top) RemoveShot(shot);
-                shot.TimeToLive--;
+                if (shot != null)
+                {
+                    shot.TimeToLive--;
+                    if (shot.SpriteBox.Top <= formRectangle.Top) RemoveShot(shot);
+                }
+                
             }
 
             // Checks if the shots are hitting the enemy
@@ -104,7 +108,7 @@ namespace project_2_space_invaders_legin8
 
             foreach (Shot shot in shots)
             {
-                if (shot.TimeToLive == 0)
+                if (shot != null && shot.TimeToLive == 0)
                 {
                     RemoveShot(shot);
                     shot.TimeToLive--;
