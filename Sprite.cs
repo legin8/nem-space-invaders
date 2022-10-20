@@ -14,7 +14,6 @@ namespace project_2_space_invaders_legin8
         protected PictureBox spriteBox;
         protected int spriteSize;
         protected Bitmap bitmap;
-        //protected const Image SPRITEIMAGE = Properties.Resources.enemy;
 
         public PictureBox SpriteBox { get => spriteBox; set => spriteBox = value; }
         public Sprite(int spriteSize, Form form, int xPosition, int yPosition, Bitmap sprite)
@@ -24,12 +23,12 @@ namespace project_2_space_invaders_legin8
             bitmap = sprite;
         }
 
-        protected void MakeSprite(int xPosition, int yPosition)
+        protected virtual void MakeSprite(int xPosition, int yPosition, Bitmap BITMAP)
         {
             SpriteBox = new PictureBox();
             SpriteBox.Width = spriteSize;
             SpriteBox.Height = spriteSize;
-            SpriteBox.Image = bitmap;
+            SpriteBox.Image = BITMAP;
             SpriteBox.SizeMode = PictureBoxSizeMode.StretchImage;
             SpriteBox.Location = new Point(xPosition, yPosition);
             form.Controls.Add(SpriteBox);

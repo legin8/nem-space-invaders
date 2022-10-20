@@ -11,6 +11,7 @@ namespace project_2_space_invaders_legin8
 {
     internal class Player : Sprite
     {
+        private readonly Bitmap BITMAP = Properties.Resources.player;
         private const int SPEEDOFPLAYER = 20;
         private Rectangle formRectangle;
         private Controller controller;
@@ -24,21 +25,11 @@ namespace project_2_space_invaders_legin8
             this.spriteSize = spriteSize;
             this.controller = controller;
             this.random = random;
-            makePlayer();
+            MakeSprite(xPosition, yPosition, BITMAP);
         }
 
 
-        private void makePlayer()
-        {
-            spriteBox = new PictureBox();
-            spriteBox.Width = spriteSize;
-            spriteBox.Height = spriteSize;
-            spriteBox.Image = Properties.Resources.player;
-            spriteBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            spriteBox.Location = new Point(formRectangle.Width / 2, formRectangle.Bottom - spriteSize);
-            form.Controls.Add(spriteBox);
 
-        }
 
         public void MovePlayer(bool moveLeft)
         {

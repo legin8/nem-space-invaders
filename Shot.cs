@@ -21,7 +21,7 @@ namespace project_2_space_invaders_legin8
 
         }
 
-        public void MakeShot(int xPosition, int yPosition)
+        public void MakeSprite(int xPosition, int yPosition)
         {
             spriteBox = new PictureBox();
             spriteBox.Width = spriteSize;
