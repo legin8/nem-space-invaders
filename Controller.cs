@@ -30,11 +30,16 @@ namespace project_2_space_invaders_legin8
             this.form = form;
             this.random = random;
             spriteSize = formRectangle.Width / SCALEOFSPRITE;
+
             player = new Player(spriteSize, form, formRectangle.Width / 2, formRectangle.Bottom - spriteSize, formRectangle, this, random);
             enemies = new List<Enemy>();
             makeEnemy();
-            goRight = true;
             shots = new Shot[15];
+
+            for (int i = 0; i < shots.Length; i++) shots[i] = new Shot(spriteSize, form, player.SpriteBox.Left, player.SpriteBox.Top - spriteSize, random);
+
+            goRight = true;
+            
             
         }
 
@@ -75,7 +80,7 @@ namespace project_2_space_invaders_legin8
         {
             moveEnemy();
 
-            foreach (Shot shot in shots) if (shot != null) shot.SpriteBox.Top -= 10;
+            foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.SpriteBox.Top -= 10;
             ColisionDetection();
         }
 
@@ -84,7 +89,7 @@ namespace project_2_space_invaders_legin8
             // Checks if the shot is hitting the top of the screen
             foreach (Shot shot in shots)
             {
-                if (shot != null)
+                if (shot.SpriteBox != null)
                 {
                     shot.TimeToLive--;
                     if (shot.SpriteBox.Top <= formRectangle.Top) RemoveShot(shot);
@@ -97,7 +102,7 @@ namespace project_2_space_invaders_legin8
             {
                 foreach (Enemy enemy in enemies)
                 {
-                    if (enemy != null && shot != null && enemy.SpriteBox != null &&
+                    if (enemy != null && shot.SpriteBox != null && enemy.SpriteBox != null &&
                         shot.SpriteBox.Top <= enemy.SpriteBox.Bottom && shot.SpriteBox.Top >= enemy.SpriteBox.Top &&
                         shot.SpriteBox.Left <= enemy.SpriteBox.Right && shot.SpriteBox.Right >= enemy.SpriteBox.Left)
                     {
@@ -112,7 +117,6 @@ namespace project_2_space_invaders_legin8
                 if (shot != null && shot.TimeToLive == 0)
                 {
                     RemoveShot(shot);
-                    shot.TimeToLive--;
                 }
             }
         }
@@ -120,7 +124,7 @@ namespace project_2_space_invaders_legin8
         private void RemoveShot(Shot shot)
         {
             form.Controls.Remove(shot.SpriteBox);
-            shot = null;
+            shot.SpriteBox = null;
         }
 
         // Code for moving the enemies
@@ -207,9 +211,9 @@ namespace project_2_space_invaders_legin8
         {
             for (int i = 0; i < shots.Length; i++)
             {
-                if (shots[i] == null)
+                if (shots[i].SpriteBox == null)
                 {
-                    shots[i] = new Shot(spriteSize, form, player.SpriteBox.Left, player.SpriteBox.Top - spriteSize, random);
+                    shots[i].Makeshot(player.SpriteBox.Left, player.SpriteBox.Top - spriteSize);
                     break;
                 }
             }

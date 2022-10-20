@@ -18,7 +18,6 @@ namespace project_2_space_invaders_legin8
         public Shot(int spriteSize, Form form,int xPosition, int yPosition, Random random) : base (spriteSize, form, xPosition, yPosition)
         {
             this.random = random;
-            Makeshot(xPosition, yPosition);
 
         }
 
