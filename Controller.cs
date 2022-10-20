@@ -94,7 +94,7 @@ namespace project_2_space_invaders_legin8
             // These both check if any enemy is at the edge of the screen
             if (goRight) foreach (Enemy enemy in enemies)
                 {
-                    if (enemy != null && enemy.GetPictureBox != null &&
+                    if (enemy.GetPictureBox != null &&
                         enemy.GetPictureBox.Right >= formRectangle.Right)
                     {
                         isSideOfScreen = true;
@@ -104,7 +104,7 @@ namespace project_2_space_invaders_legin8
             // This only runs if enemies are going left
             if (!goRight) foreach (Enemy enemy in enemies)
                 {
-                    if (enemy != null && enemy.GetPictureBox != null &&
+                    if (enemy.GetPictureBox != null &&
                         enemy.GetPictureBox.Left <= formRectangle.Left)
                     {
                         isSideOfScreen = true;
