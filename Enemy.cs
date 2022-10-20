@@ -9,17 +9,27 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace project_2_space_invaders_legin8
 {
-    internal class Enemy
+    internal class Enemy : Sprite
     {
         private int speed;
-        private PictureBox pictureBox;
 
         public PictureBox GetPictureBox { get => pictureBox; set => pictureBox = value; }
 
-        public Enemy(PictureBox pictureBox, int speed)
+        public Enemy(int spriteSize, Form form, int x, int y, int speed) : base (spriteSize, form, x, y)
         {
-            this.pictureBox = pictureBox;
             this.speed = speed;
+            MakeSprite(x, y);
+        }
+
+        private void MakeSprite(int x, int y)
+        {
+            pictureBox = new PictureBox();
+            pictureBox.Width = spriteSize;
+            pictureBox.Height = spriteSize;
+            pictureBox.Image = Properties.Resources.enemy;
+            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox.Location = new Point(x, y);
+            form.Controls.Add(pictureBox);
         }
 
 

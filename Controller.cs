@@ -13,7 +13,7 @@ namespace project_2_space_invaders_legin8
         // Class Variables
         private const int GAPRIGHT = 200, SPEED = 5, SCALEOFSPRITE = 26;
         private Rectangle formRectangle;
-        private Form form1;
+        private Form form;
         private Player player;
         private List<Enemy> enemies;
         private int spriteSize, enemyDownCounter;
@@ -23,12 +23,12 @@ namespace project_2_space_invaders_legin8
         public List<Enemy> GetEnemies { get => enemies; set => enemies = value; } // check if I need this set later!!!!!!!!!!!!
 
         // Class Constructor
-        public Controller(Rectangle formRectangle, Form form1, Random random)
+        public Controller(Rectangle formRectangle, Form form, Random random)
         {
             this.formRectangle = formRectangle;
-            this.form1 = form1;
+            this.form = form;
             spriteSize = formRectangle.Width / SCALEOFSPRITE;
-            player = new Player(formRectangle, form1, spriteSize, this, random);
+            player = new Player(formRectangle, form, spriteSize, this, random);
             enemies = new List<Enemy>();
             makeEnemy();
             goRight = true;
@@ -48,7 +48,7 @@ namespace project_2_space_invaders_legin8
             const int COLUMNS = 10, ROWS = 4;
             const double ENEMYGAP = 1.5;
             int x = formRectangle.Left, y;
-            PictureBox tempPictureBox;
+            
 
             // This loop is for the rows of enemies
             for (int i = 0; i < COLUMNS; i++)
@@ -58,14 +58,9 @@ namespace project_2_space_invaders_legin8
                 // This loop is for the columns enemies
                 for (int j = 0; j < ROWS; j++)
                 {
-                    tempPictureBox = new PictureBox();
-                    tempPictureBox.Width = spriteSize;
-                    tempPictureBox.Height = spriteSize;
-                    tempPictureBox.Image = Properties.Resources.enemy;
-                    tempPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                    tempPictureBox.Location = new Point(x, y);
-                    enemies.Add(new Enemy(tempPictureBox, SPEED));
-                    form1.Controls.Add(tempPictureBox);
+                    
+                    enemies.Add(new Enemy(spriteSize, form, x, y, SPEED));
+                    
 
                     // Code above is for each enemy, below is what spaces out the enemys in the rows
                     y += (int) (spriteSize * ENEMYGAP);
@@ -153,7 +148,7 @@ namespace project_2_space_invaders_legin8
         // enemy picture box to null
         public void DestroyEnemy(int enemy)
         {
-            form1.Controls.Remove(enemies[enemy].GetPictureBox);
+            form.Controls.Remove(enemies[enemy].GetPictureBox);
             enemies[enemy].GetPictureBox = null;
         }
 
