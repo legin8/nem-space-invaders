@@ -204,7 +204,7 @@ namespace project_2_space_invaders_legin8
             {
                 if (shots[i].SpriteBox == null)
                 {
-                    shots[i].Makeshot(player.SpriteBox.Left, player.SpriteBox.Top - spriteSize);
+                    shots[i].MakeShot(player.SpriteBox.Left, player.SpriteBox.Top - spriteSize);
                     break;
                 }
             }
