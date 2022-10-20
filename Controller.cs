@@ -47,26 +47,26 @@ namespace project_2_space_invaders_legin8
         {
             const int COLUMNS = 10, ROWS = 4;
             const double ENEMYGAP = 1.5;
-            int x = formRectangle.Left, y;
+            int xPosition = formRectangle.Left, yPosition;
             
 
             // This loop is for the rows of enemies
             for (int i = 0; i < COLUMNS; i++)
             {
-                y = formRectangle.Top + spriteSize;
+                yPosition = formRectangle.Top + spriteSize;
 
                 // This loop is for the columns enemies
                 for (int j = 0; j < ROWS; j++)
                 {
                     
-                    enemies.Add(new Enemy(spriteSize, form, x, y, SPEED));
+                    enemies.Add(new Enemy(spriteSize, form, xPosition, yPosition, SPEED));
                     
 
                     // Code above is for each enemy, below is what spaces out the enemys in the rows
-                    y += (int) (spriteSize * ENEMYGAP);
+                    yPosition += (int) (spriteSize * ENEMYGAP);
                 }
                 // This moves to the next column
-                x += spriteSize + (int)(spriteSize * ENEMYGAP);
+                xPosition += spriteSize + (int)(spriteSize * ENEMYGAP);
             }
         }
 
