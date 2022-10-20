@@ -35,9 +35,7 @@ namespace project_2_space_invaders_legin8
             shots = new Shot[15];
 
             for (int i = 0; i < shots.Length; i++) shots[i] = new Shot(spriteSize, form, player.SpriteBox.Left, player.SpriteBox.Top - spriteSize, random);
-
             goRight = true;
-            
             
         }
 
@@ -116,42 +114,11 @@ namespace project_2_space_invaders_legin8
             }
         }
 
-        // Destroy Enemy works by first removing the enemy picturebox from the control and then sets the
-        // enemy picture box to null
-        public void DestroySprite(Sprite sprite)
-        {
-            form.Controls.Remove(sprite.SpriteBox);
-            sprite.SpriteBox = null;
-        }
-
-        
-
         // Code for moving the enemies
         private void moveEnemy()
         {
             const int RESETCOUNTER = 0;
-            bool isSideOfScreen = false;
-
-            // Only one of these will run each timer tick
-            // These both check if any enemy is at the edge of the screen
-            if (goRight) foreach (Enemy enemy in enemies)
-                {
-                    if (enemy.SpriteBox != null &&
-                        enemy.SpriteBox.Right >= formRectangle.Right)
-                    {
-                        isSideOfScreen = true;
-                    }
-                }
-
-            // This only runs if enemies are going left
-            if (!goRight) foreach (Enemy enemy in enemies)
-                {
-                    if (enemy.SpriteBox != null &&
-                        enemy.SpriteBox.Left <= formRectangle.Left)
-                    {
-                        isSideOfScreen = true;
-                    }
-                }
+            bool isSideOfScreen = checkSides();
 
             // This will move each enemy Right
             if (!isSideOfScreen && goRight) foreach (Enemy enemy in enemies)
@@ -183,12 +150,30 @@ namespace project_2_space_invaders_legin8
                 enemyDownCounter += SPEED;
             }
 
-            // Stops the enemys from moving down once they have gone their own size and inverts goRight
+            // Stops the enemys from moving down once they have gone their own size and inverts goRight, isSideOfScreen and
+            // resets the enemyDownCounter
             if (enemyDownCounter >= spriteSize)
             {
                 enemyDownCounter = RESETCOUNTER;
                 goRight = !goRight;
+                isSideOfScreen = !isSideOfScreen;
             }
+        }
+
+        // This is called from the colisionDetection method and saved to a local bool
+        // It checks each sprite that exists if they are at either side of the screen
+        // and breaks out of the loop with the return keyword if one is.
+        private bool checkSides()
+        {
+            // This checks if any enemy is at the edge of the screen
+            foreach (Enemy enemy in enemies)
+            {
+                if (enemy.SpriteBox != null &&
+                    enemy.SpriteBox.Right >= formRectangle.Right ||
+                    enemy.SpriteBox.Left <= formRectangle.Left) return true;
+            }
+            return false;
+
         }
 
         // Moves the player left or right
@@ -197,7 +182,7 @@ namespace project_2_space_invaders_legin8
             player.MovePlayer(moveLeft);
         }
 
-        // Fires a shot from the player
+        // Fires a shot from the players current location
         public void Shot()
         {
             for (int i = 0; i < shots.Length; i++)
@@ -208,6 +193,14 @@ namespace project_2_space_invaders_legin8
                     break;
                 }
             }
-        } 
+        }
+
+        // DestroySprite works by first removing the sprite picturebox from the control and then sets the
+        // enemy picture box to null. This is used by the children of the sprite class
+        public void DestroySprite(Sprite sprite)
+        {
+            form.Controls.Remove(sprite.SpriteBox);
+            sprite.SpriteBox = null;
+        }
     }
 }
