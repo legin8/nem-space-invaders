@@ -15,7 +15,7 @@ namespace project_2_space_invaders_legin8
 
         public int TimeToLive { get => timeToLive; set => timeToLive = value; }
 
-        public Shot(int spriteSize, Form form,int xPosition, int yPosition, Random random) : base (spriteSize, form, xPosition, yPosition)
+        public Shot(int spriteSize, Form form,int xPosition, int yPosition, Bitmap sprite, Random random) : base (spriteSize, form, xPosition, yPosition, sprite)
         {
             this.random = random;
 

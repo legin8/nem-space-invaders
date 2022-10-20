@@ -17,8 +17,8 @@ namespace project_2_space_invaders_legin8
         private Random random;
 
         
-        public Player(int spriteSize, Form form, int xPosition, int yPosition, Rectangle formRectangle, Controller controller, Random random) :
-            base (spriteSize, form, xPosition, yPosition)
+        public Player(int spriteSize, Form form, int xPosition, int yPosition, Bitmap sprite, Rectangle formRectangle, Controller controller, Random random) :
+            base (spriteSize, form, xPosition, yPosition, sprite)
         {
             this.formRectangle = formRectangle;
             this.spriteSize = spriteSize;

@@ -13,21 +13,10 @@ namespace project_2_space_invaders_legin8
     {
         private int speed;
 
-        public Enemy(int spriteSize, Form form, int xPosition, int yPosition, int speed) : base (spriteSize, form, xPosition, yPosition)
+        public Enemy(int spriteSize, Form form, int xPosition, int yPosition, Bitmap sprite, int speed) : base (spriteSize, form, xPosition, yPosition, sprite)
         {
             this.speed = speed;
             MakeSprite(xPosition, yPosition);
-        }
-
-        private void MakeSprite(int xPosition, int yPosition)
-        {
-            SpriteBox = new PictureBox();
-            SpriteBox.Width = spriteSize;
-            SpriteBox.Height = spriteSize;
-            SpriteBox.Image = Properties.Resources.enemy;
-            SpriteBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            SpriteBox.Location = new Point(xPosition, yPosition);
-            form.Controls.Add(SpriteBox);
         }
 
 

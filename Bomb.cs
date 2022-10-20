@@ -10,7 +10,7 @@ namespace project_2_space_invaders_legin8
 {
     internal class Bomb : Sprite
     {
-        public Bomb(int spriteSize, Form form, int xPosition, int yPosition) : base(spriteSize, form, xPosition, yPosition)
+        public Bomb(int spriteSize, Form form, int xPosition, int yPosition, Bitmap sprite) : base(spriteSize, form, xPosition, yPosition, sprite)
         {
 
         }

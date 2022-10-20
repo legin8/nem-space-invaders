@@ -29,12 +29,12 @@ namespace project_2_space_invaders_legin8
             this.form = form;
             spriteSize = formRectangle.Width / SCALEOFSPRITE;
 
-            player = new Player(spriteSize, form, formRectangle.Width / 2, formRectangle.Bottom - spriteSize, formRectangle, this, random);
+            player = new Player(spriteSize, form, formRectangle.Width / 2, formRectangle.Bottom - spriteSize, Properties.Resources.player, formRectangle, this, random);
             enemies = new List<Enemy>();
             makeEnemy();
             shots = new Shot[15];
 
-            for (int i = 0; i < shots.Length; i++) shots[i] = new Shot(spriteSize, form, player.SpriteBox.Left, player.SpriteBox.Top - spriteSize, random);
+            for (int i = 0; i < shots.Length; i++) shots[i] = new Shot(spriteSize, form, player.SpriteBox.Left, player.SpriteBox.Top - spriteSize, Properties.Resources.shot, random);
 
             goRight = true;
             
@@ -64,7 +64,7 @@ namespace project_2_space_invaders_legin8
                 // This loop is for the columns enemies
                 for (int j = 0; j < ROWS; j++)
                 {
-                    enemies.Add(new Enemy(spriteSize, form, xPosition, yPosition, SPEED));
+                    enemies.Add(new Enemy(spriteSize, form, xPosition, yPosition, Properties.Resources.enemy, SPEED));
                     yPosition += (int) (spriteSize * ENEMYGAP);
                 }
                 // This moves to the next column
