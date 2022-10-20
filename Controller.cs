@@ -28,7 +28,7 @@ namespace project_2_space_invaders_legin8
             this.formRectangle = formRectangle;
             this.form = form;
             spriteSize = formRectangle.Width / SCALEOFSPRITE;
-            player = new Player(formRectangle, form, spriteSize, this, random);
+            player = new Player(spriteSize, form, formRectangle.Width / 2, formRectangle.Bottom - spriteSize, formRectangle, this, random);
             enemies = new List<Enemy>();
             makeEnemy();
             goRight = true;
@@ -58,11 +58,7 @@ namespace project_2_space_invaders_legin8
                 // This loop is for the columns enemies
                 for (int j = 0; j < ROWS; j++)
                 {
-                    
                     enemies.Add(new Enemy(spriteSize, form, xPosition, yPosition, SPEED));
-                    
-
-                    // Code above is for each enemy, below is what spaces out the enemys in the rows
                     yPosition += (int) (spriteSize * ENEMYGAP);
                 }
                 // This moves to the next column

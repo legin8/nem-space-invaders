@@ -9,13 +9,10 @@ using System.Reflection;
 
 namespace project_2_space_invaders_legin8
 {
-    internal class Player
+    internal class Player : Sprite
     {
         private const int SPEEDOFPLAYER = 20;
         private Rectangle formRectangle;
-        private PictureBox playerPictureBoxPlayer;
-        private Form form1;
-        private int spriteSize;
         private PictureBox[] shots;
         private int[] shotsTimeToLive;
         private Controller controller;
@@ -23,10 +20,10 @@ namespace project_2_space_invaders_legin8
 
         public PictureBox[] GetShots => shots;
 
-        public Player(Rectangle formRectangle, Form form1, int spriteSize, Controller controller, Random random)
+        public Player(int spriteSize, Form form, int xPosition, int yPosition, Rectangle formRectangle, Controller controller, Random random) :
+            base (spriteSize, form, xPosition, yPosition)
         {
             this.formRectangle = formRectangle;
-            this.form1 = form1;
             this.spriteSize = spriteSize;
             this.controller = controller;
             this.random = random;
@@ -49,10 +46,10 @@ namespace project_2_space_invaders_legin8
                     tempPictureBoxShot.Height = spriteSize;
                     tempPictureBoxShot.Image = Properties.Resources.shot;
                     tempPictureBoxShot.SizeMode = PictureBoxSizeMode.StretchImage;
-                    tempPictureBoxShot.Location = new Point(playerPictureBoxPlayer.Left, playerPictureBoxPlayer.Top - spriteSize);
+                    tempPictureBoxShot.Location = new Point(pictureBox.Left, pictureBox.Top - spriteSize);
                     shots[i] = tempPictureBoxShot;
                     shotsTimeToLive[i] = random.Next(1, 71);
-                    form1.Controls.Add(tempPictureBoxShot);
+                    form.Controls.Add(tempPictureBoxShot);
                     break;
                 }
             }       
@@ -61,13 +58,13 @@ namespace project_2_space_invaders_legin8
 
         private void makePlayer()
         {
-            playerPictureBoxPlayer = new PictureBox();
-            playerPictureBoxPlayer.Width = spriteSize;
-            playerPictureBoxPlayer.Height = spriteSize;
-            playerPictureBoxPlayer.Image = Properties.Resources.player;
-            playerPictureBoxPlayer.SizeMode = PictureBoxSizeMode.StretchImage;
-            playerPictureBoxPlayer.Location = new Point(formRectangle.Width / 2, formRectangle.Bottom - spriteSize);
-            form1.Controls.Add(playerPictureBoxPlayer);
+            pictureBox = new PictureBox();
+            pictureBox.Width = spriteSize;
+            pictureBox.Height = spriteSize;
+            pictureBox.Image = Properties.Resources.player;
+            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox.Location = new Point(formRectangle.Width / 2, formRectangle.Bottom - spriteSize);
+            form.Controls.Add(pictureBox);
 
         }
 
@@ -75,13 +72,13 @@ namespace project_2_space_invaders_legin8
         {
             if (moveLeft)
             {
-                if (playerPictureBoxPlayer.Left != formRectangle.Left) playerPictureBoxPlayer.Left -= SPEEDOFPLAYER;
-                if (playerPictureBoxPlayer.Left < formRectangle.Left) playerPictureBoxPlayer.Left = formRectangle.Left;
+                if (pictureBox.Left != formRectangle.Left) pictureBox.Left -= SPEEDOFPLAYER;
+                if (pictureBox.Left < formRectangle.Left) pictureBox.Left = formRectangle.Left;
             }
             if (!moveLeft)
             {
-                if (playerPictureBoxPlayer.Right != formRectangle.Right) playerPictureBoxPlayer.Left += SPEEDOFPLAYER;
-                if (playerPictureBoxPlayer.Right > formRectangle.Right) playerPictureBoxPlayer.Left = formRectangle.Right - playerPictureBoxPlayer.Width;
+                if (pictureBox.Right != formRectangle.Right) pictureBox.Left += SPEEDOFPLAYER;
+                if (pictureBox.Right > formRectangle.Right) pictureBox.Left = formRectangle.Right - pictureBox.Width;
             }
         }
 
@@ -125,7 +122,7 @@ namespace project_2_space_invaders_legin8
 
         private void RemoveShot(int shot)
         {
-            form1.Controls.Remove(shots[shot]);
+            form.Controls.Remove(shots[shot]);
             shots[shot] = null;
         }
 
