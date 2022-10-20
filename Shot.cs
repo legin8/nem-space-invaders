@@ -15,22 +15,24 @@ namespace project_2_space_invaders_legin8
 
         public int TimeToLive { get => timeToLive; set => timeToLive = value; }
 
-        public Shot(int spriteSize, Form form, int x, int y, Random random) : base (spriteSize, form, x, y)
+        public Shot(int spriteSize, Form form,int xPosition, int yPosition, Random random) : base (spriteSize, form, xPosition, yPosition)
         {
             this.random = random;
+            Makeshot(xPosition, yPosition);
 
         }
 
-        public void Makeshot()
+        public void Makeshot(int xPosition, int yPosition)
         {
             spriteBox = new PictureBox();
             spriteBox.Width = spriteSize;
             spriteBox.Height = spriteSize;
             spriteBox.Image = Properties.Resources.shot;
             spriteBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            spriteBox.Location = new Point(spriteBox.Left, spriteBox.Top - spriteSize);
+            spriteBox.Location = new Point(xPosition, yPosition);
             timeToLive = random.Next(1, 71);
             form.Controls.Add(spriteBox);
+            Console.WriteLine("MakeShot");
         }
     }
 }

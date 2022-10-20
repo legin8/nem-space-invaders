@@ -11,9 +11,11 @@ namespace project_2_space_invaders_legin8
     internal class Controller
     {
         // Class Variables
-        private const int GAPRIGHT = 200, SPEED = 5, SCALEOFSPRITE = 26;
+        private const int SPEED = 5, SCALEOFSPRITE = 26;
         private Rectangle formRectangle;
         private Form form;
+        private Random random;
+
         private Player player;
         private List<Enemy> enemies;
         private Shot[] shots;
@@ -21,20 +23,19 @@ namespace project_2_space_invaders_legin8
         private int spriteSize, enemyDownCounter;
         private bool goRight;
 
-        // Class Gets and Sets
-        public List<Enemy> GetEnemies { get => enemies; set => enemies = value; } // check if I need this set later!!!!!!!!!!!!
-
         // Class Constructor
         public Controller(Rectangle formRectangle, Form form, Random random)
         {
             this.formRectangle = formRectangle;
             this.form = form;
+            this.random = random;
             spriteSize = formRectangle.Width / SCALEOFSPRITE;
             player = new Player(spriteSize, form, formRectangle.Width / 2, formRectangle.Bottom - spriteSize, formRectangle, this, random);
             enemies = new List<Enemy>();
             makeEnemy();
             goRight = true;
             shots = new Shot[15];
+            
         }
 
         // This updates the formRectangle on resizing the form
@@ -204,9 +205,13 @@ namespace project_2_space_invaders_legin8
         // Fires a shot from the player
         public void Shot()
         {
-            foreach (Shot shot in shots)
+            for (int i = 0; i < shots.Length; i++)
             {
-                if (shot != null) shot.Makeshot();
+                if (shots[i] == null)
+                {
+                    shots[i] = new Shot(spriteSize, form, player.SpriteBox.Left, player.SpriteBox.Top - spriteSize, random);
+                    break;
+                }
             }
         } 
     }
