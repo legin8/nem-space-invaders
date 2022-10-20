@@ -13,8 +13,6 @@ namespace project_2_space_invaders_legin8
     {
         private int speed;
 
-        public PictureBox GetPictureBox { get => pictureBox; set => pictureBox = value; }
-
         public Enemy(int spriteSize, Form form, int xPosition, int yPosition, int speed) : base (spriteSize, form, xPosition, yPosition)
         {
             this.speed = speed;
@@ -23,29 +21,29 @@ namespace project_2_space_invaders_legin8
 
         private void MakeSprite(int xPosition, int yPosition)
         {
-            pictureBox = new PictureBox();
-            pictureBox.Width = spriteSize;
-            pictureBox.Height = spriteSize;
-            pictureBox.Image = Properties.Resources.enemy;
-            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox.Location = new Point(xPosition, yPosition);
-            form.Controls.Add(pictureBox);
+            SpriteBox = new PictureBox();
+            SpriteBox.Width = spriteSize;
+            SpriteBox.Height = spriteSize;
+            SpriteBox.Image = Properties.Resources.enemy;
+            SpriteBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            SpriteBox.Location = new Point(xPosition, yPosition);
+            form.Controls.Add(SpriteBox);
         }
 
 
         public void MoveRight()
         {
-            pictureBox.Left += speed;
+            SpriteBox.Left += speed;
         }
 
         public void MoveLeft()
         {
-            pictureBox.Left -= speed;
+            SpriteBox.Left -= speed;
         }
 
         public void MoveDown()
         {
-            pictureBox.Top += speed;
+            SpriteBox.Top += speed;
         }
     }
 }

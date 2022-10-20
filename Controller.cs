@@ -16,6 +16,8 @@ namespace project_2_space_invaders_legin8
         private Form form;
         private Player player;
         private List<Enemy> enemies;
+        private Shot[] shots;
+
         private int spriteSize, enemyDownCounter;
         private bool goRight;
 
@@ -32,6 +34,7 @@ namespace project_2_space_invaders_legin8
             enemies = new List<Enemy>();
             makeEnemy();
             goRight = true;
+            shots = new Shot[15];
         }
 
         // This updates the formRectangle on resizing the form
@@ -71,8 +74,48 @@ namespace project_2_space_invaders_legin8
         {
             moveEnemy();
 
-            foreach (PictureBox shot in player.GetShots) if (shot != null) shot.Top -= 10;
-            player.GetRidOfShot();
+            foreach (Shot shot in shots) if (shot != null) shot.SpriteBox.Top -= 10;
+            ColisionDetection();
+        }
+
+        public void ColisionDetection()
+        {
+            // Checks if the shot is hitting the top of the screen
+            foreach (Shot shot in shots)
+            {
+                if (shot != null && shot.SpriteBox.Top <= formRectangle.Top) RemoveShot(shot);
+                shot.TimeToLive--;
+            }
+
+            // Checks if the shots are hitting the enemy
+            foreach (Shot shot in shots)
+            {
+                foreach (Enemy enemy in enemies)
+                {
+                    if (enemy != null && shot != null && enemy.SpriteBox != null &&
+                        shot.SpriteBox.Top <= enemy.SpriteBox.Bottom && shot.SpriteBox.Top >= enemy.SpriteBox.Top &&
+                        shot.SpriteBox.Left <= enemy.SpriteBox.Right && shot.SpriteBox.Right >= enemy.SpriteBox.Left)
+                    {
+                        RemoveShot(shot);
+                        DestroyEnemy(enemy);
+                    }
+                }
+            }
+
+            foreach (Shot shot in shots)
+            {
+                if (shot.TimeToLive == 0)
+                {
+                    RemoveShot(shot);
+                    shot.TimeToLive--;
+                }
+            }
+        }
+
+        private void RemoveShot(Shot shot)
+        {
+            form.Controls.Remove(shot.SpriteBox);
+            shot = null;
         }
 
         // Code for moving the enemies
@@ -85,8 +128,8 @@ namespace project_2_space_invaders_legin8
             // These both check if any enemy is at the edge of the screen
             if (goRight) foreach (Enemy enemy in enemies)
                 {
-                    if (enemy.GetPictureBox != null &&
-                        enemy.GetPictureBox.Right >= formRectangle.Right)
+                    if (enemy.SpriteBox != null &&
+                        enemy.SpriteBox.Right >= formRectangle.Right)
                     {
                         isSideOfScreen = true;
                     }
@@ -95,8 +138,8 @@ namespace project_2_space_invaders_legin8
             // This only runs if enemies are going left
             if (!goRight) foreach (Enemy enemy in enemies)
                 {
-                    if (enemy.GetPictureBox != null &&
-                        enemy.GetPictureBox.Left <= formRectangle.Left)
+                    if (enemy.SpriteBox != null &&
+                        enemy.SpriteBox.Left <= formRectangle.Left)
                     {
                         isSideOfScreen = true;
                     }
@@ -105,8 +148,8 @@ namespace project_2_space_invaders_legin8
             // This will move each enemy Right
             if (!isSideOfScreen && goRight) foreach (Enemy enemy in enemies)
                 {
-                    if (enemy.GetPictureBox != null &&
-                        enemy.GetPictureBox.Right <= formRectangle.Right)
+                    if (enemy.SpriteBox != null &&
+                        enemy.SpriteBox.Right <= formRectangle.Right)
                     {
                         enemy.MoveRight();
                     }
@@ -115,8 +158,8 @@ namespace project_2_space_invaders_legin8
             // This will move each enemy Left
             if (!isSideOfScreen && !goRight) foreach (Enemy enemy in enemies)
                 {
-                    if (enemy.GetPictureBox != null &&
-                        enemy.GetPictureBox.Left >= formRectangle.Left)
+                    if (enemy.SpriteBox != null &&
+                        enemy.SpriteBox.Left >= formRectangle.Left)
                     {
                         enemy.MoveLeft();
                     }
@@ -125,7 +168,7 @@ namespace project_2_space_invaders_legin8
             // This moves the enemy down the size of the sprites
             if (isSideOfScreen && enemyDownCounter <= spriteSize)
             {
-                foreach (Enemy enemy in enemies) if (enemy.GetPictureBox != null)
+                foreach (Enemy enemy in enemies) if (enemy.SpriteBox != null)
                     {
                         enemy.MoveDown();
                     }
@@ -142,10 +185,10 @@ namespace project_2_space_invaders_legin8
 
         // Destroy Enemy works by first removing the enemy picturebox from the control and then sets the
         // enemy picture box to null
-        public void DestroyEnemy(int enemy)
+        public void DestroyEnemy(Enemy enemy)
         {
-            form.Controls.Remove(enemies[enemy].GetPictureBox);
-            enemies[enemy].GetPictureBox = null;
+            form.Controls.Remove(enemy.SpriteBox);
+            enemy.SpriteBox = null;
         }
 
         // Moves the player left or right
@@ -157,7 +200,10 @@ namespace project_2_space_invaders_legin8
         // Fires a shot from the player
         public void Shot()
         {
-            player.Shot();
+            foreach (Shot shot in shots)
+            {
+                if (shot != null) shot.Makeshot();
+            }
         } 
     }
 }
