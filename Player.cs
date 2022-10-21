@@ -11,21 +11,17 @@ namespace project_2_space_invaders_legin8
 {
     internal class Player : Sprite
     {
-        private readonly Bitmap BITMAP = Properties.Resources.player;
+        private readonly Bitmap SPRITEIMAGE = Properties.Resources.player;
         private const int SPEEDOFPLAYER = 20;
         private Rectangle formRectangle;
-        private Controller controller;
-        private Random random;
 
         
-        public Player(int spriteSize, Form form, int xPosition, int yPosition, Bitmap sprite, Rectangle formRectangle, Controller controller, Random random) :
-            base (spriteSize, form, xPosition, yPosition, sprite)
+        public Player(int spriteSize, Form form, int xPosition, int yPosition, Rectangle formRectangle) :
+            base (spriteSize, form, xPosition, yPosition)
         {
             this.formRectangle = formRectangle;
             this.spriteSize = spriteSize;
-            this.controller = controller;
-            this.random = random;
-            MakeSprite(xPosition, yPosition, BITMAP);
+            MakeSprite(xPosition, yPosition, SPRITEIMAGE);
         }
 
 

@@ -13,22 +13,20 @@ namespace project_2_space_invaders_legin8
         protected Form form;
         protected PictureBox spriteBox;
         protected int spriteSize;
-        protected Bitmap bitmap;
 
         public PictureBox SpriteBox { get => spriteBox; set => spriteBox = value; }
-        public Sprite(int spriteSize, Form form, int xPosition, int yPosition, Bitmap sprite)
+        public Sprite(int spriteSize, Form form, int xPosition, int yPosition)
         {
             this.spriteSize = spriteSize;
             this.form = form;
-            bitmap = sprite;
         }
 
-        protected virtual void MakeSprite(int xPosition, int yPosition, Bitmap BITMAP)
+        protected virtual void MakeSprite(int xPosition, int yPosition, Bitmap SPRITEIMAGE)
         {
             SpriteBox = new PictureBox();
             SpriteBox.Width = spriteSize;
             SpriteBox.Height = spriteSize;
-            SpriteBox.Image = BITMAP;
+            SpriteBox.Image = SPRITEIMAGE;
             SpriteBox.SizeMode = PictureBoxSizeMode.StretchImage;
             SpriteBox.Location = new Point(xPosition, yPosition);
             form.Controls.Add(SpriteBox);
