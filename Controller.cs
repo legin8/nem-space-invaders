@@ -208,6 +208,12 @@ namespace project_2_space_invaders_legin8
                     break;
                 }
             }
-        } 
+        }
+
+        // Drops Bombs on player
+        public void DropBomb()
+        {
+
+        }
     }
 }
