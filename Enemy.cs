@@ -14,7 +14,7 @@ namespace project_2_space_invaders_legin8
         private readonly Bitmap SPRITEIMAGE = Properties.Resources.enemy;
         private int speed;
 
-        public Enemy(int spriteSize, Form form, int xPosition, int yPosition, int speed) : base (spriteSize, form, xPosition, yPosition)
+        public Enemy(int spriteSize, Form form, int xPosition, int yPosition, int speed) : base (spriteSize, form)
         {
             this.speed = speed;
             MakeSprite(xPosition, yPosition, SPRITEIMAGE);

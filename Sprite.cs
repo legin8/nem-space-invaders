@@ -15,7 +15,7 @@ namespace project_2_space_invaders_legin8
         protected int spriteSize;
 
         public PictureBox SpriteBox { get => spriteBox; set => spriteBox = value; }
-        public Sprite(int spriteSize, Form form, int xPosition, int yPosition)
+        public Sprite(int spriteSize, Form form)
         {
             this.spriteSize = spriteSize;
             this.form = form;

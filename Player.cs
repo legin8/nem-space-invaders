@@ -17,7 +17,7 @@ namespace project_2_space_invaders_legin8
 
         
         public Player(int spriteSize, Form form, int xPosition, int yPosition, Rectangle formRectangle) :
-            base (spriteSize, form, xPosition, yPosition)
+            base (spriteSize, form)
         {
             this.formRectangle = formRectangle;
             this.spriteSize = spriteSize;

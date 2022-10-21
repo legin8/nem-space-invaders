@@ -34,7 +34,7 @@ namespace project_2_space_invaders_legin8
             makeEnemy();
             shots = new Shot[15];
 
-            for (int i = 0; i < shots.Length; i++) shots[i] = new Shot(spriteSize, form, player.SpriteBox.Left, player.SpriteBox.Top - spriteSize, random);
+            for (int i = 0; i < shots.Length; i++) shots[i] = new Shot(spriteSize, form, random);
 
             goRight = true;
             
