@@ -31,5 +31,11 @@ namespace project_2_space_invaders_legin8
             SpriteBox.Location = new Point(xPosition, yPosition);
             form.Controls.Add(SpriteBox);
         }
+
+        public void RemoveSprite(Sprite sprite)
+        {
+            form.Controls.Remove(sprite.SpriteBox);
+            sprite.SpriteBox = null;
+        }
     }
 }

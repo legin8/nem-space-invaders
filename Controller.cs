@@ -79,7 +79,7 @@ namespace project_2_space_invaders_legin8
             // Calls method that moves the enemys
             moveEnemy();
             // Removes shot at its random time
-            foreach (Shot shot in shots) if (shot != null && shot.TimeToLive == 0) DestroySprite(shot);
+            foreach (Shot shot in shots) if (shot != null && shot.TimeToLive == 0) shot.RemoveSprite(shot);
             // Moves the shot each timer tick
             foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.SpriteBox.Top -= 10;
             // Calls method for colision detection between PictureBoxs
@@ -94,7 +94,7 @@ namespace project_2_space_invaders_legin8
                 if (shot.SpriteBox != null)
                 {
                     shot.TimeToLive--;
-                    if (shot.SpriteBox.Top <= formRectangle.Top) DestroySprite(shot);
+                    if (shot.SpriteBox.Top <= formRectangle.Top) shot.RemoveSprite(shot);
                 }
             }
 
@@ -109,8 +109,8 @@ namespace project_2_space_invaders_legin8
                         shot.SpriteBox.Top <= enemy.SpriteBox.Bottom && shot.SpriteBox.Top >= enemy.SpriteBox.Top &&
                         shot.SpriteBox.Left <= enemy.SpriteBox.Right && shot.SpriteBox.Right >= enemy.SpriteBox.Left)
                     {
-                        DestroySprite(shot);
-                        DestroySprite(enemy);
+                        shot.RemoveSprite(shot);
+                        enemy.RemoveSprite(enemy);
                     }
                 }
             }
@@ -118,11 +118,7 @@ namespace project_2_space_invaders_legin8
 
         // Destroy Enemy works by first removing the enemy picturebox from the control and then sets the
         // enemy picture box to null
-        public void DestroySprite(Sprite sprite)
-        {
-            form.Controls.Remove(sprite.SpriteBox);
-            sprite.SpriteBox = null;
-        }
+        
 
         
 
