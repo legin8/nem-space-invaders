@@ -22,7 +22,9 @@ namespace project_2_space_invaders_legin8
 
         public override void MoveSprite(string direction)
         {
-
+            if (direction == "RIGHT") SpriteBox.Left += speed;
+            if (direction == "LEFT") SpriteBox.Left -= speed;
+            if (direction == "DOWN") SpriteBox.Top += speed;
         }
 
         public void MoveRight()
