@@ -37,20 +37,5 @@ namespace project_2_space_invaders_legin8
                 if (spriteBox.Right > formRectangle.Right) spriteBox.Left = formRectangle.Right - spriteBox.Width;
             }
         }
-
-
-        public void MovePlayer(bool moveLeft)
-        {
-            if (moveLeft)
-            {
-                if (spriteBox.Left != formRectangle.Left) spriteBox.Left -= SPEEDOFPLAYER;
-                if (spriteBox.Left < formRectangle.Left) spriteBox.Left = formRectangle.Left;
-            }
-            if (!moveLeft)
-            {
-                if (spriteBox.Right != formRectangle.Right) spriteBox.Left += SPEEDOFPLAYER;
-                if (spriteBox.Right > formRectangle.Right) spriteBox.Left = formRectangle.Right - spriteBox.Width;
-            }
-        }
     }
 }
