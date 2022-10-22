@@ -13,18 +13,24 @@ namespace project_2_space_invaders_legin8
     {
         private readonly Bitmap SPRITEIMAGE = Properties.Resources.enemy;
         private int speed;
+        private Rectangle formRectangle;
 
-        public Enemy(int spriteSize, Form form, int xPosition, int yPosition, int speed) : base (spriteSize, form)
+        public Enemy(int spriteSize, Form form, int xPosition, int yPosition, int speed, Rectangle formRectangle) : 
+            base (spriteSize, form)
         {
             this.speed = speed;
+            this.formRectangle = formRectangle;
             MakeSprite(xPosition, yPosition, SPRITEIMAGE);
         }
 
         public override void MoveSprite(string direction)
         {
-            if (direction == "RIGHT") SpriteBox.Left += speed;
-            if (direction == "LEFT") SpriteBox.Left -= speed;
-            if (direction == "DOWN") SpriteBox.Top += speed;
+            if (direction == "RIGHT") spriteBox.Left += speed;
+            if (direction == "LEFT") spriteBox.Left -= speed;
+            if (direction == "DOWN") spriteBox.Top += speed;
+
+            if (spriteBox.Left < formRectangle.Left) spriteBox.Left = formRectangle.Left;
+            if (spriteBox.Right > formRectangle.Right) spriteBox.Left = formRectangle.Right - spriteSize;
         }
     }
 }

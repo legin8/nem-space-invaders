@@ -64,7 +64,7 @@ namespace project_2_space_invaders_legin8
                 // This loop is for the columns enemies
                 for (int j = 0; j < ROWS; j++)
                 {
-                    enemies.Add(new Enemy(spriteSize, form, xPosition, yPosition, SPEED));
+                    enemies.Add(new Enemy(spriteSize, form, xPosition, yPosition, SPEED, formRectangle));
                     yPosition += (int) (spriteSize * ENEMYGAP);
                 }
                 // This moves to the next column
@@ -180,7 +180,8 @@ namespace project_2_space_invaders_legin8
         // Moves the player left or right
         public void MovePlayer(bool moveLeft)
         {
-            player.MovePlayer(moveLeft);
+            if (moveLeft) player.MoveSprite("LEFT");
+            if (!moveLeft) player.MoveSprite("RIGHT");
         }
 
         // Fires a shot from the player
