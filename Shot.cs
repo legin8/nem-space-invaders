@@ -33,5 +33,10 @@ namespace project_2_space_invaders_legin8
             timeToLive = random.Next(1, 71);
             form.Controls.Add(spriteBox);
         }
+
+        public override void MoveSprite(string direction)
+        {
+
+        }
     }
 }

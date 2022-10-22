@@ -24,7 +24,10 @@ namespace project_2_space_invaders_legin8
             MakeSprite(xPosition, yPosition, SPRITEIMAGE);
         }
 
+        public override void MoveSprite(string direction)
+        {
 
+        }
 
 
         public void MovePlayer(bool moveLeft)

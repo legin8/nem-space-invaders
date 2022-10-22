@@ -32,6 +32,11 @@ namespace project_2_space_invaders_legin8
             form.Controls.Add(SpriteBox);
         }
 
+        // This Will move the sprite, each class will be different movement so it will be blank
+        public abstract void MoveSprite(string direction);
+
+
+        // This Removes the sprite from the screen
         public void RemoveSprite(Sprite sprite)
         {
             form.Controls.Remove(sprite.SpriteBox);
