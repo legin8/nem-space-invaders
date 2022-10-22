@@ -20,7 +20,7 @@ namespace project_2_space_invaders_legin8
         private Shot[] shots;
 
         private int spriteSize, enemyDownCounter;
-        private bool goRight;
+        private bool goRight, isSideOfScreen;
 
         // Class Constructor
         public Controller(Rectangle formRectangle, Form form, Random random)
@@ -37,8 +37,8 @@ namespace project_2_space_invaders_legin8
             for (int i = 0; i < shots.Length; i++) shots[i] = new Shot(spriteSize, form, random);
 
             goRight = true;
-            
-            
+            isSideOfScreen = false;
+
         }
 
         // This updates the formRectangle on resizing the form
@@ -81,7 +81,7 @@ namespace project_2_space_invaders_legin8
             // Removes shot at its random time
             foreach (Shot shot in shots) if (shot != null && shot.TimeToLive == 0) shot.RemoveSprite(shot);
             // Moves the shot each timer tick
-            foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.SpriteBox.Top -= 10;
+            foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.MoveSprite("UP");
             // Calls method for colision detection between PictureBoxs
             ColisionDetection();
         }
@@ -116,8 +116,7 @@ namespace project_2_space_invaders_legin8
             }
         }
 
-        // Destroy Enemy works by first removing the enemy picturebox from the control and then sets the
-        // enemy picture box to null
+        
         
 
         
@@ -126,36 +125,14 @@ namespace project_2_space_invaders_legin8
         private void moveEnemy()
         {
             const int RESETCOUNTER = 0;
-            bool isSideOfScreen = false;
-
-            // Only one of these will run each timer tick
-            // These both check if any enemy is at the edge of the screen
-            if (goRight) foreach (Enemy enemy in enemies)
-                {
-                    if (enemy.SpriteBox != null &&
-                        enemy.SpriteBox.Right >= formRectangle.Right)
-                    {
-                        isSideOfScreen = true;
-                    }
-                }
-
-            // This only runs if enemies are going left
-            if (!goRight) foreach (Enemy enemy in enemies)
-                {
-                    if (enemy.SpriteBox != null &&
-                        enemy.SpriteBox.Left <= formRectangle.Left)
-                    {
-                        isSideOfScreen = true;
-                    }
-                }
-
+            
             // This will move each enemy Right
             if (!isSideOfScreen && goRight) foreach (Enemy enemy in enemies)
                 {
                     if (enemy.SpriteBox != null &&
                         enemy.SpriteBox.Right <= formRectangle.Right)
                     {
-                        enemy.MoveRight();
+                        enemy.MoveSprite("RIGHT");
                     }
                 }
 
@@ -165,7 +142,7 @@ namespace project_2_space_invaders_legin8
                     if (enemy.SpriteBox != null &&
                         enemy.SpriteBox.Left >= formRectangle.Left)
                     {
-                        enemy.MoveLeft();
+                        enemy.MoveSprite("LEFT");
                     }
                 }
 
@@ -174,16 +151,29 @@ namespace project_2_space_invaders_legin8
             {
                 foreach (Enemy enemy in enemies) if (enemy.SpriteBox != null)
                     {
-                        enemy.MoveDown();
+                        enemy.MoveSprite("DOWN");
                     }
                 enemyDownCounter += SPEED;
             }
+
+
+
+            // Checks if any enemies are at the side if not already at the side
+            if (!isSideOfScreen) foreach (Enemy enemy in enemies)
+                {
+                    if (enemy.SpriteBox != null && enemy.SpriteBox.Right >= formRectangle.Right ||
+                        enemy.SpriteBox != null && enemy.SpriteBox.Left <= formRectangle.Left)
+                    {
+                        isSideOfScreen = true;
+                    }
+                }
 
             // Stops the enemys from moving down once they have gone their own size and inverts goRight
             if (enemyDownCounter >= spriteSize)
             {
                 enemyDownCounter = RESETCOUNTER;
                 goRight = !goRight;
+                isSideOfScreen = !isSideOfScreen;
             }
         }
 

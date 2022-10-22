@@ -26,20 +26,5 @@ namespace project_2_space_invaders_legin8
             if (direction == "LEFT") SpriteBox.Left -= speed;
             if (direction == "DOWN") SpriteBox.Top += speed;
         }
-
-        public void MoveRight()
-        {
-            SpriteBox.Left += speed;
-        }
-
-        public void MoveLeft()
-        {
-            SpriteBox.Left -= speed;
-        }
-
-        public void MoveDown()
-        {
-            SpriteBox.Top += speed;
-        }
     }
 }
