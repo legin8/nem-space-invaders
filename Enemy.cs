@@ -13,10 +13,9 @@ namespace project_2_space_invaders_legin8
     {
         private readonly Bitmap SPRITEIMAGE = Properties.Resources.enemy;
         private int speed;
-        private Rectangle formRectangle;
 
-        public Enemy(int spriteSize, Form form, int xPosition, int yPosition, int speed, Rectangle formRectangle) : 
-            base (spriteSize, form)
+        public Enemy(int spriteSize, Form form, Rectangle formRectangle, int xPosition, int yPosition, int speed) : 
+            base (spriteSize, form, formRectangle)
         {
             this.speed = speed;
             this.formRectangle = formRectangle;
@@ -31,6 +30,7 @@ namespace project_2_space_invaders_legin8
 
             if (spriteBox.Left < formRectangle.Left) spriteBox.Left = formRectangle.Left;
             if (spriteBox.Right > formRectangle.Right) spriteBox.Left = formRectangle.Right - spriteSize;
+            //if (spriteBox.Bottom > formRectangle.Bottom) spriteBox.Top = formRectangle.Bottom - spriteSize;
         }
     }
 }

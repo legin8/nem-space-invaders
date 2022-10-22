@@ -16,7 +16,7 @@ namespace project_2_space_invaders_legin8
 
         public int TimeToLive { get => timeToLive; set => timeToLive = value; }
 
-        public Bomb(int spriteSize, Form form, Random random) : base(spriteSize, form)
+        public Bomb(int spriteSize, Form form, Rectangle formRectangle, Random random) : base(spriteSize, form, formRectangle)
         {
             this.random = random;
         }

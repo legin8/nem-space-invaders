@@ -29,24 +29,18 @@ namespace project_2_space_invaders_legin8
             this.form = form;
             spriteSize = formRectangle.Width / SCALEOFSPRITE;
 
-            player = new Player(spriteSize, form, formRectangle.Width / 2, formRectangle.Bottom - spriteSize, formRectangle);
+            player = new Player(spriteSize, form, formRectangle, formRectangle.Width / 2, formRectangle.Bottom - spriteSize);
             enemies = new List<Enemy>();
             makeEnemy();
             shots = new Shot[15];
 
-            for (int i = 0; i < shots.Length; i++) shots[i] = new Shot(spriteSize, form, random);
+            for (int i = 0; i < shots.Length; i++) shots[i] = new Shot(spriteSize, form, formRectangle, random);
 
             goRight = true;
             isSideOfScreen = false;
 
         }
 
-        // This updates the formRectangle on resizing the form
-        public void ReSizeScreen(Rectangle formRec)
-        {
-            formRectangle = formRec;
-            spriteSize = formRec.Width / SCALEOFSPRITE;
-        }
 
         // This is called from the constructor and makes the enemies
         // 4 rows and 10 columns
@@ -64,7 +58,7 @@ namespace project_2_space_invaders_legin8
                 // This loop is for the columns enemies
                 for (int j = 0; j < ROWS; j++)
                 {
-                    enemies.Add(new Enemy(spriteSize, form, xPosition, yPosition, SPEED, formRectangle));
+                    enemies.Add(new Enemy(spriteSize, form, formRectangle, xPosition, yPosition, SPEED));
                     yPosition += (int) (spriteSize * ENEMYGAP);
                 }
                 // This moves to the next column
@@ -78,8 +72,6 @@ namespace project_2_space_invaders_legin8
         {
             // Calls method that moves the enemys
             moveEnemy();
-            // Removes shot at its random time
-            foreach (Shot shot in shots) if (shot != null && shot.TimeToLive == 0) shot.RemoveSprite(shot);
             // Moves the shot each timer tick
             foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.MoveSprite("UP");
             // Calls method for colision detection between PictureBoxs
@@ -88,17 +80,7 @@ namespace project_2_space_invaders_legin8
 
         public void ColisionDetection()
         {
-            // Checks if the shot is hitting the top of the screen and bring the shot closer to its random death
-            foreach (Shot shot in shots)
-            {
-                if (shot.SpriteBox != null)
-                {
-                    shot.TimeToLive--;
-                    if (shot.SpriteBox.Top <= formRectangle.Top) shot.RemoveSprite(shot);
-                }
-            }
-
-            // Checks if the shots are hitting the enemy
+            // This checks for a colision between the shot and the enemy sprite
             foreach (Shot shot in shots)
             {
                 foreach (Enemy enemy in enemies)
@@ -116,36 +98,18 @@ namespace project_2_space_invaders_legin8
             }
         }
 
-        
-        
-
-        
-
         // Code for moving the enemies
         private void moveEnemy()
         {
             const int RESETCOUNTER = 0;
             
-            // This will move each enemy Right
-            if (!isSideOfScreen && goRight) foreach (Enemy enemy in enemies)
+            // This will move each enemy Left and Right
+            if (!isSideOfScreen) foreach (Enemy enemy in enemies)
                 {
-                    if (enemy.SpriteBox != null &&
-                        enemy.SpriteBox.Right <= formRectangle.Right)
-                    {
-                        enemy.MoveSprite("RIGHT");
-                    }
+                    if (enemy.SpriteBox != null && goRight) enemy.MoveSprite("RIGHT");
+                    if (enemy.SpriteBox != null && !goRight) enemy.MoveSprite("LEFT");
                 }
-
-            // This will move each enemy Left
-            if (!isSideOfScreen && !goRight) foreach (Enemy enemy in enemies)
-                {
-                    if (enemy.SpriteBox != null &&
-                        enemy.SpriteBox.Left >= formRectangle.Left)
-                    {
-                        enemy.MoveSprite("LEFT");
-                    }
-                }
-
+            
             // This moves the enemy down the size of the sprites
             if (isSideOfScreen && enemyDownCounter <= spriteSize)
             {
@@ -155,8 +119,6 @@ namespace project_2_space_invaders_legin8
                     }
                 enemyDownCounter += SPEED;
             }
-
-
 
             // Checks if any enemies are at the side if not already at the side
             if (!isSideOfScreen) foreach (Enemy enemy in enemies)

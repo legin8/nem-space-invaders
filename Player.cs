@@ -13,11 +13,10 @@ namespace project_2_space_invaders_legin8
     {
         private readonly Bitmap SPRITEIMAGE = Properties.Resources.player;
         private const int SPEEDOFPLAYER = 20;
-        private Rectangle formRectangle;
 
         
-        public Player(int spriteSize, Form form, int xPosition, int yPosition, Rectangle formRectangle) :
-            base (spriteSize, form)
+        public Player(int spriteSize, Form form, Rectangle formRectangle, int xPosition, int yPosition) :
+            base (spriteSize, form, formRectangle)
         {
             this.formRectangle = formRectangle;
             this.spriteSize = spriteSize;

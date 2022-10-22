@@ -12,13 +12,15 @@ namespace project_2_space_invaders_legin8
     {
         protected Form form;
         protected PictureBox spriteBox;
+        protected Rectangle formRectangle;
         protected int spriteSize;
 
         public PictureBox SpriteBox { get => spriteBox; set => spriteBox = value; }
-        public Sprite(int spriteSize, Form form)
+        public Sprite(int spriteSize, Form form, Rectangle formRectangle)
         {
             this.spriteSize = spriteSize;
             this.form = form;
+            this.formRectangle = formRectangle;
         }
 
         protected virtual void MakeSprite(int xPosition, int yPosition, Bitmap SPRITEIMAGE)
