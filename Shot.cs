@@ -10,23 +10,22 @@ namespace project_2_space_invaders_legin8
 {
     internal class Shot : Sprite
     {
-        private readonly Bitmap SPRITEIMAGE = Properties.Resources.shot;
         private const int TIMETODIE = 0;
         private int timeToLive;
         private Random random;
 
-        public Shot(int spriteSize, Form form, Rectangle formRectangle, Random random) : base (spriteSize, form, formRectangle)
+        public Shot(int spriteSize, Form form, Random random, int xPosition, int yPosition) : base (spriteSize, form, xPosition, yPosition)
         {
             this.random = random;
-
+            spriteImage = Properties.Resources.shot;
         }
 
-        public void MakeSprite(int xPosition, int yPosition)
+        public override void MakeSprite(int xPosition, int yPosition)
         {
             spriteBox = new PictureBox();
             spriteBox.Width = spriteSize;
             spriteBox.Height = spriteSize;
-            spriteBox.Image = SPRITEIMAGE;
+            spriteBox.Image = spriteImage;
             spriteBox.SizeMode = PictureBoxSizeMode.StretchImage;
             spriteBox.Location = new Point(xPosition, yPosition);
             timeToLive = random.Next(1, 71);

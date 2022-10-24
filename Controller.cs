@@ -11,14 +11,14 @@ namespace project_2_space_invaders_legin8
     internal class Controller
     {
         // Class Variables
-        private const int SPEED = 5, SCALEOFSPRITE = 26, COLUMNS = 10, ROWS = 4;
+        private const int SPEED = 5, SCALEOFSPRITE = 26, COLUMNS = 10, ROWS = 4, MAXSHOTS = 15;
         private Rectangle formRectangle;
         private Form form;
         private Random random;
 
         private Player player;
         private List<Enemy> enemies;
-        private Shot[] shots;
+        private List<Shot> shots;
         private List<Bomb> bombs;
 
         private int spriteSize, enemyDownCounter;
@@ -32,13 +32,13 @@ namespace project_2_space_invaders_legin8
             this.random = random;
             spriteSize = formRectangle.Width / SCALEOFSPRITE;
 
-            player = new Player(spriteSize, form, formRectangle, formRectangle.Width / 2, formRectangle.Bottom - spriteSize);
+            player = new Player(spriteSize, form, formRectangle.Width / 2, formRectangle.Bottom - spriteSize);
             enemies = new List<Enemy>();
             makeEnemy();
-            shots = new Shot[15];
+            shots = new List<Shot>();
             bombs = new List<Bomb>();
 
-            for (int i = 0; i < shots.Length; i++) shots[i] = new Shot(spriteSize, form, formRectangle, random);
+            shots = new List<Shot>();
 
             goRight = true;
             isSideOfScreen = false;
@@ -61,7 +61,7 @@ namespace project_2_space_invaders_legin8
                 // This loop is for the columns enemies
                 for (int j = 0; j < ROWS; j++)
                 {
-                    enemies.Add(new Enemy(spriteSize, form, formRectangle, xPosition, yPosition, SPEED));
+                    enemies.Add(new Enemy(spriteSize, form, xPosition, yPosition, SPEED));
                     yPosition += (int) (spriteSize * ENEMYGAP);
                 }
                 // This moves to the next column
@@ -80,6 +80,7 @@ namespace project_2_space_invaders_legin8
             // Calls method for colision detection between PictureBoxs
             ColisionDetection();
             DropBomb();
+            removeSprites();
         }
 
         public void ColisionDetection()
@@ -153,15 +154,19 @@ namespace project_2_space_invaders_legin8
         // Fires a shot from the player
         public void Shot()
         {
-            for (int i = 0; i < shots.Length; i++)
+            if (shots.Count < MAXSHOTS)
             {
-                if (shots[i].SpriteBox == null)
-                {
-                    shots[i].MakeSprite(player.SpriteBox.Left, player.SpriteBox.Top - spriteSize);
-                    break;
-                }
+                shots.Add(new Shot(spriteSize,form,random, player.SpriteBox.Left, player.SpriteBox.Top - spriteSize));
             }
         }
+
+        // Removes the sprites
+        private void removeSprites()
+        {
+            foreach (Enemy enemy in enemies) if (enemy.SpriteBox == null) enemies.Remove(enemy);
+            foreach (Shot shot in shots) if (shot.SpriteBox == null) shots.Remove(shot);
+        }
+
 
         // Drops Bombs on player
         public void DropBomb()
@@ -185,8 +190,8 @@ namespace project_2_space_invaders_legin8
                 if (random.Next(100) == 99)
                 {
                     Console.WriteLine("Bomb Dropped");
-                    bombs.Add(new Bomb(spriteSize, form, formRectangle, random, tempEnemies[i].SpriteBox.Left,
-                        tempEnemies[i].SpriteBox.Bottom));
+                    bombs.Add(new Bomb(spriteSize, form, tempEnemies[i].SpriteBox.Left,
+                        tempEnemies[i].SpriteBox.Bottom, random));
                 }
             }
 

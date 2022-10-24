@@ -11,15 +11,13 @@ namespace project_2_space_invaders_legin8
 {
     internal class Enemy : Sprite
     {
-        private readonly Bitmap SPRITEIMAGE = Properties.Resources.enemy;
         private int speed;
 
-        public Enemy(int spriteSize, Form form, Rectangle formRectangle, int xPosition, int yPosition, int speed) : 
-            base (spriteSize, form, formRectangle)
+        public Enemy(int spriteSize, Form form, int xPosition, int yPosition, int speed) : 
+            base (spriteSize, form, xPosition, yPosition)
         {
             this.speed = speed;
-            this.formRectangle = formRectangle;
-            MakeSprite(xPosition, yPosition, SPRITEIMAGE);
+            spriteImage = Properties.Resources.enemy;
         }
 
         public override void MoveSprite(string direction)

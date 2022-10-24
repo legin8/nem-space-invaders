@@ -11,16 +11,14 @@ namespace project_2_space_invaders_legin8
 {
     internal class Player : Sprite
     {
-        private readonly Bitmap SPRITEIMAGE = Properties.Resources.player;
         private const int SPEEDOFPLAYER = 20;
 
         
-        public Player(int spriteSize, Form form, Rectangle formRectangle, int xPosition, int yPosition) :
-            base (spriteSize, form, formRectangle)
+        public Player(int spriteSize, Form form, int xPosition, int yPosition) :
+            base (spriteSize, form, xPosition, yPosition)
         {
-            this.formRectangle = formRectangle;
             this.spriteSize = spriteSize;
-            MakeSprite(xPosition, yPosition, SPRITEIMAGE);
+            spriteImage = Properties.Resources.player;
         }
 
         public override void MoveSprite(string direction)
