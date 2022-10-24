@@ -11,13 +11,15 @@ namespace project_2_space_invaders_legin8
     internal class Controller
     {
         // Class Variables
-        private const int SPEED = 5, SCALEOFSPRITE = 26;
+        private const int SPEED = 5, SCALEOFSPRITE = 26, COLUMNS = 10, ROWS = 4;
         private Rectangle formRectangle;
         private Form form;
+        private Random random;
 
         private Player player;
         private List<Enemy> enemies;
         private Shot[] shots;
+        private List<Bomb> bombs;
 
         private int spriteSize, enemyDownCounter;
         private bool goRight, isSideOfScreen;
@@ -27,12 +29,14 @@ namespace project_2_space_invaders_legin8
         {
             this.formRectangle = formRectangle;
             this.form = form;
+            this.random = random;
             spriteSize = formRectangle.Width / SCALEOFSPRITE;
 
             player = new Player(spriteSize, form, formRectangle, formRectangle.Width / 2, formRectangle.Bottom - spriteSize);
             enemies = new List<Enemy>();
             makeEnemy();
             shots = new Shot[15];
+            bombs = new List<Bomb>();
 
             for (int i = 0; i < shots.Length; i++) shots[i] = new Shot(spriteSize, form, formRectangle, random);
 
@@ -46,7 +50,6 @@ namespace project_2_space_invaders_legin8
         // 4 rows and 10 columns
         private void makeEnemy()
         {
-            const int COLUMNS = 10, ROWS = 4;
             const double ENEMYGAP = 1.5;
             int xPosition = formRectangle.Left, yPosition;
             
@@ -76,6 +79,7 @@ namespace project_2_space_invaders_legin8
             foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.MoveSprite("UP");
             // Calls method for colision detection between PictureBoxs
             ColisionDetection();
+            DropBomb();
         }
 
         public void ColisionDetection()
@@ -162,7 +166,35 @@ namespace project_2_space_invaders_legin8
         // Drops Bombs on player
         public void DropBomb()
         {
+            // this creates a list of the enemies on the bottom
+            List<Enemy> tempEnemies = new List<Enemy>();
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                if (i == enemies.Count - 1 && enemies[i].SpriteBox != null)
+                {
+                    tempEnemies.Add(enemies[i]);
+                    break;
+                } else if (enemies[i].SpriteBox != null && enemies[i].SpriteBox.Bottom >= enemies[i+1].SpriteBox.Bottom) {
+                    tempEnemies.Add(enemies[i]);
+                }
+            }
 
+            // This uses the above list to create bomb sprites
+            for (int i = 0; i < tempEnemies.Count; i++)
+            {
+                if (random.Next(100) == 99)
+                {
+                    Console.WriteLine("Bomb Dropped");
+                    bombs.Add(new Bomb(spriteSize, form, formRectangle, random, tempEnemies[i].SpriteBox.Left,
+                        tempEnemies[i].SpriteBox.Bottom));
+                }
+            }
+
+            // Removes the bomb from the list if the sprite is gone
+            foreach (Bomb bomb in bombs)
+            {
+                if (bomb.SpriteBox == null) bombs.Remove(bomb);
+            }
         }
     }
 }
