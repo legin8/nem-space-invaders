@@ -104,7 +104,7 @@ namespace project_2_space_invaders_legin8
                 }
             }
 
-            // This checks for a colision between the bomb and the player
+            // This checks for a colision between the bomb and the shots
             foreach (Bomb bomb in bombs)
             {
                 foreach (Shot shot in shots)
@@ -116,6 +116,18 @@ namespace project_2_space_invaders_legin8
                         shot.RemoveSprite(shot);
                         bomb.RemoveSprite(bomb);
                     }
+                }
+            }
+
+            // This checks for a colision between the Bombs and the player
+            foreach (Bomb bomb in bombs)
+            {
+                if (bomb.SpriteBox != null && player.SpriteBox != null &&
+                    bomb.SpriteBox.Bottom >= player.SpriteBox.Top &&
+                    bomb.SpriteBox.Left <= player.SpriteBox.Right &&
+                    bomb.SpriteBox.Right >= player.SpriteBox.Left)
+                {
+                    player.RemoveSprite(player);
                 }
             }
 
@@ -163,18 +175,26 @@ namespace project_2_space_invaders_legin8
         // Moves the player left or right
         public void MovePlayer(bool moveLeft)
         {
-            if (moveLeft) player.MoveSprite("LEFT");
-            if (!moveLeft) player.MoveSprite("RIGHT");
+            if (moveLeft && player.SpriteBox != null) player.MoveSprite("LEFT");
+            if (!moveLeft && player.SpriteBox != null) player.MoveSprite("RIGHT");
         }
 
         // Fires a shot from the player
         public void Shot()
         {
-            if (shots.Count < MAXSHOTS)
+            if (shots.Count < MAXSHOTS && player.SpriteBox != null)
             {
                 shots.Add(new Shot(spriteSize,form,random, player.SpriteBox.Left, player.SpriteBox.Top - spriteSize));
             }
         }
+
+
+
+
+
+
+
+
 
         // Removes the sprites
         private void removeSprites()
@@ -205,6 +225,14 @@ namespace project_2_space_invaders_legin8
                 if (bombs[i].SpriteBox == null) bombs.RemoveAt(i);
             }
         }
+
+
+
+
+
+
+
+
 
 
         // Drops Bombs on player

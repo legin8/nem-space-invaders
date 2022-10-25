@@ -14,9 +14,8 @@ namespace project_2_space_invaders_legin8
         private Random random;
         private int timeToLive;
 
-        public int TimeToLive { get => timeToLive; set => timeToLive = value; }
-
-        public Bomb(int spriteSize, Form form, int xPosition, int yPosition, Random random) : base(spriteSize, form, xPosition, yPosition)
+        public Bomb(int spriteSize, Form form, int xPosition, int yPosition, Random random) :
+            base(spriteSize, form, xPosition, yPosition)
         {
             this.random = random;
             spriteImage = Properties.Resources.Bomb;
@@ -40,7 +39,7 @@ namespace project_2_space_invaders_legin8
             SpriteBox.Top += 10;
             timeToLive--;
             if (timeToLive == TIMETODIE) RemoveSprite(this);
-            if (spriteBox != null && spriteBox.Top <= formRectangle.Top) RemoveSprite(this);
+            if (spriteBox != null && spriteBox.Bottom >= formRectangle.Bottom) RemoveSprite(this);
         }
     }
 }
