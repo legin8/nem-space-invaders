@@ -17,7 +17,6 @@ namespace project_2_space_invaders_legin8
         public Player(int spriteSize, Form form, int xPosition, int yPosition) :
             base (spriteSize, form, xPosition, yPosition)
         {
-            this.spriteSize = spriteSize;
             spriteImage = Properties.Resources.player;
             MakeSprite(xPosition, yPosition);
         }

@@ -30,7 +30,7 @@ namespace project_2_space_invaders_legin8
             spriteBox.Image = spriteImage;
             spriteBox.SizeMode = PictureBoxSizeMode.StretchImage;
             spriteBox.Location = new Point(xPosition, yPosition);
-            //timeToLive = random.Next(1, 71);
+            timeToLive = random.Next(1, 71);
             form.Controls.Add(spriteBox);
         }
 
