@@ -10,6 +10,7 @@ namespace project_2_space_invaders_legin8
 {
     internal class Bomb : Sprite
     {
+        private const int TIMETODIE = 0;
         private Random random;
         private int timeToLive;
 
@@ -37,6 +38,9 @@ namespace project_2_space_invaders_legin8
         public override void MoveSprite(string direction)
         {
             SpriteBox.Top += 10;
+            timeToLive--;
+            if (timeToLive == TIMETODIE) RemoveSprite(this);
+            if (spriteBox != null && spriteBox.Top <= formRectangle.Top) RemoveSprite(this);
         }
     }
 }
