@@ -18,9 +18,9 @@ namespace project_2_space_invaders_legin8
         private Random random;
 
         private Player player;
-        private List<Enemy> enemies;
-        private List<Shot> shots;
-        private List<Bomb> bombs;
+        private List<Sprite> enemies;
+        private List<Sprite> shots;
+        private List<Sprite> bombs;
 
         private int spriteSize, enemyDownCounter;
         private bool goRight, isSideOfScreen;
@@ -34,12 +34,12 @@ namespace project_2_space_invaders_legin8
             spriteSize = formRectangle.Width / SCALEOFSPRITE;
 
             player = new Player(spriteSize, form, formRectangle.Width / 2, formRectangle.Bottom - spriteSize);
-            enemies = new List<Enemy>();
+            enemies = new List<Sprite>();
             makeEnemy();
-            shots = new List<Shot>();
-            bombs = new List<Bomb>();
+            shots = new List<Sprite>();
+            bombs = new List<Sprite>();
 
-            shots = new List<Shot>();
+            shots = new List<Sprite>();
 
             goRight = true;
             isSideOfScreen = false;
@@ -85,8 +85,72 @@ namespace project_2_space_invaders_legin8
             removeSprites();
         }
 
+
+
+
+
+        // Code for moving the enemies
+        private void moveEnemy()
+        {
+            // This will move each enemy Left and Right
+            if (!isSideOfScreen) foreach (Enemy enemy in enemies)
+                {
+                    if (enemy.SpriteBox != null && goRight) enemy.MoveSprite("RIGHT");
+                    if (enemy.SpriteBox != null && !goRight) enemy.MoveSprite("LEFT");
+                }
+
+            // This moves the enemy down the size of the sprites
+            if (isSideOfScreen && enemyDownCounter <= spriteSize)
+            {
+                foreach (Enemy enemy in enemies) if (enemy.SpriteBox != null)
+                    {
+                        enemy.MoveSprite("DOWN");
+                    }
+                enemyDownCounter += SPEED;
+            }
+
+            // Checks if any enemies are at the side if not already at the side
+            if (!isSideOfScreen) foreach (Enemy enemy in enemies)
+                {
+                    if (enemy.SpriteBox != null && enemy.SpriteBox.Right >= formRectangle.Right ||
+                        enemy.SpriteBox != null && enemy.SpriteBox.Left <= formRectangle.Left)
+                    {
+                        isSideOfScreen = true;
+                    }
+                }
+
+            // Stops the enemys from moving down once they have gone their own size and inverts goRight
+            if (enemyDownCounter >= spriteSize)
+            {
+                enemyDownCounter = RESETCOUNTER;
+                goRight = !goRight;
+                isSideOfScreen = !isSideOfScreen;
+            }
+        }
+
+        private void colisionChecker(ref List<Sprite> spritesListA, ref List<Sprite> spritesListB)
+        {
+            foreach (Sprite spriteA in spritesListA)
+            {
+                foreach (Sprite spriteB in spritesListB)
+                {
+                    if (spriteA.SpriteBox != null && spriteB.SpriteBox != null &&
+                        spriteA.SpriteBox.Top <= spriteB.SpriteBox.Bottom && spriteA.SpriteBox.Top >= spriteB.SpriteBox.Top &&
+                        spriteA.SpriteBox.Left <= spriteB.SpriteBox.Right && spriteA.SpriteBox.Right >= spriteB.SpriteBox.Left)
+                    {
+                        spriteA.RemoveSprite(spriteA);
+                        spriteB.RemoveSprite(spriteB);
+                    }
+                }
+            }
+        }
+
+        
         public void ColisionDetection()
         {
+
+            colisionChecker(ref shots, ref enemies);
+            /*
             // This checks for a colision between the shot and the enemy sprite
             foreach (Shot shot in shots)
             {
@@ -118,6 +182,7 @@ namespace project_2_space_invaders_legin8
                     }
                 }
             }
+            */
 
             // This checks for a colision between the Bombs and the player
             foreach (Bomb bomb in bombs)
@@ -133,44 +198,7 @@ namespace project_2_space_invaders_legin8
 
         }
 
-        // Code for moving the enemies
-        private void moveEnemy()
-        {   
-            // This will move each enemy Left and Right
-            if (!isSideOfScreen) foreach (Enemy enemy in enemies)
-                {
-                    if (enemy.SpriteBox != null && goRight) enemy.MoveSprite("RIGHT");
-                    if (enemy.SpriteBox != null && !goRight) enemy.MoveSprite("LEFT");
-                }
-            
-            // This moves the enemy down the size of the sprites
-            if (isSideOfScreen && enemyDownCounter <= spriteSize)
-            {
-                foreach (Enemy enemy in enemies) if (enemy.SpriteBox != null)
-                    {
-                        enemy.MoveSprite("DOWN");
-                    }
-                enemyDownCounter += SPEED;
-            }
-
-            // Checks if any enemies are at the side if not already at the side
-            if (!isSideOfScreen) foreach (Enemy enemy in enemies)
-                {
-                    if (enemy.SpriteBox != null && enemy.SpriteBox.Right >= formRectangle.Right ||
-                        enemy.SpriteBox != null && enemy.SpriteBox.Left <= formRectangle.Left)
-                    {
-                        isSideOfScreen = true;
-                    }
-                }
-
-            // Stops the enemys from moving down once they have gone their own size and inverts goRight
-            if (enemyDownCounter >= spriteSize)
-            {
-                enemyDownCounter = RESETCOUNTER;
-                goRight = !goRight;
-                isSideOfScreen = !isSideOfScreen;
-            }
-        }
+        
 
         // Moves the player left or right
         public void MovePlayer(bool moveLeft)
@@ -239,7 +267,7 @@ namespace project_2_space_invaders_legin8
         public void DropBomb()
         {
             // this creates a list of the enemies on the bottom
-            List<Enemy> tempEnemies = new List<Enemy>();
+            List<Sprite> tempEnemies = new List<Sprite>();
             for (int i = 0; i < enemies.Count; i++)
             {
                 if (i == enemies.Count - 1 && enemies[i].SpriteBox != null)
