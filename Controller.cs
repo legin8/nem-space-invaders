@@ -11,6 +11,7 @@ namespace project_2_space_invaders_legin8
     internal class Controller
     {
         // Class Variables
+        const int RESETCOUNTER = 0;
         private const int SPEED = 5, SCALEOFSPRITE = 26, COLUMNS = 10, ROWS = 4, MAXSHOTS = 15;
         private Rectangle formRectangle;
         private Form form;
@@ -79,7 +80,7 @@ namespace project_2_space_invaders_legin8
             foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.MoveSprite("UP");
             // Calls method for colision detection between PictureBoxs
             ColisionDetection();
-            if (enemyDownCounter == 0) DropBomb();
+            if (enemyDownCounter == RESETCOUNTER) DropBomb();
             moveBombs();
             removeSprites();
         }
@@ -102,13 +103,27 @@ namespace project_2_space_invaders_legin8
                     }
                 }
             }
+
+            // This checks for a colision between the bomb and the player
+            foreach (Bomb bomb in bombs)
+            {
+                foreach (Shot shot in shots)
+                {
+                    if (shot.SpriteBox != null && bomb.SpriteBox != null &&
+                        shot.SpriteBox.Top <= bomb.SpriteBox.Bottom && shot.SpriteBox.Top >= bomb.SpriteBox.Top &&
+                        shot.SpriteBox.Left <= bomb.SpriteBox.Right && shot.SpriteBox.Right >= bomb.SpriteBox.Left)
+                    {
+                        shot.RemoveSprite(shot);
+                        bomb.RemoveSprite(bomb);
+                    }
+                }
+            }
+
         }
 
         // Code for moving the enemies
         private void moveEnemy()
-        {
-            const int RESETCOUNTER = 0;
-            
+        {   
             // This will move each enemy Left and Right
             if (!isSideOfScreen) foreach (Enemy enemy in enemies)
                 {
@@ -185,9 +200,9 @@ namespace project_2_space_invaders_legin8
             }
 
             // Removes the bomb from the list if the sprite is gone
-            foreach (Bomb bomb in bombs)
+            for (int i = 0; i < bombs.Count; i++)
             {
-                if (bomb.SpriteBox == null) bombs.Remove(bomb);
+                if (bombs[i].SpriteBox == null) bombs.RemoveAt(i);
             }
         }
 
@@ -223,7 +238,7 @@ namespace project_2_space_invaders_legin8
         // This Moves the Bombs
         private void moveBombs()
         {
-            foreach (Bomb bomb in bombs) bomb.MoveSprite("DOWN");
+            foreach (Bomb bomb in bombs) if (bomb.SpriteBox != null) bomb.MoveSprite("DOWN");
         }
     }
 }
