@@ -79,7 +79,7 @@ namespace project_2_space_invaders_legin8
             foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.MoveSprite("UP");
             // Calls method for colision detection between PictureBoxs
             ColisionDetection();
-            DropBomb();
+            if (enemyDownCounter == 0) DropBomb();
             removeSprites();
         }
 
@@ -163,8 +163,22 @@ namespace project_2_space_invaders_legin8
         // Removes the sprites
         private void removeSprites()
         {
-            foreach (Enemy enemy in enemies) if (enemy.SpriteBox == null) enemies.Remove(enemy);
-            foreach (Shot shot in shots) if (shot.SpriteBox == null) shots.Remove(shot);
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                if (enemies[i].SpriteBox == null)
+                {
+
+                    enemies.RemoveAt(i);
+                    
+                }
+            }
+            for (int i = 0; i < shots.Count; i++)
+            {
+                if (shots[i].SpriteBox == null)
+                {
+                    shots.RemoveAt(i);
+                }
+            }
         }
 
 
@@ -179,7 +193,8 @@ namespace project_2_space_invaders_legin8
                 {
                     tempEnemies.Add(enemies[i]);
                     break;
-                } else if (enemies[i].SpriteBox != null && enemies[i].SpriteBox.Bottom >= enemies[i+1].SpriteBox.Bottom) {
+                } else if (enemies[i].SpriteBox != null && enemies[i + 1].SpriteBox != null &&
+                    enemies[i].SpriteBox.Bottom >= enemies[i+1].SpriteBox.Bottom) {
                     tempEnemies.Add(enemies[i]);
                 }
             }
