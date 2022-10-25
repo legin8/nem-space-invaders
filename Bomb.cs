@@ -19,6 +19,7 @@ namespace project_2_space_invaders_legin8
         {
             this.random = random;
             spriteImage = Properties.Resources.Bomb;
+            MakeSprite(xPosition, yPosition);
         }
 
         public override void MakeSprite(int xPosition, int yPosition)

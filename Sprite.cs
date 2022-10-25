@@ -22,7 +22,6 @@ namespace project_2_space_invaders_legin8
             this.spriteSize = spriteSize;
             this.form = form;
             formRectangle = form.ClientRectangle;
-            MakeSprite(xPosition, yPosition);
         }
 
         public virtual void MakeSprite(int xPosition, int yPosition)

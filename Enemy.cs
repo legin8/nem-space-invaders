@@ -18,6 +18,7 @@ namespace project_2_space_invaders_legin8
         {
             this.speed = speed;
             spriteImage = Properties.Resources.enemy;
+            MakeSprite(xPosition, yPosition);
         }
 
         public override void MoveSprite(string direction)
