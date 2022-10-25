@@ -80,6 +80,7 @@ namespace project_2_space_invaders_legin8
             // Calls method for colision detection between PictureBoxs
             ColisionDetection();
             if (enemyDownCounter == 0) DropBomb();
+            moveBombs();
             removeSprites();
         }
 
@@ -163,6 +164,7 @@ namespace project_2_space_invaders_legin8
         // Removes the sprites
         private void removeSprites()
         {
+            // Removes enemies from the list
             for (int i = 0; i < enemies.Count; i++)
             {
                 if (enemies[i].SpriteBox == null)
@@ -172,12 +174,20 @@ namespace project_2_space_invaders_legin8
                     
                 }
             }
+
+            // Removes shots from the list
             for (int i = 0; i < shots.Count; i++)
             {
                 if (shots[i].SpriteBox == null)
                 {
                     shots.RemoveAt(i);
                 }
+            }
+
+            // Removes the bomb from the list if the sprite is gone
+            foreach (Bomb bomb in bombs)
+            {
+                if (bomb.SpriteBox == null) bombs.Remove(bomb);
             }
         }
 
@@ -193,8 +203,7 @@ namespace project_2_space_invaders_legin8
                 {
                     tempEnemies.Add(enemies[i]);
                     break;
-                } else if (enemies[i].SpriteBox != null && enemies[i + 1].SpriteBox != null &&
-                    enemies[i].SpriteBox.Bottom >= enemies[i+1].SpriteBox.Bottom) {
+                } else if (enemies[i].SpriteBox != null && enemies[i + 1].SpriteBox != null && enemies[i].SpriteBox.Bottom >= enemies[i+1].SpriteBox.Bottom) {
                     tempEnemies.Add(enemies[i]);
                 }
             }
@@ -209,12 +218,12 @@ namespace project_2_space_invaders_legin8
                         tempEnemies[i].SpriteBox.Bottom, random));
                 }
             }
+        }
 
-            // Removes the bomb from the list if the sprite is gone
-            foreach (Bomb bomb in bombs)
-            {
-                if (bomb.SpriteBox == null) bombs.Remove(bomb);
-            }
+        // This Moves the Bombs
+        private void moveBombs()
+        {
+            foreach (Bomb bomb in bombs) bomb.MoveSprite("DOWN");
         }
     }
 }
