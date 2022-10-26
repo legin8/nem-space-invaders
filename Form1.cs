@@ -18,13 +18,13 @@ namespace project_2_space_invaders_legin8
         // Class variables
         private Controller controller;
         private Random random;
-        private SoundPlayer soundPlayer;
+        //private SoundPlayer soundPlayer;
 
         // Class Constructor
         public Form1()
         {
             InitializeComponent();
-            soundPlayer = new SoundPlayer(@"..\..\Resources\mainGameMusic.wav");
+            //soundPlayer = new SoundPlayer(@"..\..\Resources\mainGameMusic.wav");
             random = new Random();
         }
 
@@ -53,7 +53,7 @@ namespace project_2_space_invaders_legin8
         private void button1_Click(object sender, EventArgs e)
         {
             controller = new Controller(ClientRectangle, this, random);
-            soundPlayer.PlayLooping();
+            //soundPlayer.PlayLooping();
             timer1.Start();
             start.Visible = false;
             Focus();

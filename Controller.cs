@@ -127,6 +127,7 @@ namespace project_2_space_invaders_legin8
         }
 
         
+        // Uses another method that checks for colisions, doing it this way save on code.
         public void ColisionDetection()
         {
             colisionChecker(ref shots, ref enemies);
@@ -164,7 +165,6 @@ namespace project_2_space_invaders_legin8
                     spriteList.SpriteBox.Left <= sprite.SpriteBox.Right &&
                     spriteList.SpriteBox.Right >= sprite.SpriteBox.Left)
                 {
-                    form.Controls.Remove(spriteList.SpriteBox);
                     spriteList.RemoveSprite(spriteList);
                     form.Controls.Remove(sprite.SpriteBox);
                     sprite = null;
@@ -172,8 +172,6 @@ namespace project_2_space_invaders_legin8
                 }
             }
         }
-
-
 
 
         // Moves the player left or right
@@ -191,13 +189,6 @@ namespace project_2_space_invaders_legin8
                 shots.Add(new Shot(spriteSize,form,random, player.SpriteBox.Left, player.SpriteBox.Top - spriteSize));
             }
         }
-
-
-
-
-
-
-
 
 
         // Removes the sprites that are not on the screen
@@ -221,13 +212,6 @@ namespace project_2_space_invaders_legin8
                 }
             }
         }
-
-
-
-
-
-
-
 
 
         // Drops Bombs on player

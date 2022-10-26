@@ -105,5 +105,11 @@
   <ItemGroup>
     <None Include="Resources\mainGameMusic.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blaster.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bomb.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

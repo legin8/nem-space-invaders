@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace project_2_space_invaders_legin8
 {
@@ -13,11 +14,14 @@ namespace project_2_space_invaders_legin8
         private const int TIMETODIE = 0;
         private int timeToLive;
         private Random random;
+        private SoundPlayer shotSound;
 
         public Shot(int spriteSize, Form form, Random random, int xPosition, int yPosition) : base (spriteSize, form, xPosition, yPosition)
         {
             this.random = random;
             spriteImage = Properties.Resources.shot;
+            shotSound = new SoundPlayer(@"..\..\Resources\blaster.wav");
+            shotSound.Play();
             MakeSprite(xPosition, yPosition);
         }
 
@@ -31,6 +35,7 @@ namespace project_2_space_invaders_legin8
             spriteBox.Location = new Point(xPosition, yPosition);
             timeToLive = random.Next(1, 71);
             form.Controls.Add(spriteBox);
+
         }
 
         // This moves the sprite and runs checks on this sprite, checking if it should be removed or not
