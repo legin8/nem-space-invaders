@@ -17,7 +17,7 @@ namespace project_2_space_invaders_legin8
         private Form form;
         private Random random;
 
-        private Player player;
+        private Sprite player;
         private List<Sprite> enemies;
         private List<Sprite> shots;
         private List<Sprite> bombs;
@@ -74,15 +74,19 @@ namespace project_2_space_invaders_legin8
         // This runs the game using the timer tick from the form
         public void RunGame()
         {
-            // Calls method that moves the enemys
-            moveEnemy();
-            // Moves the shot each timer tick
-            foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.MoveSprite("UP");
-            // Calls method for colision detection between PictureBoxs
-            ColisionDetection();
-            if (enemyDownCounter == RESETCOUNTER) DropBomb();
-            moveBombs();
-            removeSprites();
+            if (player != null)
+            {
+                // Calls method that moves the enemys
+                moveEnemy();
+                // Moves the shot each timer tick
+                foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.MoveSprite("UP");
+                // Calls method for colision detection between PictureBoxs
+                ColisionDetection();
+                if (enemyDownCounter == RESETCOUNTER) DropBomb();
+                moveBombs();
+                removeSprites();
+            }
+
         }
 
 
@@ -128,6 +132,15 @@ namespace project_2_space_invaders_legin8
             }
         }
 
+        
+        public void ColisionDetection()
+        {
+            colisionChecker(ref shots, ref enemies);
+            colisionChecker(ref shots, ref bombs);
+            colisionChecker(ref bombs, ref player);
+        }
+
+        // This checks 2 sprites against each other and removes both if they touch, takes 2 lists
         private void colisionChecker(ref List<Sprite> spritesListA, ref List<Sprite> spritesListB)
         {
             foreach (Sprite spriteA in spritesListA)
@@ -145,72 +158,37 @@ namespace project_2_space_invaders_legin8
             }
         }
 
-        
-        public void ColisionDetection()
+        // This checks 2 sprites against each other and removes both if they touch, takes 1 list and 1 sprite
+        private void colisionChecker(ref List<Sprite> spritesListA, ref Sprite sprite)
         {
-
-            colisionChecker(ref shots, ref enemies);
-            /*
-            // This checks for a colision between the shot and the enemy sprite
-            foreach (Shot shot in shots)
+            foreach (Sprite spriteList in spritesListA)
             {
-                foreach (Enemy enemy in enemies)
+                if (spriteList.SpriteBox != null && sprite.SpriteBox != null &&
+                    spriteList.SpriteBox.Bottom >= sprite.SpriteBox.Top &&
+                    spriteList.SpriteBox.Left <= sprite.SpriteBox.Right &&
+                    spriteList.SpriteBox.Right >= sprite.SpriteBox.Left)
                 {
-                    // This starts by checking if shot and enemy PictureBox exist before checking the rest
-                    // if they don't exist it won't look passed the first false
-                    if (shot.SpriteBox != null && enemy.SpriteBox != null &&
-                        shot.SpriteBox.Top <= enemy.SpriteBox.Bottom && shot.SpriteBox.Top >= enemy.SpriteBox.Top &&
-                        shot.SpriteBox.Left <= enemy.SpriteBox.Right && shot.SpriteBox.Right >= enemy.SpriteBox.Left)
-                    {
-                        shot.RemoveSprite(shot);
-                        enemy.RemoveSprite(enemy);
-                    }
+                    form.Controls.Remove(spriteList.SpriteBox);
+                    spriteList.RemoveSprite(spriteList);
+                    form.Controls.Remove(sprite.SpriteBox);
+                    sprite = null;
+                    break;
                 }
             }
-
-            // This checks for a colision between the bomb and the shots
-            foreach (Bomb bomb in bombs)
-            {
-                foreach (Shot shot in shots)
-                {
-                    if (shot.SpriteBox != null && bomb.SpriteBox != null &&
-                        shot.SpriteBox.Top <= bomb.SpriteBox.Bottom && shot.SpriteBox.Top >= bomb.SpriteBox.Top &&
-                        shot.SpriteBox.Left <= bomb.SpriteBox.Right && shot.SpriteBox.Right >= bomb.SpriteBox.Left)
-                    {
-                        shot.RemoveSprite(shot);
-                        bomb.RemoveSprite(bomb);
-                    }
-                }
-            }
-            */
-
-            // This checks for a colision between the Bombs and the player
-            foreach (Bomb bomb in bombs)
-            {
-                if (bomb.SpriteBox != null && player.SpriteBox != null &&
-                    bomb.SpriteBox.Bottom >= player.SpriteBox.Top &&
-                    bomb.SpriteBox.Left <= player.SpriteBox.Right &&
-                    bomb.SpriteBox.Right >= player.SpriteBox.Left)
-                {
-                    player.RemoveSprite(player);
-                }
-            }
-
         }
 
-        
 
         // Moves the player left or right
         public void MovePlayer(bool moveLeft)
         {
-            if (moveLeft && player.SpriteBox != null) player.MoveSprite("LEFT");
-            if (!moveLeft && player.SpriteBox != null) player.MoveSprite("RIGHT");
+            if (moveLeft && player != null) player.MoveSprite("LEFT");
+            if (!moveLeft && player != null) player.MoveSprite("RIGHT");
         }
 
         // Fires a shot from the player
         public void Shot()
         {
-            if (shots.Count < MAXSHOTS && player.SpriteBox != null)
+            if (shots.Count < MAXSHOTS)
             {
                 shots.Add(new Shot(spriteSize,form,random, player.SpriteBox.Left, player.SpriteBox.Top - spriteSize));
             }
