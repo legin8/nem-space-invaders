@@ -78,52 +78,46 @@ namespace project_2_space_invaders_legin8
             {
                 // Calls method that moves the enemys
                 moveEnemy();
-                // Moves the shot each timer tick
+                // Moves the shots and bombs each timer tick
                 foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.MoveSprite("UP");
+                foreach (Bomb bomb in bombs) if (bomb.SpriteBox != null) bomb.MoveSprite("DOWN");
+                // May or may not drop a bomb from the bottom enemy of each column
+                if (enemyDownCounter == RESETCOUNTER) DropBomb();
                 // Calls method for colision detection between PictureBoxs
                 ColisionDetection();
-                if (enemyDownCounter == RESETCOUNTER) DropBomb();
-                moveBombs();
                 removeSprites();
             }
-
         }
-
-
-
 
 
         // Code for moving the enemies
         private void moveEnemy()
         {
-            // This will move each enemy Left and Right
+            // This will move each enemy Left or Right if not at the side of the screen
             if (!isSideOfScreen) foreach (Enemy enemy in enemies)
                 {
-                    if (enemy.SpriteBox != null && goRight) enemy.MoveSprite("RIGHT");
-                    if (enemy.SpriteBox != null && !goRight) enemy.MoveSprite("LEFT");
+                    if (goRight) enemy.MoveSprite("RIGHT");
+                    if (!goRight) enemy.MoveSprite("LEFT");
                 }
 
-            // This moves the enemy down the size of the sprites
+            // This moves the enemy down
             if (isSideOfScreen && enemyDownCounter <= spriteSize)
             {
-                foreach (Enemy enemy in enemies) if (enemy.SpriteBox != null)
-                    {
-                        enemy.MoveSprite("DOWN");
-                    }
+                foreach (Enemy enemy in enemies) enemy.MoveSprite("DOWN");
                 enemyDownCounter += SPEED;
             }
 
             // Checks if any enemies are at the side if not already at the side
             if (!isSideOfScreen) foreach (Enemy enemy in enemies)
                 {
-                    if (enemy.SpriteBox != null && enemy.SpriteBox.Right >= formRectangle.Right ||
-                        enemy.SpriteBox != null && enemy.SpriteBox.Left <= formRectangle.Left)
+                    if (enemy.SpriteBox.Right >= formRectangle.Right ||
+                        enemy.SpriteBox.Left <= formRectangle.Left)
                     {
                         isSideOfScreen = true;
                     }
                 }
 
-            // Stops the enemys from moving down once they have gone their own size and inverts goRight
+            // Stops the enemys from moving down once they have gone their own size and inverts goRight and isSideOfScreen
             if (enemyDownCounter >= spriteSize)
             {
                 enemyDownCounter = RESETCOUNTER;
@@ -262,12 +256,6 @@ namespace project_2_space_invaders_legin8
                         tempEnemies[i].SpriteBox.Bottom, random));
                 }
             }
-        }
-
-        // This Moves the Bombs
-        private void moveBombs()
-        {
-            foreach (Bomb bomb in bombs) if (bomb.SpriteBox != null) bomb.MoveSprite("DOWN");
         }
     }
 }
