@@ -143,6 +143,7 @@ namespace project_2_space_invaders_legin8
         // This checks 2 sprites against each other and removes both if they touch, takes 2 lists
         private void colisionChecker(ref List<Sprite> spritesListA, ref List<Sprite> spritesListB)
         {
+            // This checks each sprite again every other sprite in the 2 lists
             foreach (Sprite spriteA in spritesListA)
             {
                 foreach (Sprite spriteB in spritesListB)
@@ -161,6 +162,7 @@ namespace project_2_space_invaders_legin8
         // This checks 2 sprites against each other and removes both if they touch, takes 1 list and 1 sprite
         private void colisionChecker(ref List<Sprite> spritesListA, ref Sprite sprite)
         {
+            // This checks all the sprites in the list against the single sprite
             foreach (Sprite spriteList in spritesListA)
             {
                 if (spriteList.SpriteBox != null && sprite.SpriteBox != null &&
@@ -176,6 +178,8 @@ namespace project_2_space_invaders_legin8
                 }
             }
         }
+
+
 
 
         // Moves the player left or right
@@ -202,36 +206,27 @@ namespace project_2_space_invaders_legin8
 
 
 
-        // Removes the sprites
+        // Removes the sprites that are not on the screen
         private void removeSprites()
         {
-            // Removes enemies from the list
-            for (int i = 0; i < enemies.Count; i++)
-            {
-                if (enemies[i].SpriteBox == null)
-                {
-
-                    enemies.RemoveAt(i);
-                    
-                }
-            }
-
-            // Removes shots from the list
-            for (int i = 0; i < shots.Count; i++)
-            {
-                if (shots[i].SpriteBox == null)
-                {
-                    shots.RemoveAt(i);
-                }
-            }
-
-            // Removes the bomb from the list if the sprite is gone
-            for (int i = 0; i < bombs.Count; i++)
-            {
-                if (bombs[i].SpriteBox == null) bombs.RemoveAt(i);
-            }
+            removeFromList(ref enemies);
+            removeFromList(ref shots);
+            removeFromList(ref bombs);
         }
 
+        // This takes a list and removes the entry from the list
+        private void removeFromList(ref List<Sprite> list)
+        {
+            // Removes shots from the list
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].SpriteBox == null)
+                {
+                    list.RemoveAt(i);
+                    i--;
+                }
+            }
+        }
 
 
 
