@@ -16,24 +16,30 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace project_2_space_invaders_legin8
 {
     internal class HighScore
     {
         private const int MAXSCORELIST = 5;
+        private Form form;
         private string[] highScoreArr;
+        private Label[] highScoreLabels;
         private int playerScore, enemyScore;
         private string winnerName;
 
-        public HighScore(int playerScore, int enemyScore, bool winnerIsPlayer)
+        public HighScore(int playerScore, int enemyScore, bool winnerIsPlayer, Form form)
         {
             this.playerScore = playerScore;
             this.enemyScore = enemyScore;
+            this.form = form;
             highScoreArr = new string[5];
+            highScoreLabels = new Label[5];
             winnerName = winnerIsPlayer ? "Player" : "Aliens";
             fillArrayFromFile();
             saveToTXTFile();
+            displayLabels();
         }
 
         // This fills the array form the file
@@ -59,8 +65,23 @@ namespace project_2_space_invaders_legin8
         }
 
         // This creates a new string for the current finished game
-        
         private string makeNewHighScore() => $"Player Destroyed: {playerScore} Aliens || Aliens Destroyed: {enemyScore} || Winner is {winnerName}";
         
+        // Displays a messageBox with the highScores
+        private void displayLabels()
+        {
+            int labelHeight = form.Height / 20;
+            int xPosistion = form.Width / 2, yPosistion = form.Top + labelHeight;
+            for (int i = 0; i < highScoreLabels.Length; i++)
+            {
+                highScoreLabels[i] = new Label();
+                highScoreLabels[i].Text = highScoreArr[i];
+                highScoreLabels[i].Height = labelHeight;
+                highScoreLabels[i].Left = xPosistion;
+                highScoreLabels[i].Top = yPosistion;
+                form.Controls.Add(highScoreLabels[i]);
+                yPosistion += labelHeight * 2;
+            }
+        }
     }
 }
