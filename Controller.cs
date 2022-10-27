@@ -39,11 +39,8 @@ namespace project_2_space_invaders_legin8
             shots = new List<Sprite>();
             bombs = new List<Sprite>();
 
-            shots = new List<Sprite>();
-
             goRight = true;
             isSideOfScreen = false;
-
         }
 
 
@@ -86,6 +83,11 @@ namespace project_2_space_invaders_legin8
                 // Calls method for colision detection between PictureBoxs
                 ColisionDetection();
                 removeSprites();
+            }
+
+            if (player == null)
+            {
+
             }
         }
 
