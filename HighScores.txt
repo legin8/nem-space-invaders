@@ -1,5 +1,5 @@
-Player Destroyed: 40 Aliens || Aliens Destroyed: 1 Player || Winner is Aliens
-Player Destroyed: 40 Aliens || Aliens Destroyed: 1 Player || Winner is Aliens
-Player Destroyed: 40 Aliens || Aliens Destroyed: 1 Player || Winner is Aliens
-Player Destroyed: 40 Aliens || Aliens Destroyed: 1 Player || Winner is Aliens
-Player Destroyed: 40 Aliens || Aliens Destroyed: 1 Player || Winner is Aliens
+Player 0 | Aliens 1 | Winner is Aliens
+Player 0 | Aliens 1 | Winner is Aliens
+Player 0 | Aliens 1 | Winner is Aliens
+Player 0 | Aliens 1 | Winner is Aliens
+Player 0 | Aliens 1 | Winner is Aliens

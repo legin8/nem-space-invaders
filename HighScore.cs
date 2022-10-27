@@ -26,17 +26,18 @@ namespace project_2_space_invaders_legin8
         private Form form;
         private string[] highScoreArr;
         private Label[] highScoreLabels;
-        private int playerScore, enemyScore;
         private string winnerName;
+        private int playerScore, enemyScore;
 
-        public HighScore(int playerScore, int enemyScore, bool winnerIsPlayer, Form form)
+        public HighScore(bool winnerIsPlayer, Form form)
         {
-            this.playerScore = playerScore;
-            this.enemyScore = enemyScore;
             this.form = form;
             highScoreArr = new string[5];
             highScoreLabels = new Label[5];
             winnerName = winnerIsPlayer ? "Player" : "Aliens";
+            playerScore = winnerIsPlayer ? 1 : 0;
+            enemyScore = winnerIsPlayer ? 0 : 1;
+
             fillArrayFromFile();
             saveToTXTFile();
             displayLabels();
@@ -65,7 +66,7 @@ namespace project_2_space_invaders_legin8
         }
 
         // This creates a new string for the current finished game
-        private string makeNewHighScore() => $"Player Destroyed: {playerScore} Aliens || Aliens Destroyed: {enemyScore} Player || Winner is {winnerName}";
+        private string makeNewHighScore() => $"Player {playerScore} | Aliens {enemyScore} | Winner is {winnerName}";
         
         // Displays a messageBox with the highScores
         private void displayLabels()

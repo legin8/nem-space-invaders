@@ -91,7 +91,7 @@ namespace project_2_space_invaders_legin8
             {
                 removeSprites();
                 endGame = new EndGame(form, player != null);
-                highScore = new HighScore(enemies.Count, player != null ? 0 : 1, player != null, form);
+                highScore = new HighScore(player != null, form);
                 removeSpritesFromControls();
             }
         }
