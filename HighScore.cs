@@ -23,7 +23,17 @@ namespace project_2_space_invaders_legin8
     {
         private const int MAXSCORELIST = 5;
         private string[] highScoreArr;
+        private int playerScore, enemyScore;
+        private string winnerName;
         private bool winnerIsPlayer;
+
+        public HighScore(int playerScore, int enemyScore, bool winnerIsPlayer)
+        {
+            this.playerScore = playerScore;
+            this.enemyScore = enemyScore;
+            this.winnerIsPlayer = winnerIsPlayer;
+            winnerName = winnerIsPlayer ? "Player" : "Aliens";
+        }
 
         // This fills the array form the file
         public void FillArrayFromFile()
@@ -62,12 +72,11 @@ namespace project_2_space_invaders_legin8
         }
 
         // This creates a new string for the current finished game
-        /*
+        
         private string makeNewHighScore()
         {
-            string winnerName = winnerIsPlayer ? playerScore.GetName : cpuScore.GetName;
-            return $"{playerScore.GetName}: {playerScore.GetScore} || {cpuScore.GetName}: {cpuScore.GetScore} || Winner is {winnerName}";
+            return $"Player Destroyed: {playerScore} Aliens || Aliens Destroyed: {enemyScore} || Winner is {winnerName}";
         }
-        */
+        
     }
 }
