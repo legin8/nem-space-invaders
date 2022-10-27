@@ -25,34 +25,29 @@ namespace project_2_space_invaders_legin8
         private string[] highScoreArr;
         private int playerScore, enemyScore;
         private string winnerName;
-        private bool winnerIsPlayer;
 
         public HighScore(int playerScore, int enemyScore, bool winnerIsPlayer)
         {
             this.playerScore = playerScore;
             this.enemyScore = enemyScore;
-            this.winnerIsPlayer = winnerIsPlayer;
+            highScoreArr = new string[5];
             winnerName = winnerIsPlayer ? "Player" : "Aliens";
+            fillArrayFromFile();
+            saveToTXTFile();
         }
 
         // This fills the array form the file
-        public void FillArrayFromFile()
+        private void fillArrayFromFile()
         {
             StreamReader sr = new StreamReader(@"../../HighScores.txt");
-            int index = 0;
-            //highScoreArr[index] = makeNewHighScore();
-            index++;
+            highScoreArr[0] = makeNewHighScore();
 
-            while (index < MAXSCORELIST)
-            {
-                highScoreArr[index] = sr.ReadLine();
-                index++;
-            }
+            for (int i = 1; i < MAXSCORELIST; i++) highScoreArr[i] = sr.ReadLine();
             sr.Close();
         }
 
         // This saves the array to a file
-        public void SaveToTXTFile()
+        private void saveToTXTFile()
         {
             StreamWriter sr = new StreamWriter(@"../../HighScores.txt");
 
@@ -63,20 +58,9 @@ namespace project_2_space_invaders_legin8
             sr.Close();
         }
 
-        // This sets the winner and calls the other methods
-        public void WhoWon(bool playerWin)
-        {
-            //winnerIsPlayer = playerWin;
-            FillArrayFromFile();
-            SaveToTXTFile();
-        }
-
         // This creates a new string for the current finished game
         
-        private string makeNewHighScore()
-        {
-            return $"Player Destroyed: {playerScore} Aliens || Aliens Destroyed: {enemyScore} || Winner is {winnerName}";
-        }
+        private string makeNewHighScore() => $"Player Destroyed: {playerScore} Aliens || Aliens Destroyed: {enemyScore} || Winner is {winnerName}";
         
     }
 }
