@@ -21,6 +21,8 @@ namespace project_2_space_invaders_legin8
         private List<Sprite> enemies;
         private List<Sprite> shots;
         private List<Sprite> bombs;
+        private EndGame endGame;
+        private HighScore highScore;
 
         private int spriteSize, enemyDownCounter;
         private bool goRight, isSideOfScreen;
@@ -85,9 +87,12 @@ namespace project_2_space_invaders_legin8
                 removeSprites();
             }
 
-            if (player == null)
+            if (player == null || enemies.Count == 0)
             {
-
+                removeSprites();
+                endGame = new EndGame(form, player != null);
+                highScore = new HighScore(enemies.Count, player != null ? 0 : 1, player != null, form);
+                
             }
         }
 
@@ -146,8 +151,10 @@ namespace project_2_space_invaders_legin8
                 foreach (Sprite spriteB in spritesListB)
                 {
                     if (spriteA.SpriteBox != null && spriteB.SpriteBox != null &&
-                        spriteA.SpriteBox.Top <= spriteB.SpriteBox.Bottom && spriteA.SpriteBox.Top >= spriteB.SpriteBox.Top &&
-                        spriteA.SpriteBox.Left <= spriteB.SpriteBox.Right && spriteA.SpriteBox.Right >= spriteB.SpriteBox.Left)
+                        spriteA.SpriteBox.Top <= spriteB.SpriteBox.Bottom &&
+                        spriteA.SpriteBox.Top >= spriteB.SpriteBox.Top &&
+                        spriteA.SpriteBox.Left <= spriteB.SpriteBox.Right &&
+                        spriteA.SpriteBox.Right >= spriteB.SpriteBox.Left)
                     {
                         spriteA.RemoveSprite(spriteA);
                         spriteB.RemoveSprite(spriteB);
@@ -209,6 +216,7 @@ namespace project_2_space_invaders_legin8
             {
                 if (list[i].SpriteBox == null)
                 {
+                    form.Controls.Remove(list[i].SpriteBox);
                     list.RemoveAt(i);
                     i--;
                 }

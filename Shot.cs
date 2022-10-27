@@ -16,7 +16,8 @@ namespace project_2_space_invaders_legin8
         private Random random;
         private SoundPlayer shotSound;
 
-        public Shot(int spriteSize, Form form, Random random, int xPosition, int yPosition) : base (spriteSize, form, xPosition, yPosition)
+        public Shot(int spriteSize, Form form, Random random, int xPosition, int yPosition) :
+            base (spriteSize, form, xPosition, yPosition)
         {
             this.random = random;
             spriteImage = Properties.Resources.shot;

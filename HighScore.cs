@@ -65,7 +65,7 @@ namespace project_2_space_invaders_legin8
         }
 
         // This creates a new string for the current finished game
-        private string makeNewHighScore() => $"Player Destroyed: {playerScore} Aliens || Aliens Destroyed: {enemyScore} || Winner is {winnerName}";
+        private string makeNewHighScore() => $"Player Destroyed: {playerScore} Aliens || Aliens Destroyed: {enemyScore} Player || Winner is {winnerName}";
         
         // Displays a messageBox with the highScores
         private void displayLabels()
