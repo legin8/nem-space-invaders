@@ -82,7 +82,7 @@ namespace project_2_space_invaders_legin8
                 foreach (Bomb bomb in bombs) if (bomb.SpriteBox != null) bomb.MoveSprite("DOWN");
                 // May or may not drop a bomb from the bottom enemy of each column
                 if (enemyDownCounter == RESETCOUNTER) DropBomb();
-                // Calls method for colision detection between PictureBoxs
+                // Calls method for collision detection between PictureBoxs
                 ColisionDetection();
                 removeSprites();
             }
@@ -92,7 +92,7 @@ namespace project_2_space_invaders_legin8
                 removeSprites();
                 endGame = new EndGame(form, player != null);
                 highScore = new HighScore(enemies.Count, player != null ? 0 : 1, player != null, form);
-                
+                removeSpritesFromControls();
             }
         }
 
@@ -216,10 +216,24 @@ namespace project_2_space_invaders_legin8
             {
                 if (list[i].SpriteBox == null)
                 {
-                    form.Controls.Remove(list[i].SpriteBox);
                     list.RemoveAt(i);
                     i--;
                 }
+            }
+        }
+
+        private void removeSpritesFromControls()
+        {
+            removeFromControls(ref enemies);
+            removeFromControls(ref shots);
+            removeFromControls(ref bombs);
+        }
+
+        private void removeFromControls(ref List<Sprite> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                form.Controls.Remove(list[i].SpriteBox);
             }
         }
 
