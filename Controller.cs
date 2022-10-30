@@ -12,13 +12,14 @@ namespace project_2_space_invaders_legin8
     internal class Controller
     {
         // Class Variables
-        const int RESETCOUNTER = 0;
-        private const int SPEED = 5, SCALEOFSPRITE = 26, COLUMNS = 10, ROWS = 4, MAXSHOTS = 15;
+        private const int RESETCOUNTER = 0;
+        private const int SPEED = 5, SCALEOFSPRITE = 26, MAXSHOTS = 15;
         private Rectangle formRectangle;
         private Form form;
         private Random random;
 
         private SpriteMaker spriteMaker;
+        private GameLogic gameLogic;
 
         // Sprite Classes
         private Sprite player;
@@ -34,11 +35,13 @@ namespace project_2_space_invaders_legin8
         // Class Constructor
         public Controller(Form form, Random random)
         {
-            spriteMaker = new SpriteMaker(form, random);
+            spriteMaker = new SpriteMaker(form, random, SCALEOFSPRITE);
             player = spriteMaker.MakePlayer();
-            enemies = spriteMaker.MakeEnemies();
+            enemies = spriteMaker.MakeEnemies(SPEED);
             shots = new List<Sprite>();
             bombs = new List<Sprite>();
+
+            gameLogic = new GameLogic(form, enemies, SCALEOFSPRITE);
 
             formRectangle = form.ClientRectangle;
             this.form = form;
@@ -97,7 +100,7 @@ namespace project_2_space_invaders_legin8
             if (player != null && enemies != null)
             {
                 // Calls method that moves the enemys
-                moveEnemy();
+                gameLogic.MoveLogic(SPEED);
                 // Moves the shots and bombs each timer tick
                 foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.MoveSprite("UP");
                 foreach (Bomb bomb in bombs) if (bomb.SpriteBox != null) bomb.MoveSprite("DOWN");
@@ -118,42 +121,7 @@ namespace project_2_space_invaders_legin8
         }
 
 
-
-        // Code for moving the enemies
-        private void moveEnemy()
-        {
-            // This will move each enemy Left or Right if not at the side of the screen
-            if (!isSideOfScreen) foreach (Enemy enemy in enemies)
-                {
-                    if (goRight) enemy.MoveSprite("RIGHT");
-                    if (!goRight) enemy.MoveSprite("LEFT");
-                }
-
-            // This moves the enemy down
-            if (isSideOfScreen && enemyDownCounter <= spriteSize)
-            {
-                foreach (Enemy enemy in enemies) enemy.MoveSprite("DOWN");
-                enemyDownCounter += SPEED;
-            }
-
-            // Checks if any enemies are at the side if not already at the side
-            if (!isSideOfScreen) foreach (Enemy enemy in enemies)
-                {
-                    if (enemy.SpriteBox.Right >= formRectangle.Right ||
-                        enemy.SpriteBox.Left <= formRectangle.Left)
-                    {
-                        isSideOfScreen = true;
-                    }
-                }
-
-            // Stops the enemys from moving down once they have gone their own size and inverts goRight and isSideOfScreen
-            if (enemyDownCounter >= spriteSize)
-            {
-                enemyDownCounter = RESETCOUNTER;
-                goRight = !goRight;
-                isSideOfScreen = !isSideOfScreen;
-            }
-        }
+        
 
         
         // Uses another method that checks for colisions, doing it this way save on code.

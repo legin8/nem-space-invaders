@@ -50,6 +50,7 @@
     <Compile Include="EDirection.cs" />
     <Compile Include="EndGame.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="GameLogic.cs" />
     <Compile Include="HighScore.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Controller.cs" />

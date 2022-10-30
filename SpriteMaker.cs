@@ -11,16 +11,15 @@ namespace project_2_space_invaders_legin8
     internal class SpriteMaker
     {
         // Class variables
-        private const int SCALEOFSPRITE = 26, SPEED = 5;
         private readonly Form form;
         private readonly Random random;
         private readonly int spriteSize;
 
-        public SpriteMaker(Form form, Random random)
+        public SpriteMaker(Form form, Random random, int scaleOfSprite)
         {
             this.form = form;
             this.random = random;
-            spriteSize = form.Width / SCALEOFSPRITE;
+            spriteSize = form.ClientRectangle.Width / scaleOfSprite;
         }
 
 
@@ -39,7 +38,7 @@ namespace project_2_space_invaders_legin8
         // This makes and Returns a new List of enemy Sprites
         // This is called from the constructor and makes the enemies
         // 4 rows and 10 columns
-        public List<Sprite> MakeEnemies()
+        public List<Sprite> MakeEnemies(int speed)
         {
             // Local variables for making the enemies in a grid
             const int COLUMNS = 10, ROWS = 4;
@@ -56,7 +55,7 @@ namespace project_2_space_invaders_legin8
                 // This loop is for the columns enemies
                 for (int j = 0; j < ROWS; j++)
                 {
-                    tempEnemyList.Add(new Enemy(spriteSize, form, xPosition, yPosition, SPEED));
+                    tempEnemyList.Add(new Enemy(spriteSize, form, xPosition, yPosition, speed));
                     yPosition += (int)(spriteSize * ENEMYGAP);
                 }
                 // This moves to the next column to the Right
