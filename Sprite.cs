@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace project_2_space_invaders_legin8
 {
     public abstract class Sprite
@@ -40,7 +41,7 @@ namespace project_2_space_invaders_legin8
 
 
         // This Removes the sprite from the screen
-        public void RemoveSprite(Sprite sprite)
+        public virtual void RemoveSprite(Sprite sprite)
         {
             form.Controls.Remove(sprite.SpriteBox);
             sprite.SpriteBox = null;

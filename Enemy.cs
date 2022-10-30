@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
+using System.Media;
 
 namespace project_2_space_invaders_legin8
 {
@@ -13,6 +14,7 @@ namespace project_2_space_invaders_legin8
     {
         private int speed;
         private Controller controller;
+        private SoundPlayer explosion;
 
         public Enemy(int spriteSize, Form form, int xPosition, int yPosition, int speed, Controller controller) : 
             base (spriteSize, form, xPosition, yPosition)
@@ -20,6 +22,7 @@ namespace project_2_space_invaders_legin8
             this.speed = speed;
             this.controller = controller;
             spriteImage = Properties.Resources.enemy;
+            explosion = new SoundPlayer(Properties.Resources.explosion);
             MakeSprite(xPosition, yPosition);
         }
 
@@ -36,6 +39,14 @@ namespace project_2_space_invaders_legin8
                 spriteBox.Top = formRectangle.Bottom - spriteSize;
                 controller.PlayGame = false;
             }
+        }
+
+        // This Removes the sprite from the screen
+        public override void RemoveSprite(Sprite sprite)
+        {
+            form.Controls.Remove(sprite.SpriteBox);
+            sprite.SpriteBox = null;
+            explosion.Play();
         }
     }
 }
