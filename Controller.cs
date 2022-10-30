@@ -18,6 +18,9 @@ namespace project_2_space_invaders_legin8
         private Form form;
         private Random random;
 
+        private SpriteMaker spriteMaker;
+
+        // Sprite Classes
         private Sprite player;
         private List<Sprite> enemies;
         private List<Sprite> shots;
@@ -29,14 +32,15 @@ namespace project_2_space_invaders_legin8
         private bool goRight, isSideOfScreen;
 
         // Class Constructor
-        public Controller(Rectangle formRectangle, Form form, Random random)
+        public Controller(Form form, Random random)
         {
-            this.formRectangle = formRectangle;
+            spriteMaker = new SpriteMaker(form);
+            formRectangle = form.ClientRectangle;
             this.form = form;
             this.random = random;
             spriteSize = formRectangle.Width / SCALEOFSPRITE;
 
-            player = new Player(spriteSize, form, formRectangle.Width / 2, formRectangle.Bottom - spriteSize);
+            player = spriteMaker.makePlayer();
             enemies = new List<Sprite>();
             makeEnemy();
             shots = new List<Sprite>();

@@ -46,7 +46,7 @@ namespace project_2_space_invaders_legin8
         // Click handler for the start button, Makes controller and starts sound and the timer
         private void button1_Click(object sender, EventArgs e)
         {
-            controller = new Controller(ClientRectangle, this, random);
+            controller = new Controller(this, random);
             //soundPlayer.PlayLooping();
             timer1.Start();
             start.Visible = false;
