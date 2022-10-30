@@ -40,7 +40,7 @@ namespace project_2_space_invaders_legin8
             shots = new List<Sprite>();
             bombs = new List<Sprite>();
 
-            gameLogic = new GameLogic(form, player, spriteMaker, enemies, shots, SCALEOFSPRITE);
+            gameLogic = new GameLogic(form, random, player, spriteMaker, enemies, shots, bombs, SCALEOFSPRITE);
 
 
             this.form = form;
@@ -54,13 +54,11 @@ namespace project_2_space_invaders_legin8
         {
             if (player != null && enemies != null)
             {
-                // Calls method that moves the enemys
+                // Calls method that moves the non player Sprites
                 gameLogic.MoveLogic(SPEED);
-                // Moves the shots and bombs each timer tick
-                foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.MoveSprite("UP");
-                foreach (Bomb bomb in bombs) if (bomb.SpriteBox != null) bomb.MoveSprite("DOWN");
+                
                 // May or may not drop a bomb from the bottom enemy of each column
-                if (enemyDownCounter == RESETCOUNTER) DropBomb();
+                if (enemyDownCounter == RESETCOUNTER) gameLogic.BombLogic();
                 // Calls method for colision detection between PictureBoxs
                 ColisionDetection();
                 removeSprites();
@@ -84,7 +82,7 @@ namespace project_2_space_invaders_legin8
             gameLogic.MakeShot();
         }
 
-
+        /*
         // Drops Bombs on player
         public void DropBomb()
         {
@@ -111,7 +109,7 @@ namespace project_2_space_invaders_legin8
         }
 
 
-
+        */
 
 
         
