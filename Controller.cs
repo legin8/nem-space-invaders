@@ -34,20 +34,16 @@ namespace project_2_space_invaders_legin8
         // Class Constructor
         public Controller(Form form, Random random)
         {
-            spriteMaker = new SpriteMaker(form);
+            spriteMaker = new SpriteMaker(form, random);
             player = spriteMaker.MakePlayer();
             enemies = spriteMaker.MakeEnemies();
+            shots = new List<Sprite>();
+            bombs = new List<Sprite>();
 
             formRectangle = form.ClientRectangle;
             this.form = form;
             this.random = random;
             spriteSize = formRectangle.Width / SCALEOFSPRITE;
-
-            
-            shots = new List<Sprite>();
-            bombs = new List<Sprite>();
-
-            shots = new List<Sprite>();
 
             goRight = true;
             isSideOfScreen = false;
@@ -56,6 +52,43 @@ namespace project_2_space_invaders_legin8
 
 
         
+
+
+
+        // Fires a shot from the player, Called from the Form
+        public void Shot()
+        {
+            if (shots.Count < MAXSHOTS) shots.Add(spriteMaker.MakeShot(player));
+        }
+
+
+        // Drops Bombs on player
+        public void DropBomb()
+        {
+            // this creates a list of the enemies on the bottom
+            List<Sprite> tempEnemies = new List<Sprite>();
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                if (i == enemies.Count - 1 && enemies[i].SpriteBox != null)
+                {
+                    tempEnemies.Add(enemies[i]);
+                    break;
+                }
+                else if (enemies[i].SpriteBox != null && enemies[i + 1].SpriteBox != null && enemies[i].SpriteBox.Bottom >= enemies[i + 1].SpriteBox.Bottom)
+                {
+                    tempEnemies.Add(enemies[i]);
+                }
+            }
+
+            // This uses the above list to Create the bomb sprits
+            for (int i = 0; i < tempEnemies.Count; i++)
+            {
+                if (random.Next(100) == 99) bombs.Add(spriteMaker.MakeBomb(tempEnemies[i]));
+            }
+        }
+
+
+
 
 
         // This runs the game using the timer tick from the form
@@ -83,6 +116,7 @@ namespace project_2_space_invaders_legin8
 
 
         }
+
 
 
         // Code for moving the enemies
@@ -176,14 +210,7 @@ namespace project_2_space_invaders_legin8
             if (!moveLeft && player != null) player.MoveSprite("RIGHT");
         }
 
-        // Fires a shot from the player
-        public void Shot()
-        {
-            if (shots.Count < MAXSHOTS)
-            {
-                shots.Add(new Shot(spriteSize,form,random, player.SpriteBox.Left, player.SpriteBox.Top - spriteSize));
-            }
-        }
+        
 
 
         // Removes the sprites that are not on the screen
@@ -209,33 +236,7 @@ namespace project_2_space_invaders_legin8
         }
 
 
-        // Drops Bombs on player
-        public void DropBomb()
-        {
-            // this creates a list of the enemies on the bottom
-            List<Sprite> tempEnemies = new List<Sprite>();
-            for (int i = 0; i < enemies.Count; i++)
-            {
-                if (i == enemies.Count - 1 && enemies[i].SpriteBox != null)
-                {
-                    tempEnemies.Add(enemies[i]);
-                    break;
-                } else if (enemies[i].SpriteBox != null && enemies[i + 1].SpriteBox != null && enemies[i].SpriteBox.Bottom >= enemies[i+1].SpriteBox.Bottom) {
-                    tempEnemies.Add(enemies[i]);
-                }
-            }
-
-            // This uses the above list to create bomb sprites
-            for (int i = 0; i < tempEnemies.Count; i++)
-            {
-                if (random.Next(100) == 99)
-                {
-                    Console.WriteLine("Bomb Dropped");
-                    bombs.Add(new Bomb(spriteSize, form, tempEnemies[i].SpriteBox.Left,
-                        tempEnemies[i].SpriteBox.Bottom, random));
-                }
-            }
-        }
+        
         
         private void clearScreenSprites()
         {

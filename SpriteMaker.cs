@@ -13,20 +13,28 @@ namespace project_2_space_invaders_legin8
         private const int SCALEOFSPRITE = 26, SPEED = 5;
         private Form form;
         private Rectangle formRectangle;
+        private Random random;
 
         private int spriteSize;
-        public SpriteMaker(Form form)
+        public SpriteMaker(Form form, Random random)
         {
             this.form = form;
             formRectangle = form.ClientRectangle;
-
+            this.random = random;
             spriteSize = form.Width / SCALEOFSPRITE;
         }
 
 
         // This makes and Returns a new player Sprite
         // Puts the player Sprite at bottom of the form in the middle
-        public Player MakePlayer() => new Player(spriteSize, form, form.ClientRectangle.Width / 2, form.ClientRectangle.Height - spriteSize);
+        public Sprite MakePlayer() => new Player(spriteSize, form, form.ClientRectangle.Width / 2, form.ClientRectangle.Height - spriteSize);
+
+
+        // This makes and Returns a Shot comming from infront of the player Sprite
+        public Sprite MakeShot(Sprite player) => new Shot(spriteSize, form, random, player.SpriteBox.Left, player.SpriteBox.Top - spriteSize);
+
+        // This makes and Returns a Bomb comming from below the Enemy Sprite
+        public Sprite MakeBomb(Sprite enemy) => new Bomb(spriteSize, form, enemy.SpriteBox.Left, enemy.SpriteBox.Bottom, random);
 
 
         // This makes and Returns a new List of enemy Sprites
@@ -58,7 +66,7 @@ namespace project_2_space_invaders_legin8
         }
 
 
-
+        
 
     }
 }
