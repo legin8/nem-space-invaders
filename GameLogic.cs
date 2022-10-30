@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,6 +20,7 @@ namespace project_2_space_invaders_legin8
         private List<Sprite> enemies;
         private List<Sprite> shots;
         private List<Sprite> bombs;
+        private SoundPlayer bombSound;
         private int spriteSize, enemyDownCounter;
         private bool isSideOfScreen, goRight;
 
@@ -36,7 +38,7 @@ namespace project_2_space_invaders_legin8
             spriteSize = form.ClientRectangle.Width / scaleOfSprite;
             isSideOfScreen = false;
             goRight = true;
-            
+            bombSound = new SoundPlayer(@"..\..\Resources\bomb.wav");
         }
 
 
@@ -202,6 +204,7 @@ namespace project_2_space_invaders_legin8
                     spriteList.RemoveSprite(spriteList);
                     form.Controls.Remove(sprite.SpriteBox);
                     sprite = null;
+                    bombSound.Play();
                     controller.PlayGame = false;
                     break;
                 }

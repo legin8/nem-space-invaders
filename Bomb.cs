@@ -14,14 +14,12 @@ namespace project_2_space_invaders_legin8
         private const int TIMETODIE = 0;
         private Random random;
         private int timeToLive;
-        private SoundPlayer bombSound;
 
         public Bomb(int spriteSize, Form form, int xPosition, int yPosition, Random random) :
             base(spriteSize, form, xPosition, yPosition)
         {
             this.random = random;
             spriteImage = Properties.Resources.Bomb;
-            bombSound = new SoundPlayer(@"..\..\Resources\bomb.wav");
             MakeSprite(xPosition, yPosition);
         }
 
@@ -44,12 +42,10 @@ namespace project_2_space_invaders_legin8
             if (timeToLive == TIMETODIE)
             {
                 RemoveSprite(this);
-                bombSound.Play();
             }
             if (spriteBox != null && spriteBox.Bottom >= formRectangle.Bottom)
             {
                 RemoveSprite(this);
-                bombSound.Play();
             }
         }
     }
