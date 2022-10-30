@@ -10,16 +10,15 @@ namespace project_2_space_invaders_legin8
 {
     internal class SpriteMaker
     {
+        // Class variables
         private const int SCALEOFSPRITE = 26, SPEED = 5;
-        private Form form;
-        private Rectangle formRectangle;
-        private Random random;
+        private readonly Form form;
+        private readonly Random random;
+        private readonly int spriteSize;
 
-        private int spriteSize;
         public SpriteMaker(Form form, Random random)
         {
             this.form = form;
-            formRectangle = form.ClientRectangle;
             this.random = random;
             spriteSize = form.Width / SCALEOFSPRITE;
         }
@@ -46,12 +45,13 @@ namespace project_2_space_invaders_legin8
             const int COLUMNS = 10, ROWS = 4;
             List<Sprite> tempEnemyList = new List<Sprite>();
             const double ENEMYGAP = 1.5;
-            int xPosition = formRectangle.Left, yPosition;
+            int xPosition = form.ClientRectangle.Left, yPosition;
 
             // This loop is for the rows of enemies
             for (int i = 0; i < COLUMNS; i++)
             {
-                yPosition = formRectangle.Top + spriteSize;
+                // This sets the starting point for the enemy to the top of the form
+                yPosition = form.ClientRectangle.Top + spriteSize;
 
                 // This loop is for the columns enemies
                 for (int j = 0; j < ROWS; j++)
@@ -59,14 +59,10 @@ namespace project_2_space_invaders_legin8
                     tempEnemyList.Add(new Enemy(spriteSize, form, xPosition, yPosition, SPEED));
                     yPosition += (int)(spriteSize * ENEMYGAP);
                 }
-                // This moves to the next column
+                // This moves to the next column to the Right
                 xPosition += spriteSize + (int)(spriteSize * ENEMYGAP);
             }
             return tempEnemyList;
         }
-
-
-        
-
     }
 }
