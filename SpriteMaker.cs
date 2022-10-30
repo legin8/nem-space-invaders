@@ -38,7 +38,7 @@ namespace project_2_space_invaders_legin8
         // This makes and Returns a new List of enemy Sprites
         // This is called from the constructor and makes the enemies
         // 4 rows and 10 columns
-        public List<Sprite> MakeEnemies(int speed)
+        public List<Sprite> MakeEnemies(int speed, Controller controller)
         {
             // Local variables for making the enemies in a grid
             const int COLUMNS = 10, ROWS = 4;
@@ -55,7 +55,7 @@ namespace project_2_space_invaders_legin8
                 // This loop is for the columns enemies
                 for (int j = 0; j < ROWS; j++)
                 {
-                    tempEnemyList.Add(new Enemy(spriteSize, form, xPosition, yPosition, speed));
+                    tempEnemyList.Add(new Enemy(spriteSize, form, xPosition, yPosition, speed, controller));
                     yPosition += (int)(spriteSize * ENEMYGAP);
                 }
                 // This moves to the next column to the Right

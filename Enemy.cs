@@ -12,11 +12,13 @@ namespace project_2_space_invaders_legin8
     internal class Enemy : Sprite
     {
         private int speed;
+        private Controller controller;
 
-        public Enemy(int spriteSize, Form form, int xPosition, int yPosition, int speed) : 
+        public Enemy(int spriteSize, Form form, int xPosition, int yPosition, int speed, Controller controller) : 
             base (spriteSize, form, xPosition, yPosition)
         {
             this.speed = speed;
+            this.controller = controller;
             spriteImage = Properties.Resources.enemy;
             MakeSprite(xPosition, yPosition);
         }
@@ -29,7 +31,11 @@ namespace project_2_space_invaders_legin8
 
             if (spriteBox.Left < formRectangle.Left) spriteBox.Left = formRectangle.Left;
             if (spriteBox.Right > formRectangle.Right) spriteBox.Left = formRectangle.Right - spriteSize;
-            //if (spriteBox.Bottom > formRectangle.Bottom) spriteBox.Top = formRectangle.Bottom - spriteSize;
+            if (spriteBox.Bottom > formRectangle.Bottom)
+            {
+                spriteBox.Top = formRectangle.Bottom - spriteSize;
+                controller.PlayGame = false;
+            }
         }
     }
 }

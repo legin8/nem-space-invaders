@@ -33,7 +33,7 @@ namespace project_2_space_invaders_legin8
         {
             spriteMaker = new SpriteMaker(form, random, SCALEOFSPRITE);
             player = spriteMaker.MakePlayer();
-            enemies = spriteMaker.MakeEnemies(SPEED);
+            enemies = spriteMaker.MakeEnemies(SPEED, this);
             shots = new List<Sprite>();
             bombs = new List<Sprite>();
             gameLogic = new GameLogic(form, random, this, player, spriteMaker, enemies, shots, bombs, SCALEOFSPRITE);
