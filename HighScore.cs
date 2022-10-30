@@ -17,6 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace project_2_space_invaders_legin8
 {
@@ -71,15 +72,19 @@ namespace project_2_space_invaders_legin8
         // Displays a messageBox with the highScores
         private void displayLabels()
         {
-            int labelHeight = form.Height / 20;
-            int xPosistion = form.Width / 2, yPosistion = form.Top + labelHeight;
+            int labelHeight = form.Height / 20, labelWidth = form.ClientRectangle.Width / 3;
+            int xPosistion = (form.Width / 2) - (labelWidth / 2), yPosistion = form.Top + labelHeight;
             for (int i = 0; i < highScoreLabels.Length; i++)
             {
+                // Make Label, set hight, width font and size of text, then center. Add space, add to form.
                 highScoreLabels[i] = new Label();
                 highScoreLabels[i].Text = highScoreArr[i];
                 highScoreLabels[i].Height = labelHeight;
                 highScoreLabels[i].Left = xPosistion;
                 highScoreLabels[i].Top = yPosistion;
+                highScoreLabels[i].Width = labelWidth;
+                highScoreLabels[i].Font = new Font("Ariel", 20);
+                highScoreLabels[i].TextAlign = ContentAlignment.MiddleCenter;
                 form.Controls.Add(highScoreLabels[i]);
                 yPosistion += labelHeight * 2;
             }

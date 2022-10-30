@@ -12,7 +12,7 @@ namespace project_2_space_invaders_legin8
     internal class Controller
     {
         // Class Variables
-        private const int SPEED = 5, SCALEOFSPRITE = 26;
+        private const int SPEED = 3, SCALEOFSPRITE = 26;
         private Form form;
 
         private SpriteMaker spriteMaker;
@@ -23,8 +23,7 @@ namespace project_2_space_invaders_legin8
         private List<Sprite> enemies;
         private List<Sprite> shots;
         private List<Sprite> bombs;
-        private EndGame endGame;
-        private HighScore highScore;
+        
 
         private bool playGame;
 
@@ -48,17 +47,20 @@ namespace project_2_space_invaders_legin8
         // This runs the game using the timer tick from the form
         public bool RunGame()
         {
+            // This will run the game while the player and enemies exist
             if (playGame)
             {
                 // Calls method that runs normal game play
                 gameLogic.GameSpriteLogic(SPEED);
                 return true;
             }
+
+            // This will play the End game and show the score
             if (!playGame)
             {
                 form.Controls.Clear();
-                endGame = new EndGame(form, player == null);
-                highScore = new HighScore(player == null, form);
+                new EndGame(form, player == null);
+                new HighScore(player == null, form);
                 return false;
             }
             return false;
