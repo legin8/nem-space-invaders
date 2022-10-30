@@ -1,5 +1,5 @@
-Player: 1 | Aliens: 0 | Winner is Aliens
-Player: 1 | Aliens: 0 | Winner is Aliens
-Player: 1 | Aliens: 0 | Winner is Aliens
-Player: 1 | Aliens: 0 | Winner is Aliens
-Player: 1 | Aliens: 0 | Winner is Aliens
+Player: 0 | Aliens: 1 | Winner is Aliens
+Player: 0 
+ Aliens: 1 
+ Winner is Aliens
+Player: 0 /n Aliens: 1 

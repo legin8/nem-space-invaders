@@ -31,14 +31,14 @@ namespace project_2_space_invaders_legin8
         private string winnerName;
 
 
-        public HighScore(bool winnerIsCpu, Form form)
+        public HighScore(bool winnerIsPlayer, Form form)
         {
             this.form = form;
             highScoreArr = new string[5];
             highScoreLabels = new Label[5];
-            winnerName = winnerIsCpu ? "Player" : "Aliens";
-            playerScore = !winnerIsCpu ? 1 : 0;
-            enemyScore = winnerIsCpu ? 1 : 0;
+            winnerName = winnerIsPlayer ? "Player" : "Aliens";
+            playerScore = winnerIsPlayer ? 1 : 0;
+            enemyScore = !winnerIsPlayer ? 1 : 0;
             fillArrayFromFile();
             saveToTXTFile();
             displayLabels();
@@ -72,7 +72,7 @@ namespace project_2_space_invaders_legin8
         // Displays a messageBox with the highScores
         private void displayLabels()
         {
-            int labelHeight = form.Height / 20, labelWidth = form.ClientRectangle.Width / 3;
+            int labelHeight = form.Height / 20, labelWidth = form.ClientRectangle.Width / 2;
             int xPosistion = (form.Width / 2) - (labelWidth / 2), yPosistion = form.Top + labelHeight;
             for (int i = 0; i < highScoreLabels.Length; i++)
             {
@@ -83,7 +83,7 @@ namespace project_2_space_invaders_legin8
                 highScoreLabels[i].Left = xPosistion;
                 highScoreLabels[i].Top = yPosistion;
                 highScoreLabels[i].Width = labelWidth;
-                highScoreLabels[i].Font = new Font("Ariel", 20);
+                highScoreLabels[i].Font = new Font("Ariel", 18);
                 highScoreLabels[i].TextAlign = ContentAlignment.MiddleCenter;
                 form.Controls.Add(highScoreLabels[i]);
                 yPosistion += labelHeight * 2;

@@ -25,9 +25,10 @@ namespace project_2_space_invaders_legin8
         private List<Sprite> bombs;
         
 
-        private bool playGame;
+        private bool playGame, playerWin;
 
         public bool PlayGame { get => playGame; set => playGame = value; }
+        public bool PlayerWin { get => playerWin; set => playerWin = value; }
         // Class Constructor
         public Controller(Form form, Random random)
         {
@@ -58,9 +59,10 @@ namespace project_2_space_invaders_legin8
             // This will play the End game and show the score
             if (!playGame)
             {
+                bool winnerIs = playerWin ? true : false;
                 form.Controls.Clear();
                 new EndGame(form, player == null);
-                new HighScore(player == null, form);
+                new HighScore(winnerIs, form);
                 return false;
             }
             return false;

@@ -54,6 +54,11 @@ namespace project_2_space_invaders_legin8
             colisionDetection();
             // This removes any sprite from the list that has been hit to save on memory, runs last.
             removeSprites();
+            if (enemies.Count == 0)
+            {
+                controller.PlayGame = false;
+                controller.PlayerWin = true;
+            }
         }
 
 
