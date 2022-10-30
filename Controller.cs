@@ -35,14 +35,15 @@ namespace project_2_space_invaders_legin8
         public Controller(Form form, Random random)
         {
             spriteMaker = new SpriteMaker(form);
+            player = spriteMaker.MakePlayer();
+            enemies = spriteMaker.MakeEnemies();
+
             formRectangle = form.ClientRectangle;
             this.form = form;
             this.random = random;
             spriteSize = formRectangle.Width / SCALEOFSPRITE;
 
-            player = spriteMaker.makePlayer();
-            enemies = new List<Sprite>();
-            makeEnemy();
+            
             shots = new List<Sprite>();
             bombs = new List<Sprite>();
 
@@ -54,28 +55,7 @@ namespace project_2_space_invaders_legin8
         }
 
 
-        // This is called from the constructor and makes the enemies
-        // 4 rows and 10 columns
-        private void makeEnemy()
-        {
-            const double ENEMYGAP = 1.5;
-            int xPosition = formRectangle.Left, yPosition;
-            
-            // This loop is for the rows of enemies
-            for (int i = 0; i < COLUMNS; i++)
-            {
-                yPosition = formRectangle.Top + spriteSize;
-
-                // This loop is for the columns enemies
-                for (int j = 0; j < ROWS; j++)
-                {
-                    enemies.Add(new Enemy(spriteSize, form, xPosition, yPosition, SPEED));
-                    yPosition += (int) (spriteSize * ENEMYGAP);
-                }
-                // This moves to the next column
-                xPosition += spriteSize + (int)(spriteSize * ENEMYGAP);
-            }
-        }
+        
 
 
         // This runs the game using the timer tick from the form
