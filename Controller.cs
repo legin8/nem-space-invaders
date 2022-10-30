@@ -14,7 +14,6 @@ namespace project_2_space_invaders_legin8
         // Class Variables
         private const int RESETCOUNTER = 0;
         private const int SPEED = 5, SCALEOFSPRITE = 26, MAXSHOTS = 15;
-        private Rectangle formRectangle;
         private Form form;
         private Random random;
 
@@ -29,8 +28,8 @@ namespace project_2_space_invaders_legin8
         private EndGame endGame;
         private HighScore highScore;
 
-        private int spriteSize, enemyDownCounter;
-        private bool goRight, isSideOfScreen;
+        private bool playGame;
+        private int enemyDownCounter;
 
         // Class Constructor
         public Controller(Form form, Random random)
@@ -43,18 +42,39 @@ namespace project_2_space_invaders_legin8
 
             gameLogic = new GameLogic(form, enemies, SCALEOFSPRITE);
 
-            formRectangle = form.ClientRectangle;
+
             this.form = form;
             this.random = random;
-            spriteSize = formRectangle.Width / SCALEOFSPRITE;
-
-            goRight = true;
-            isSideOfScreen = false;
-
+            playGame = true;
         }
 
 
-        
+        // This runs the game using the timer tick from the form
+        public void RunGame()
+        {
+            if (player != null && enemies != null)
+            {
+                // Calls method that moves the enemys
+                gameLogic.MoveLogic(SPEED);
+                // Moves the shots and bombs each timer tick
+                foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.MoveSprite("UP");
+                foreach (Bomb bomb in bombs) if (bomb.SpriteBox != null) bomb.MoveSprite("DOWN");
+                // May or may not drop a bomb from the bottom enemy of each column
+                if (enemyDownCounter == RESETCOUNTER) DropBomb();
+                // Calls method for colision detection between PictureBoxs
+                ColisionDetection();
+                removeSprites();
+            }
+            if (playGame && player == null || enemies == null)
+            {
+                form.Controls.Clear();
+                endGame = new EndGame(form, player == null);
+                playGame = false;
+                highScore = new HighScore(player == null, form);
+            }
+
+
+        }
 
 
 
@@ -94,31 +114,7 @@ namespace project_2_space_invaders_legin8
 
 
 
-        // This runs the game using the timer tick from the form
-        public void RunGame()
-        {
-            if (player != null && enemies != null)
-            {
-                // Calls method that moves the enemys
-                gameLogic.MoveLogic(SPEED);
-                // Moves the shots and bombs each timer tick
-                foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.MoveSprite("UP");
-                foreach (Bomb bomb in bombs) if (bomb.SpriteBox != null) bomb.MoveSprite("DOWN");
-                // May or may not drop a bomb from the bottom enemy of each column
-                if (enemyDownCounter == RESETCOUNTER) DropBomb();
-                // Calls method for colision detection between PictureBoxs
-                ColisionDetection();
-                removeSprites();
-            }
-            if (player == null || enemies == null)
-            {
-                endGame = new EndGame(form, player == null);
-                highScore = new HighScore(player == null, form);
-                clearScreenSprites();
-            }
-
-
-        }
+        
 
 
         
@@ -201,29 +197,6 @@ namespace project_2_space_invaders_legin8
                     i--;
                 }
             }
-        }
-
-
-        
-        
-        private void clearScreenSprites()
-        {
-            if (shots != null) destroyEverySprite(ref shots);
-            if (enemies != null) destroyEverySprite(ref enemies);
-            if (bombs != null) destroyEverySprite(ref bombs);
-            if (player != null) destroySprite(ref player);
-        }
-
-        private void destroyEverySprite(ref List<Sprite> spriteList)
-        {
-            for (int i = 0; i < spriteList.Count; i++) form.Controls.Remove(spriteList[i].SpriteBox);
-            spriteList = null;
-        }
-
-        private void destroySprite(ref Sprite sprite)
-        {
-            form.Controls.Remove(sprite.SpriteBox);
-            sprite = null;
         }
 
     }
