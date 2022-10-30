@@ -40,7 +40,7 @@ namespace project_2_space_invaders_legin8
         // Timer Event handler, Runs the game
         private void timer1_Tick(object sender, EventArgs e)
         {
-            controller.RunGame();
+            if (!controller.RunGame()) timer1.Stop();
         }
 
         // Click handler for the start button, Makes controller and starts sound and the timer

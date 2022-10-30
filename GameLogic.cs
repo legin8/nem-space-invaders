@@ -13,6 +13,7 @@ namespace project_2_space_invaders_legin8
         private const int RESETCOUNTER = 0, MAXSHOTS = 15;
         private Form form;
         private SpriteMaker spriteMaker;
+        private Controller controller;
         private Random random;
         private Sprite player;
         private List<Sprite> enemies;
@@ -21,11 +22,12 @@ namespace project_2_space_invaders_legin8
         private int spriteSize, enemyDownCounter;
         private bool isSideOfScreen, goRight;
 
-        public GameLogic(Form form, Random random, Sprite player, SpriteMaker spriteMaker, List<Sprite> enemies, List<Sprite> shots,
+        public GameLogic(Form form, Random random, Controller controller, Sprite player, SpriteMaker spriteMaker, List<Sprite> enemies, List<Sprite> shots,
             List<Sprite> bombs, int scaleOfSprite)
         {
             this.form = form;
             this.random = random;
+            this.controller = controller;
             this.player = player;
             this.spriteMaker = spriteMaker;
             this.enemies = enemies;
@@ -39,14 +41,28 @@ namespace project_2_space_invaders_legin8
 
 
         // This calls the logic for moving and checking the enemy sprites
-        public void MoveLogic(int speed)
+        public void GameSpriteLogic(int speed)
         {
             // Moves the enemies
             moveEnemies(speed);
             movementConditionsChecker();
             // Moves the shots and bombs
-            foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.MoveSprite("UP");
-            foreach (Bomb bomb in bombs) if (bomb.SpriteBox != null) bomb.MoveSprite("DOWN");
+            if (shots.Count > 0) foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.MoveSprite("UP");
+            if (bombs.Count > 0) foreach (Bomb bomb in bombs) if (bomb.SpriteBox != null) bomb.MoveSprite("DOWN");
+            // May or may not drop a bomb from the bottom enemy of each column
+            if (enemyDownCounter == RESETCOUNTER) bombLogic();
+            colisionDetection();
+            // This removes any sprite from the list that has been hit to save on memory, runs last.
+            removeSprites();
+        }
+
+
+        // Removes the sprites that are not on the screen
+        private void removeSprites()
+        {
+            if (enemies != null) removeFromList(ref enemies);
+            if (shots != null) removeFromList(ref shots);
+            if (bombs != null) removeFromList(ref bombs);
         }
 
 
@@ -103,7 +119,7 @@ namespace project_2_space_invaders_legin8
 
 
         // Drops Bombs on player randomly
-        public void BombLogic()
+        private void bombLogic()
         {
             List<Sprite> enemyBombList = makeEnemyList();
 
@@ -132,6 +148,74 @@ namespace project_2_space_invaders_legin8
                 }
             }
             return tempEnemies;
+        }
+
+
+        // Uses other reusable methods that checks for colisions, doing it this way save on code.
+        private void colisionDetection()
+        {
+            colisionChecker(ref shots, ref enemies);
+            colisionChecker(ref shots, ref bombs);
+            colisionChecker(ref bombs, ref player);
+        }
+
+
+        // This checks 2 sprites against each other and removes both if they touch, takes 2 lists
+        private void colisionChecker(ref List<Sprite> spritesListA, ref List<Sprite> spritesListB)
+        {
+            // This checks each sprite again every other sprite in the 2 lists
+            foreach (Sprite spriteA in spritesListA)
+            {
+                foreach (Sprite spriteB in spritesListB)
+                {
+                    if (spriteA.SpriteBox != null && spriteB.SpriteBox != null &&
+                        spriteA.SpriteBox.Top <= spriteB.SpriteBox.Bottom &&
+                        spriteA.SpriteBox.Top >= spriteB.SpriteBox.Top &&
+                        spriteA.SpriteBox.Left <= spriteB.SpriteBox.Right &&
+                        spriteA.SpriteBox.Right >= spriteB.SpriteBox.Left)
+                    {
+                        spriteA.RemoveSprite(spriteA);
+                        spriteB.RemoveSprite(spriteB);
+                    }
+                }
+            }
+        }
+
+        // This checks 2 sprites against each other and removes both if they touch, takes 1 list and 1 sprite
+        // It takes 2 lists, size doesn't matter.
+        private void colisionChecker(ref List<Sprite> spritesListA, ref Sprite sprite)
+        {
+            // This checks all the sprites in the list against the single sprite
+            foreach (Sprite spriteList in spritesListA)
+            {
+                if (spriteList.SpriteBox != null &&
+                    sprite.SpriteBox != null &&
+                    spriteList.SpriteBox.Bottom >= sprite.SpriteBox.Top &&
+                    spriteList.SpriteBox.Left <= sprite.SpriteBox.Right &&
+                    spriteList.SpriteBox.Right >= sprite.SpriteBox.Left)
+                {
+                    spriteList.RemoveSprite(spriteList);
+                    form.Controls.Remove(sprite.SpriteBox);
+                    sprite = null;
+                    controller.PlayGame = false;
+                    break;
+                }
+            }
+        }
+
+
+        // This takes a list and removes the entry from the list
+        private void removeFromList(ref List<Sprite> list)
+        {
+            // Removes shots from the list
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].SpriteBox == null)
+                {
+                    list.RemoveAt(i);
+                    i--;
+                }
+            }
         }
     }
 }
