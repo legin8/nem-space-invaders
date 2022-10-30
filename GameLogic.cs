@@ -10,16 +10,22 @@ namespace project_2_space_invaders_legin8
     internal class GameLogic
     {
         // Class Variables
-        private const int RESETCOUNTER = 0;
+        private const int RESETCOUNTER = 0, MAXSHOTS = 15;
         private Form form;
+        private SpriteMaker spriteMaker;
+        private Sprite player;
         private List<Sprite> enemies;
+        private List<Sprite> shots;
         private int spriteSize, enemyDownCounter;
         private bool isSideOfScreen, goRight;
 
-        public GameLogic(Form form, List<Sprite> enemies, int scaleOfSprite)
+        public GameLogic(Form form, Sprite player, SpriteMaker spriteMaker, List<Sprite> enemies, List<Sprite> shots, int scaleOfSprite)
         {
             this.form = form;
+            this.player = player;
+            this.spriteMaker = spriteMaker;
             this.enemies = enemies;
+            this.shots = shots;
             spriteSize = form.ClientRectangle.Width / scaleOfSprite;
             isSideOfScreen = false;
             goRight = true;
@@ -77,6 +83,11 @@ namespace project_2_space_invaders_legin8
             }
         }
 
-
+        // Checks if should creates a new shot unless there is already the max shots on the screen.
+        // Fires the shot from the players position
+        public void MakeShot()
+        {
+            if (shots.Count < MAXSHOTS) shots.Add(spriteMaker.MakeShot(player));
+        }
     }
 }

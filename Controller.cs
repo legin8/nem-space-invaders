@@ -40,7 +40,7 @@ namespace project_2_space_invaders_legin8
             shots = new List<Sprite>();
             bombs = new List<Sprite>();
 
-            gameLogic = new GameLogic(form, enemies, SCALEOFSPRITE);
+            gameLogic = new GameLogic(form, player, spriteMaker, enemies, shots, SCALEOFSPRITE);
 
 
             this.form = form;
@@ -81,7 +81,7 @@ namespace project_2_space_invaders_legin8
         // Fires a shot from the player, Called from the Form
         public void Shot()
         {
-            if (shots.Count < MAXSHOTS) shots.Add(spriteMaker.MakeShot(player));
+            gameLogic.MakeShot();
         }
 
 
