@@ -36,6 +36,7 @@ namespace project_2_space_invaders_legin8
             if (e.KeyCode == Keys.Right) controller.MovePlayer(false);
             if (e.KeyCode == Keys.Space) controller.Shot();
             if (e.KeyCode == Keys.Escape) pauseGame();
+            if (e.KeyCode == Keys.R) resetGame();
         }
 
         private void pauseGame()
@@ -51,6 +52,17 @@ namespace project_2_space_invaders_legin8
 
         // Click handler for the start button, Makes controller and starts sound and the timer
         private void button1_Click(object sender, EventArgs e)
+        {
+            newGame();
+        }
+
+        private void resetGame()
+        {
+            Controls.Clear();
+            newGame();
+        }
+
+        private void newGame()
         {
             controller = new Controller(this, random);
             //soundPlayer.PlayLooping();
