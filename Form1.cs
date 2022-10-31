@@ -35,6 +35,12 @@ namespace project_2_space_invaders_legin8
             if (e.KeyCode == Keys.Left) controller.MovePlayer(true);
             if (e.KeyCode == Keys.Right) controller.MovePlayer(false);
             if (e.KeyCode == Keys.Space) controller.Shot();
+            if (e.KeyCode == Keys.Escape) pauseGame();
+        }
+
+        private void pauseGame()
+        {
+            timer1.Enabled = !timer1.Enabled;
         }
 
         // Timer Event handler, Runs the game
