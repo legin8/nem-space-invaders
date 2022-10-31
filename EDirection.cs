@@ -8,7 +8,6 @@ namespace project_2_space_invaders_legin8
 {
     public enum EDirection
     {
-        UP,
         DOWN,
         LEFT,
         RIGHT

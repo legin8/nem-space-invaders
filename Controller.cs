@@ -77,10 +77,13 @@ namespace project_2_space_invaders_legin8
 
 
         // Moves the player left or right using the logic in the player class
-        public void MovePlayer(bool moveLeft)
+        public void MovePlayer(EDirection direction)
         {
+            player.SpriteEDirection = direction;
+            player.MoveSprite();
+            /*
             if (moveLeft && player != null) player.MoveSprite("LEFT");
-            if (!moveLeft && player != null) player.MoveSprite("RIGHT");
+            if (!moveLeft && player != null) player.MoveSprite("RIGHT");*/
         }
     }
 }

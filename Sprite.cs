@@ -16,7 +16,9 @@ namespace project_2_space_invaders_legin8
         protected PictureBox spriteBox;
         protected Rectangle formRectangle;
         protected int spriteSize;
+        protected EDirection spriteEDirection;
 
+        public EDirection SpriteEDirection { get => spriteEDirection; set => spriteEDirection = value; }
         public PictureBox SpriteBox { get => spriteBox; set => spriteBox = value; }
         public Sprite(int spriteSize, Form form, int xPosition, int yPosition)
         {
@@ -37,7 +39,7 @@ namespace project_2_space_invaders_legin8
         }
 
         // This Will move the sprite, each class will be different movement so it will be blank
-        public abstract void MoveSprite(string direction);
+        public abstract void MoveSprite();
 
 
         // This Removes the sprite from the screen

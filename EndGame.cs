@@ -11,7 +11,6 @@ namespace project_2_space_invaders_legin8
     internal class EndGame
     {
         private readonly Bitmap youWin, youLose;
-        private Form form;
 
         public EndGame(Form form, bool isWinner)
         {

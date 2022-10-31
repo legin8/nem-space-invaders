@@ -26,11 +26,11 @@ namespace project_2_space_invaders_legin8
             MakeSprite(xPosition, yPosition);
         }
 
-        public override void MoveSprite(string direction)
+        public override void MoveSprite()
         {
-            if (direction == "RIGHT") spriteBox.Left += speed;
-            if (direction == "LEFT") spriteBox.Left -= speed;
-            if (direction == "DOWN") spriteBox.Top += speed;
+            if (spriteEDirection == EDirection.RIGHT) spriteBox.Left += speed;
+            if (spriteEDirection == EDirection.LEFT) spriteBox.Left -= speed;
+            if (spriteEDirection == EDirection.DOWN) spriteBox.Top += speed;
 
             if (spriteBox.Left < formRectangle.Left) spriteBox.Left = formRectangle.Left;
             if (spriteBox.Right > formRectangle.Right) spriteBox.Left = formRectangle.Right - spriteSize;

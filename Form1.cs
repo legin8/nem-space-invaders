@@ -32,8 +32,8 @@ namespace project_2_space_invaders_legin8
         // Moving Left, Right and Shooting
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Left) controller.MovePlayer(true);
-            if (e.KeyCode == Keys.Right) controller.MovePlayer(false);
+            if (e.KeyCode == Keys.Left) controller.MovePlayer(EDirection.LEFT);
+            if (e.KeyCode == Keys.Right) controller.MovePlayer(EDirection.RIGHT);
             if (e.KeyCode == Keys.Space) controller.Shot();
             if (e.KeyCode == Keys.Escape) pauseGame();
             if (e.KeyCode == Keys.R) resetGame();

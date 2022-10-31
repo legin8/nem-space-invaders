@@ -40,7 +40,7 @@ namespace project_2_space_invaders_legin8
         }
 
         // This moves the sprite and runs checks on this sprite, checking if it should be removed or not
-        public override void MoveSprite(string direction)
+        public override void MoveSprite()
         {
             spriteBox.Top -= 10;
             timeToLive--;

@@ -35,7 +35,7 @@ namespace project_2_space_invaders_legin8
             form.Controls.Add(spriteBox);
         }
 
-        public override void MoveSprite(string direction)
+        public override void MoveSprite()
         {
             SpriteBox.Top += 10;
             timeToLive--;

@@ -9,11 +9,14 @@ using System.Reflection;
 
 namespace project_2_space_invaders_legin8
 {
-    internal class Player : Sprite
+    public class Player : Sprite
     {
         private const int SPEEDOFPLAYER = 20;
+        
 
         
+
+
         public Player(int spriteSize, Form form, int xPosition, int yPosition) :
             base (spriteSize, form, xPosition, yPosition)
         {
@@ -21,18 +24,10 @@ namespace project_2_space_invaders_legin8
             MakeSprite(xPosition, yPosition);
         }
 
-        public override void MoveSprite(string direction)
+        public override void MoveSprite()
         {
-            if (direction == "LEFT")
-            {
-                if (spriteBox.Left != formRectangle.Left) spriteBox.Left -= SPEEDOFPLAYER;
-                if (spriteBox.Left < formRectangle.Left) spriteBox.Left = formRectangle.Left;
-            }
-            if (direction == "RIGHT")
-            {
-                if (spriteBox.Right != formRectangle.Right) spriteBox.Left += SPEEDOFPLAYER;
-                if (spriteBox.Right > formRectangle.Right) spriteBox.Left = formRectangle.Right - spriteBox.Width;
-            }
+            if (spriteEDirection == EDirection.LEFT) spriteBox.Left -= SPEEDOFPLAYER;
+            if (spriteEDirection == EDirection.RIGHT) spriteBox.Left += SPEEDOFPLAYER;
         }
     }
 }

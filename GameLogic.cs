@@ -49,8 +49,8 @@ namespace project_2_space_invaders_legin8
             moveEnemies(speed);
             movementConditionsChecker();
             // Moves the shots and bombs
-            if (shots.Count > 0) foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.MoveSprite("UP");
-            if (bombs.Count > 0) foreach (Bomb bomb in bombs) if (bomb.SpriteBox != null) bomb.MoveSprite("DOWN");
+            if (shots.Count > 0) foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.MoveSprite();
+            if (bombs.Count > 0) foreach (Bomb bomb in bombs) if (bomb.SpriteBox != null) bomb.MoveSprite();
             // May or may not drop a bomb from the bottom enemy of each column
             if (enemyDownCounter == RESETCOUNTER) bombLogic();
             colisionDetection();
@@ -79,15 +79,27 @@ namespace project_2_space_invaders_legin8
             // This will move each enemy Left or Right if not at the side of the screen
             if (!isSideOfScreen) foreach (Enemy enemy in enemies)
                 {
-                    if (goRight) enemy.MoveSprite("RIGHT");
-                    if (!goRight) enemy.MoveSprite("LEFT");
+                    if (goRight)
+                    {
+                        enemy.SpriteEDirection = EDirection.RIGHT;
+                        enemy.MoveSprite();
+                    }
+                    if (!goRight)
+                    {
+                        enemy.SpriteEDirection = EDirection.LEFT;
+                        enemy.MoveSprite();
+                    }
                 }
 
             // This moves the enemies down, then increases the down counter
             // If any enemy is at the side of the screen and down counter less than the sprite size
             if (isSideOfScreen && enemyDownCounter <= spriteSize)
             {
-                foreach (Enemy enemy in enemies) enemy.MoveSprite("DOWN");
+                foreach (Enemy enemy in enemies)
+                {
+                    enemy.SpriteEDirection = EDirection.DOWN;
+                    enemy.MoveSprite();
+                }
                 enemyDownCounter += speed;
             }
         }
