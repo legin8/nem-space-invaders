@@ -56,7 +56,6 @@ namespace project_2_space_invaders_legin8
         // This Will move the sprite, each class will be different movement so it will be blank
         public abstract void MoveSprite();
 
-
         // This Removes the sprite from the screen, aka the Controls and sets the spriteBox to null
         public virtual void RemoveSprite(Sprite sprite)
         {

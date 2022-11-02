@@ -1,31 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/* Program name: project-2-space-invaders-legin8
+Project file name: Shot.cs
+Author: Nigel Maynard
+Date: 25/10/22
+Language: C#
+Platform: Microsoft Visual Studio 2022
+Purpose: Class work
+Description: Assessment game: Space Invaders
+Known Bugs:
+Additional Features:
+*/
+
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
 
 namespace project_2_space_invaders_legin8
 {
-    internal class Shot : Sprite
+    // This class is a child of the Sprite class
+    // It holds the logic for making the shot
+    public class Shot : Sprite
     {
+        // Class variables
         private const int TIMETODIE = 0;
         private int timeToLive;
         private Random random;
         private SoundPlayer shotSound;
 
+        // Class constructor
         public Shot(int spriteSize, Form form, Random random, int xPosition, int yPosition) :
             base (spriteSize, form, xPosition, yPosition)
         {
             this.random = random;
-            spriteImage = Properties.Resources.shot;
-            shotSound = new SoundPlayer(@"..\..\Resources\blaster.wav");
+            spriteImage = Properties.Resources.shot; // Shot sound
+            shotSound = new SoundPlayer(@"..\..\Resources\blaster.wav"); // Shot sound
             shotSound.Play();
             MakeSprite(xPosition, yPosition);
         }
 
+        // Overrider for the MakeSprite class from the sprite class.
+        // The difference is the timeToLive is added when it's called.
         public override void MakeSprite(int xPosition, int yPosition)
         {
             spriteBox = new PictureBox();
