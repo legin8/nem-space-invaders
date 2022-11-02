@@ -17,3 +17,6 @@ If you resize the form window the sprites wont resize with them, you will have t
 
 Features:
 The game maximizes on open and the sprites are a relitive size so they will fit any size of screen.
+
+Product of Nigel Maynard.
+Github legin8
