@@ -52,6 +52,7 @@ namespace project_2_space_invaders_legin8
             spriteMaker = new SpriteMaker(form, random, SCALEOFSPRITE);
             player = spriteMaker.MakePlayer();
             enemies = spriteMaker.MakeEnemies(SPEED, this);
+            // shots and bombs are created here but remain empty until using input or random at run time.
             shots = new List<Sprite>();
             bombs = new List<Sprite>();
             gameLogic = new GameLogic(form, random, this, player, spriteMaker, enemies, shots, bombs, SCALEOFSPRITE);
