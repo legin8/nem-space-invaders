@@ -27,7 +27,7 @@ namespace project_2_space_invaders_legin8
         private Random random;
         private SoundPlayer shotSound;
 
-        // Class constructor
+        // Class constructor, makes and adds the sprite to the screen when called
         public Shot(int spriteSize, Form form, Random random, int xPosition, int yPosition) :
             base (spriteSize, form, xPosition, yPosition)
         {

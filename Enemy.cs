@@ -24,7 +24,7 @@ namespace project_2_space_invaders_legin8
         private Controller controller;
         private SoundPlayer explosion; // The sound for the bomb
 
-        // Class constructor
+        // Class constructor, makes and adds the sprite to the screen when called
         public Enemy(int spriteSize, Form form, int xPosition, int yPosition, int speed, Controller controller) : 
             base (spriteSize, form, xPosition, yPosition)
         {

@@ -21,7 +21,7 @@ namespace project_2_space_invaders_legin8
         // Class variables
         private const int SPEEDOFPLAYER = 20;
  
-        // Class constructor
+        // Class constructor, makes and adds the sprite to the screen when called
         public Player(int spriteSize, Form form, int xPosition, int yPosition) :
             base (spriteSize, form, xPosition, yPosition)
         {
