@@ -22,7 +22,7 @@ namespace project_2_space_invaders_legin8
         // Class Variables
         private const int SPEED = 3, SCALEOFSPRITE = 26;
 
-        // Reffrence to the form1 and the classes responsable for running the game
+        // Reference to the form1 and the classes responsible for running the game
         private Form form;
         private SpriteMaker spriteMaker;
         private GameLogic gameLogic;
