@@ -10,19 +10,16 @@ Known Bugs:
 Additional Features:
 */
 
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 
 namespace project_2_space_invaders_legin8
 {
-    internal class HighScore
+    // This class is responsible for saving, loading and displaying the high score.
+    public class HighScore
     {
+        // Class variables
         private const int MAXSCORELIST = 5;
         private Form form;
         private string[] highScoreArr;
@@ -39,6 +36,7 @@ namespace project_2_space_invaders_legin8
             winnerName = winnerIsPlayer ? "Player" : "Aliens";
             playerScore = winnerIsPlayer ? 1 : 0;
             enemyScore = !winnerIsPlayer ? 1 : 0;
+            // These 3 method calls run all the code in this class.
             fillArrayFromFile();
             saveToTXTFile();
             displayLabels();
@@ -69,11 +67,12 @@ namespace project_2_space_invaders_legin8
         // This creates a new string for the current finished game
         private string makeNewHighScore() => $"Player: {playerScore} | Aliens: {enemyScore} | Winner is {winnerName}";
         
-        // Displays a messageBox with the highScores
+        // Displays 5 messageBoxs with the highScores
         private void displayLabels()
         {
             int labelHeight = form.Height / 20, labelWidth = form.ClientRectangle.Width / 2;
             int xPosistion = (form.Width / 2) - (labelWidth / 2), yPosistion = form.Top + labelHeight;
+            // loops with the highScoreLabels array
             for (int i = 0; i < highScoreLabels.Length; i++)
             {
                 // Make Label, set hight, width font and size of text, then center. Add space, add to form.

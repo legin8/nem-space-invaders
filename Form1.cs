@@ -11,6 +11,7 @@ Additional Features:
 */
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Media;
 
@@ -71,6 +72,7 @@ namespace project_2_space_invaders_legin8
         private void resetGame()
         {
             Controls.Clear();
+            BackgroundImage = null;
             newGame();
         }
 
