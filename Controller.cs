@@ -17,6 +17,7 @@ using System.Windows.Forms;
 namespace project_2_space_invaders_legin8
 {
     // This Class is where we hold the lists and is connected to all other classes
+    // Inputs from the form are passed through here.
     public class Controller
     {
         // Class Variables

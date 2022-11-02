@@ -57,6 +57,7 @@ namespace project_2_space_invaders_legin8
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (!controller.RunGame()) timer1.Stop();
+            if (!timer1.Enabled) themeMusic.PlayLooping();
         }
 
         // Click handler for the start button, Makes controller and stops sound and starts the timer

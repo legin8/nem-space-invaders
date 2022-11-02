@@ -1,31 +1,45 @@
-﻿using System;
+﻿/* Program name: project-2-space-invaders-legin8
+Project file name: GameLogic.cs
+Author: Nigel Maynard
+Date: 25/10/22
+Language: C#
+Platform: Microsoft Visual Studio 2022
+Purpose: Class work
+Description: Assessment game: Space Invaders
+Known Bugs:
+Additional Features:
+*/
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Media;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace project_2_space_invaders_legin8
 {
-    internal class GameLogic
+    // This Class holds the logic that runs the game
+    public class GameLogic
     {
         // Class Variables
         private const int RESETCOUNTER = 0, MAXSHOTS = 15;
+
         private Form form;
         private SpriteMaker spriteMaker;
         private Controller controller;
         private Random random;
+
         private Sprite player;
         private List<Sprite> enemies;
         private List<Sprite> shots;
         private List<Sprite> bombs;
+
         private SoundPlayer bombSound;
         private int spriteSize, enemyDownCounter;
         private bool isSideOfScreen, goRight;
 
-        public GameLogic(Form form, Random random, Controller controller, Sprite player, SpriteMaker spriteMaker, List<Sprite> enemies, List<Sprite> shots,
-            List<Sprite> bombs, int scaleOfSprite)
+        // Class constructor
+        public GameLogic(Form form, Random random, Controller controller, Sprite player, SpriteMaker spriteMaker, List<Sprite> enemies,
+            List<Sprite> shots, List<Sprite> bombs, int scaleOfSprite)
         {
             this.form = form;
             this.random = random;
@@ -48,12 +62,15 @@ namespace project_2_space_invaders_legin8
             // Moves the enemies
             moveEnemies(speed);
             movementConditionsChecker();
-            // Moves the shots and bombs
+
+            // Moves the shots and bombs, if they exist
             if (shots.Count > 0) foreach (Shot shot in shots) if (shot.SpriteBox != null) shot.MoveSprite();
             if (bombs.Count > 0) foreach (Bomb bomb in bombs) if (bomb.SpriteBox != null) bomb.MoveSprite();
+
             // May or may not drop a bomb from the bottom enemy of each column
             if (enemyDownCounter == RESETCOUNTER) bombLogic();
             colisionDetection();
+
             // This removes any sprite from the list that has been hit to save on memory, runs last.
             removeSprites();
             if (enemies.Count == 0)
@@ -108,19 +125,28 @@ namespace project_2_space_invaders_legin8
         // This checks any enemy is at the side of the screen or needs to stop going down.
         private void movementConditionsChecker()
         {
-            // Checks if any enemies are at the side if not already at the side
-            // Doesn't run if already at the side of the screen.
-            if (!isSideOfScreen) foreach (Enemy enemy in enemies)
+            // This runs only if not at the side of the screen
+            if (!isSideOfScreen)
+            {
+                // This checks the last enemy in the list against the side of the screen, if goRight true
+                if (goRight &&
+                    enemies[enemies.Count - 1].SpriteBox.Right >= form.ClientRectangle.Right)
                 {
-                    if (enemy.SpriteBox.Right >= form.ClientRectangle.Right ||
-                        enemy.SpriteBox.Left <= form.ClientRectangle.Left)
-                    {
-                        isSideOfScreen = true;
-                    }
+                    isSideOfScreen = true;
                 }
 
-            // Stops the enemys from moving down once they have gone their own size and inverts goRight and isSideOfScreen
-            if (enemyDownCounter >= spriteSize)
+                // This checks the first enemy in the list against the side of the screen, if goRight false
+                if (!goRight &&
+                    enemies[0].SpriteBox.Left <= form.ClientRectangle.Left)
+                {
+                    isSideOfScreen = true;
+                }
+            }
+
+
+            // Stops the enemies from moving down once they have gone their own size and inverts goRight and isSideOfScreen
+            if (isSideOfScreen &&
+                enemyDownCounter >= spriteSize)
             {
                 enemyDownCounter = RESETCOUNTER;
                 goRight = !goRight;
@@ -140,6 +166,7 @@ namespace project_2_space_invaders_legin8
         // Drops Bombs on player randomly
         private void bombLogic()
         {
+            // Calls makeEnemyList method that, returns a list of enemies that are at the bottom of their columns
             List<Sprite> enemyBombList = makeEnemyList();
 
             // This uses the above list to Create the bomb sprits if random number is 99
@@ -152,7 +179,7 @@ namespace project_2_space_invaders_legin8
         // Returns a list of Enemies that have no other enemy sprites under them.
         private List<Sprite> makeEnemyList()
         {
-            // this creates a list of the enemies on the bottom
+            // This creates a list of the enemies on the bottom of each column
             List<Sprite> tempEnemies = new List<Sprite>();
             for (int i = 0; i < enemies.Count; i++)
             {
@@ -170,21 +197,24 @@ namespace project_2_space_invaders_legin8
         }
 
 
-        // Uses other reusable methods that checks for colisions, doing it this way save on code.
+        // Uses other reusable methods that checks for collisions, doing it this way save on code.
         private void colisionDetection()
         {
-            colisionChecker(ref shots, ref enemies);
-            colisionChecker(ref shots, ref bombs);
-            colisionChecker(ref bombs, ref player);
+            // These only run if Shots and or Bombs exist
+            if (shots.Count > 0) colisionChecker(ref shots, ref enemies);
+            if (shots.Count > 0 && bombs.Count > 0) colisionChecker(ref shots, ref bombs);
+            if (bombs.Count > 0) colisionChecker(ref bombs, ref player);
         }
 
 
         // This checks 2 sprites against each other and removes both if they touch, takes 2 lists
         private void colisionChecker(ref List<Sprite> spritesListA, ref List<Sprite> spritesListB)
         {
-            // This checks each sprite again every other sprite in the 2 lists
+            // This checks each sprite again every other sprite in the 2 lists and calls the RemoveSprite method if true
+            // Sprite list 1
             foreach (Sprite spriteA in spritesListA)
             {
+                // Sprite list 2
                 foreach (Sprite spriteB in spritesListB)
                 {
                     if (spriteA.SpriteBox != null && spriteB.SpriteBox != null &&
@@ -204,7 +234,7 @@ namespace project_2_space_invaders_legin8
         // It takes 2 lists, size doesn't matter.
         private void colisionChecker(ref List<Sprite> spritesListA, ref Sprite sprite)
         {
-            // This checks all the sprites in the list against the single sprite
+            // This checks all the sprites in the list against the single sprite, aka the player
             foreach (Sprite spriteList in spritesListA)
             {
                 if (spriteList.SpriteBox != null &&
@@ -224,15 +254,17 @@ namespace project_2_space_invaders_legin8
         }
 
 
-        // This takes a list and removes the entry from the list
+        // This takes a list and removes any entry from the list, where the spriteBox is null.
+        // This makes the list smaller over time and uses less resources.
         private void removeFromList(ref List<Sprite> list)
         {
-            // Removes shots from the list
+            // Loops with the list given.
             for (int i = 0; i < list.Count; i++)
             {
                 if (list[i].SpriteBox == null)
                 {
                     list.RemoveAt(i);
+                    // This changes the index the for loop is using because the list just got smaller by 1.
                     i--;
                 }
             }
