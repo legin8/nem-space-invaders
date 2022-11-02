@@ -24,6 +24,7 @@ namespace project_2_space_invaders_legin8
         private Controller controller;
         private Random random;
         private SoundPlayer themeMusic;
+        private Label menuLabel;
 
         // Class Constructor
         // Plays the music before the game
@@ -33,6 +34,7 @@ namespace project_2_space_invaders_legin8
             themeMusic = new SoundPlayer(@"..\..\Resources\mainGameMusic.wav");
             themeMusic.PlayLooping();
             random = new Random();
+            menuLabelMaker();
         }
 
         // Event handler for key input
@@ -73,6 +75,7 @@ namespace project_2_space_invaders_legin8
         {
             Controls.Clear();
             BackgroundImage = null;
+            menuLabelMaker();
             newGame();
         }
 
@@ -83,6 +86,17 @@ namespace project_2_space_invaders_legin8
             timer1.Start();
             start.Visible = false;
             Focus();
+        }
+
+
+        private void menuLabelMaker()
+        {
+            menuLabel = new Label();
+            menuLabel.Left = 0;
+            menuLabel.Top = 0;
+            menuLabel.Width = ClientRectangle.Width;
+            menuLabel.Text = "Press Esc to Pause and Resume, Press R to reset/ new game";
+            Controls.Add(menuLabel);
         }
     }
 }
